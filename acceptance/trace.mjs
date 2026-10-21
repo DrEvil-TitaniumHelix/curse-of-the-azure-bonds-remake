@@ -109,7 +109,19 @@ async function run(name) {
   const { dev } = await import('../game/engine/dev.js');
   const { hooks } = await import('../game/plus/hooks.js');
   const { params } = await import('../game/engine/tp.js');
-  const profile = JSON.parse(readFileSync(join(ROOT, 'game', 'profiles', 'cab.json'), 'utf8'));
+  let profile = JSON.parse(readFileSync(join(ROOT, 'game', 'profiles', 'cab.json'), 'utf8'));
+  // cab: v13-1 — CAB_PROFILE=cab-1.3 traces a v1.3 copy (CAB_DEV_DATA = the CD folder or its scratch copy): the overlay
+  // game/profiles/cab-1.3.json over cab.json (ST.EXE unpacked, dsMap, audio constants, the v1.3 behaviour switch);
+  // the reports get the suffix -v13 so the v1.0 reports stay what they are
+  if (process.env.CAB_PROFILE && process.env.CAB_PROFILE !== 'cab') {
+    const { applyOverlay } = await import('../game/plus/games.js');
+    const { variant } = await import('../game/engine/variant.js');
+    const { configureAudio } = await import('../game/engine/audio_cab.js');
+    const o = JSON.parse(readFileSync(join(ROOT, 'game', 'profiles', process.env.CAB_PROFILE + '.json'), 'utf8'));
+    profile = applyOverlay({ ...profile, url: 'file:///cab.json' }, { ...o, url: 'file:///' + process.env.CAB_PROFILE + '.json' });
+    variant.set(profile.engine.behaviour && profile.engine.behaviour.id);
+    configureAudio(profile.engine.audio);
+  }
 
   // the engine set-up of main_cab.js MainProgram, without the browser parts
   configureState(profile.engine.state, profile.recordSizes);
@@ -216,9 +228,10 @@ async function run(name) {
     text: `${txt.same} same + ${txt.computed} computed of ${txt.checked}, ${txt.mismatch.length} mismatches`,
     flags: `${flg.operand} of ${flg.checked} writes on an operand of their instruction, ${Object.values(flg.engineRoutine).reduce((a, b) => a + b, 0)} by engine routines during it (${Object.keys(flg.engineRoutine).join('; ')}), ${flg.mismatch.length} unexplained` };
   mkdirSync(OUT, { recursive: true });
-  writeFileSync(join(OUT, `${name}.json`), JSON.stringify(out, null, 1) + '\n');
+  const sfx = process.env.CAB_PROFILE && process.env.CAB_PROFILE !== 'cab' ? '-' + process.env.CAB_PROFILE.replace(/^cab-/, 'v').replace('.', '') : '';   // cab: v13-1 '-v13'
+  writeFileSync(join(OUT, `${name}${sfx}.json`), JSON.stringify(out, null, 1) + '\n');
   mkdirSync(SUMMARY, { recursive: true });
-  writeFileSync(join(SUMMARY, `${name}.json`), JSON.stringify({ route: name, seed: R.seed, summary: out.summary, saves: out.checks.saves || null,
+  writeFileSync(join(SUMMARY, `${name}${sfx}.json`), JSON.stringify({ route: name, profile: process.env.CAB_PROFILE || 'cab', seed: R.seed, summary: out.summary, saves: out.checks.saves || null,
     checkpoints: out.checkpoints.map((c) => ({ label: c.label, idle: c.idle, state: c.state, expect: c.expect || null })) }, null, 1) + '\n');
   console.log(`${name} SUMMARY ${JSON.stringify(out.summary)}${out.checks.saves ? ' saves ' + JSON.stringify(out.checks.saves) : ''}`);
   return out;

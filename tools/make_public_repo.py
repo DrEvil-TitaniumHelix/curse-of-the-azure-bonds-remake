@@ -4,7 +4,7 @@ steps a + b2, rulings PR-2 A / PR-3 / RL-2).
 Usage: python -I tools/make_public_repo.py [--target DIR] [--replace] [--version TAG] [--no-gate]
   --target   default ../CurseAzureBondsRE-public (a NEW directory next to this repo)
   --replace  delete an existing target first, but only one this script made (marker file .git/cab-public-clone)
-  --version  the tag proposed for the candidate (default v0.1.0-alpha); created LOCALLY only
+  --version  the tag proposed for the candidate (default v0.1.1-alpha); created LOCALLY only
 
 Steps: (1) the files of this repo's HEAD commit (committed content only, never the shared work tree's uncommitted
 files) pass an ALLOW-list (own work: engine, importer, Gold Box Plus, pseudocode, specs, tools, docs) and then a DENY
@@ -22,9 +22,9 @@ MARKER = 'cab-public-clone'
 IDENTITY = ('DrEvil', '58350129+DrEvil-TitaniumHelix@users.noreply.github.com')   # gh api user --jq .id (RELEASE.md rule 1)
 
 # PR-2 A: engine + importer + Plus + our pseudocode / specs / names + docs + tools that read the originals only at run time.
-ALLOW = [r'^game/', r'^docs/', r'^tools/(serve|gen_globals|mkmanifest|make_public_repo|public_gate)\.py$',
+ALLOW = [r'^game/', r'^docs/', r'^tools/(serve|gen_globals|mkmanifest|mkmanifest13|make_public_repo|public_gate)\.py$',
          r'^decode/(pseudo|names|tools|ghidra_scripts)/', r'^decode/ecl/(ECL_VM|ECL_DIFF|JOURNAL_REFS|QUESTS)\.md$', r'^decode/ecl/scripts/(INDEX|FLAGMAP)\.md$',
-         r'^decode/data/[^/]+\.md$', r'^decode/(LAYOUT|CROSSREF|GLOBALS|ENGINE_DELTA)\.md$',
+         r'^decode/data/[^/]+\.md$', r'^decode/(LAYOUT|CROSSREF|GLOBALS|ENGINE_DELTA|V13_DELTA)\.md$', r'^decode/v13/[^/]+\.(md|json|txt)$',   # cab-v13: the v1.0 -> v1.3 delta (our tables, no original bytes)
          r'^(DECODE_GATE|BUILD_PLAN|ACCEPTANCE)\.md$', r'^\.gitignore$', r'^\.gitattributes$',
          r'^acceptance/[^/]+\.(mjs|py|sh)$', r'^acceptance/reports/', r'^acceptance/integration/[^/]+\.md$',
          r'^acceptance/(byoc|plus|release)/[^/]+\.(md|mjs|py|sh|json)$']
@@ -87,7 +87,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--target', default=DEFAULT_TARGET)
     ap.add_argument('--replace', action='store_true')
-    ap.add_argument('--version', default='v0.1.0-alpha')
+    ap.add_argument('--version', default='v0.1.1-alpha')
     ap.add_argument('--no-gate', action='store_true')
     a = ap.parse_args()
     target = os.path.abspath(a.target)
@@ -123,7 +123,7 @@ def main():
     git('config', 'core.autocrlf', 'false', cwd=target)
     git('add', '--all', cwd=target)
     msg = (f'Curse of the Azure Bonds remake {a.version}\n\nBrowser rebuild of Curse of the Azure Bonds (SSI, 1989) on the Gold Box engine, '
-           f'with Gold Box Plus. Bring your own copy (v1.0); no original game files.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n')
+           f'with Gold Box Plus. Bring your own copy (v1.0 or v1.3); no original game files.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n')
     git('commit', '--quiet', '-F', '-', cwd=target, data=msg.encode())
     git('tag', '-a', a.version, '-m', f'Curse of the Azure Bonds remake {a.version}', cwd=target)
     with open(os.path.join(target, '.git', MARKER), 'w', encoding='utf-8') as f:

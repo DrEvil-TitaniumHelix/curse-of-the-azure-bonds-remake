@@ -33,7 +33,7 @@ let SIZES = { char: 285, item: 63, effect: 9, game: 13137, charExt: 'SAV', itemE
 export let gameInfo = null;           // cab: PER-12  texts of the import screens (byoc/ui/byoc-ui.js)
 export function configure(profile) {
   DB = profile.engine.storage.data; dbp = null;
-  gameInfo = { title: profile.title, version: profile.version, prefix: profile.id,
+  gameInfo = { title: profile.title, version: profile.version, prefix: profile.id, versions: manifests.length ? versionsOf() : [profile.version],   // cab: v13-4 versions
     daxCount: profile.manifest.files.filter((f) => f.endsWith('.DAX')).length, credits: 'the version on the title prompt' };
   const f = profile.saveFormat, ie = f.itemExtension.slice(1), ee = f.effectExtension.slice(1), re = f.rosterExtension.slice(1);
   const imp = (f.importSources || []).filter((x) => x.game !== profile.id).map((x) => x.extension.slice(1));
@@ -84,15 +84,24 @@ async function tx(stores, mode, fn) {
 }
 
 // ---- manifest -------------------------------------------------------------------------------------------------------
-let manifest = null;
-export function setManifest(m) { manifest = m; }
+// cab: v13-4 — several manifests (cab-1.0, cab-1.3): validate() tries each and accepts the one whose required set matches;
+// the matched one is the ACTIVE manifest (also after a reload: the stored meta names it). loadManifest() = the active one.
+let manifests = [];
+let active = null;
+export function setManifest(m) { manifests = [m]; active = m; }
+export function setManifests(list) { manifests = list.slice(); active = manifests[0] || null; if (gameInfo) gameInfo.versions = versionsOf(); }
+export function activeManifest() { return active; }
+export function manifestList() { return manifests.slice(); }
+const versionOf = (m) => String(m.id || '').replace(/^[a-z]+-/, '');
+const versionsOf = () => manifests.map(versionOf);
 export async function loadManifest() {
-  if (manifest) return manifest;
+  if (active) return active;
+  if (manifests.length) return manifests[0];
   // por-only: fixed v1.3 BYOC manifest (profile: manifest.url; game/profiles/PORONLY.md)
   const r = await fetch(new URL('../byoc/manifest-por-1.3.json', import.meta.url));
   if (!r.ok) throw new Error('manifest-por-1.3.json not found');
-  manifest = await r.json();
-  return manifest;
+  active = await r.json(); manifests = [active];
+  return active;
 }
 
 // ---- candidate collection ---------------------------------------------------------------------------------------
@@ -137,7 +146,7 @@ export async function collectFromDataTransfer(dt) {
 export async function collectFromUrl(base, names) {
   if (!names) {
     try { const r = await fetch(base + '?list'); if (r.ok) names = await r.json(); } catch { /* no listing */ }
-    if (!names) names = Object.keys((await loadManifest()).files);
+    if (!names) { await loadManifest(); names = [...new Set(manifests.flatMap((m) => Object.keys(m.files)))]; }   // cab: v13-4 every version's names
   }
   const out = [];
   for (const n of names) {
@@ -155,8 +164,21 @@ export async function sha256Hex(bytes) {
   const d = new Uint8Array(await crypto.subtle.digest('SHA-256', bytes));
   return Array.from(d, (x) => x.toString(16).padStart(2, '0')).join('');
 }
-export async function validate(cands, { onProgress, signal } = {}) {
-  const m = await loadManifest();
+// cab: v13-4 — every known manifest is tried; the first whose required set matches wins and becomes the active one. When none
+// matches, the report is the one with the most file names present (the version the folder most looks like), so the
+// refusal names the right version and the right files. `report.version` = '1.0' / '1.3'.
+export async function validate(cands, opts = {}) {
+  await loadManifest();
+  let best = null;
+  for (const m of manifests) {
+    const rep = await validateAgainst(m, cands, opts);
+    rep.version = versionOf(m); rep.versionsTried = versionsOf();
+    if (rep.ok) { active = m; return rep; }
+    if (!best || rep.nameHits > best.nameHits || (rep.nameHits === best.nameHits && rep.okCount > best.okCount)) best = rep;
+  }
+  return best;
+}
+async function validateAgainst(m, cands, { onProgress, signal } = {}) {
   const data = new Map(), saves = [];
   for (const c of cands) {
     if (c.dir === 'SAVE') { if (SAVE_RX.test(c.name)) saves.push(c); continue; }
@@ -186,7 +208,7 @@ export async function validate(cands, { onProgress, signal } = {}) {
   const variant = (files.find((f) => f.variant) || {}).variant || null;   // cab: PER-5
   const saveRep = await checkSaves(saves);
   return {
-    ok: okCount === requiredCount, manifestId: m.id, files, okCount, requiredCount,
+    ok: okCount === requiredCount, manifestId: m.id, files, okCount, requiredCount, nameHits,
     matchRatio: okCount / requiredCount,
     likelyOtherVersion: okCount < requiredCount && nameHits >= 0.8 * requiredCount,
     gameOvr: !ovr || ovr.status === 'missing' ? 'absent' : ovr.status === 'ok' ? 'match' : 'mismatch',
@@ -274,8 +296,10 @@ export async function info() {
 export async function isImported() {
   const m = await info();
   if (!m) return false;
-  const man = await loadManifest();
-  if (m.manifest !== man.id) return false;
+  await loadManifest();
+  const man = manifests.find((x) => x.id === m.manifest);            // cab: v13-4  the stored copy's version
+  if (!man) return false;
+  active = man;
   const keys = await tx(['files'], 'readonly', (t) => reqP(t.objectStore('files').getAllKeys()));
   const req = Object.keys(man.files).filter((k) => man.files[k].required && man.files[k].store !== false);   // cab: PER-5
   return req.every((k) => keys.includes(k));       // F8: evicted files -> import again

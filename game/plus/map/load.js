@@ -24,8 +24,8 @@ export async function loadCurrentMap(context,{readFile,profile}={}) {
  if(profile.id!=='cab')throw new Error('Map needs the Curse of the Azure Bonds v1.0 profile');
  const label=profile.areas.find(a=>a.dataSet===context.dataset && a.block===context.block)?.name || `Block ${context.block}`;
  if(Number.isInteger(context.location)) {
-  const exe=await readFile('START.EXE');if(!exe)throw new Error('Imported START.EXE unavailable');
-  const ds=loadModule(exe).subarray(profile.engine.state.dsImageOffset);
+  const st=profile.engine.state,exe=await readFile(st.executable||'START.EXE');if(!exe)throw new Error(`Imported ${st.executable||'START.EXE'} unavailable`);   // cab: v13-1
+  const ds=(await import('../../engine/state.js')).dsImageFromExe(exe,{exepack:!!st.exepack,dsImageOffset:st.dsImageOffset,dsBytes:st.dsBytes,dsMap:st.dsMap||null}).ds;
   const name=`BIGPIC${context.dataset}.DAX`,bytes=archiveRecords(await readFile(name)).get(OVERLAND_BIGPIC);
   if(!bytes)throw new Error(`Overland picture is missing: ${name}/${OVERLAND_BIGPIC}`);
   const picture=decodePicture(bytes);

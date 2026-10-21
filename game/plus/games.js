@@ -21,6 +21,36 @@ export async function loadProfile(id, options) {
  if (!profile.supported) throw new Error(`Game is not supported yet: ${profile.title}`);
  return profile;
 }
+// cab: v13-1 — version overlays: a profiles/*.json with `basedOn` (cab-1.3.json over cab.json). An overlay is not a game of
+// its own in the catalog: it is applied by the engine boot once the BYOC import has matched the player's files to its
+// manifest (engine/byoc.js activeManifest, v13-4). Objects merge key by key, arrays and scalars replace; `id` stays the
+// base game's (storage, Plus settings), `variant` / `version` / `manifest` / `engine.*` come from the overlay.
+export const OVERLAY_URLS = Object.freeze([new URL('../profiles/cab-1.3.json', import.meta.url).href]);
+export async function loadOverlays({ urls = OVERLAY_URLS, fetcher = globalThis.fetch } = {}) {
+ return Promise.all(urls.map(async url => {
+  const response = await fetcher(url);
+  if (!response.ok) throw new Error(`Cannot load profile overlay: ${url}`);
+  const o = await response.json();
+  if (o.schemaVersion !== 1 || !o.basedOn || !o.manifest?.url) throw new Error(`Invalid profile overlay: ${url}`);
+  return { ...o, url };
+ }));
+}
+const isObj = v => v && typeof v === 'object' && !Array.isArray(v);
+function merge(base, over) {
+ const out = { ...base };
+ for (const [k, v] of Object.entries(over)) out[k] = isObj(v) && isObj(base[k]) ? merge(base[k], v) : v;
+ return out;
+}
+export function applyOverlay(base, overlay) {
+ const { basedOn, proposal, url, ...rest } = overlay;
+ const merged = merge(base, rest);
+ merged.id = base.id; merged.url = base.url; merged.variant = overlay.id; merged.overlayUrl = url;
+ if (merged.manifest && merged.manifest.filesDelta) {   // the overlay lists only the renamed files
+  const d = merged.manifest.filesDelta, files = (base.manifest.files || []).map(f => (d.replace && d.replace[f]) || f);
+  merged.manifest = { ...merged.manifest, files };
+ }
+ return merged;
+}
 // Resolve configuration references against the profile URL, never against the current page.
 export function profileResource(profile, relative) { return new URL(relative, profile.url).href; }
 

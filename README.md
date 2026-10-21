@@ -7,11 +7,11 @@ this game reuses that work. Its own decode covers only what Curse changed: a Tur
 overlay format, a script VM with 64 opcodes (three new ones and a copy-protection opcode), a 422-byte character record,
 new saves, Pool of Radiance and Hillsfar character import, new screens. Every changed routine was turned into pseudocode
 and translated into JavaScript ([decode/ENGINE_DELTA.md](decode/ENGINE_DELTA.md) lists what was reused and what is new).
-Status: **alpha (v0.1.0-alpha)**: the game plus **Gold Box Plus**, optional modern additions (F12) around the unchanged
-original; ready for community testing.
+Status: **alpha (v0.1.1-alpha)**: the game plus **Gold Box Plus**, optional modern additions (F12) around the unchanged
+original; ready for community testing. Point release 0.1.1 accepts **version 1.3** of the game as well as 1.0.
 
 **Bring your own copy.** This repository contains none of the game's files: no program, data, graphics, sound or journal
-text. You need your own copy of Curse of the Azure Bonds, **version 1.0**; the browser checks it and plays from it on
+text. You need your own copy of Curse of the Azure Bonds, **version 1.0 or 1.3**; the browser checks it and plays from it on
 your machine. Contains no original game files; derived from analysis of the original program, not clean-room. All
 rights to the game stay with its publisher and rights holders.
 
@@ -19,12 +19,14 @@ rights to the game stay with its publisher and rights holders.
 
 ## Play
 
-**What you need:** your own copy of *Curse of the Azure Bonds* (SSI), **version 1.0**: the game folder with `START.EXE`,
-`ITEMS`, `GAME.OVR` and the 86 `.DAX` files (a `SAVE` folder with your old saves is welcome but optional). The browser
-checks your files against `game/byoc/manifest-cab-1.0.json` (sizes + SHA-256) and keeps them in its own storage. **Only
-v1.0 is accepted**; other versions and other games' folders are refused with a clear message. **Version 1.3** (for
-example on the WizardWorks *AD&D Gold Collector* CD; GOG also sells 1.3) is **not accepted yet**: it is planned for the
-next point release, and its decode has started. Store releases are untested; if yours is refused, open an issue with the importer's list of mismatched files (names only). A current Chrome
+**What you need:** your own copy of *Curse of the Azure Bonds* (SSI), **version 1.0 or 1.3**: the game folder with
+`START.EXE` (v1.0) or `ST.EXE` (v1.3), `ITEMS`, `GAME.OVR` and the 86 `.DAX` files (a `SAVE` folder with your old saves is
+welcome but optional). The browser checks your files against `game/byoc/manifest-cab-1.0.json` or `manifest-cab-1.3.json`
+(sizes + SHA-256), picks the version that matches and keeps the files in its own storage. **Version 1.3** is the one on the
+WizardWorks *AD&D Gold Collector* CD (GOG also sells 1.3): its `ST.EXE` is stored as shipped and unpacked when the game
+starts, and the game plays v1.3's own scripts, maps and the handful of rule fixes SSI made in that release (the copy
+protection stays off by default). Other versions, folders mixed from two versions and other games' folders are refused
+with a clear message. Store releases are untested; if yours is refused, open an issue with the importer's list of mismatched files (names only). A current Chrome
 or Edge is recommended (folder picker); other browsers can pick or drop the files instead.
 
 **Start:**

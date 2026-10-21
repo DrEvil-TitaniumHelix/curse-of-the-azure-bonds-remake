@@ -10,6 +10,7 @@
 // Menu state lives in the DS globals G.menu_Sel / menu_Ext / menu_Timeout / menu_TimeoutKey / menu_Top.
 
 import { G } from '../engine/state.js';
+import { variant } from '../engine/variant.js';            // cab: v13-3
 import { DrawText, DrawRepeatedGlyph, ClearRectangle } from '../engine/text.js';
 import { pointer, setPointerRegion, clearPointerRegion, KEY } from '../engine/input.js';
 import { hooks } from '../plus/hooks.js';   // GBP W1 (docs/PLUS_HOOKS.md)
@@ -135,6 +136,7 @@ export async function VerticalListMenu(prompt, options, cHeader, cItem, cSel, le
     skipHeaders(down);
     drawList(G.menu_Top);                                   // 6800:0d57 / 0d62
   };
+  if (variant.is13 && count <= page) G.menu_Top = 0;        // cab: v13-3  v1.3 0E9F+0F9C: a list that fits starts at the top
   if (index.v < G.menu_Top) { G.menu_Top = index.v; redraw.v = true; }   // 6800:0e92 clamp menu_Top
   if (count < G.menu_Top) { G.menu_Top = 0; redraw.v = true; }
   index.v++;                                                // 6800:0f2b

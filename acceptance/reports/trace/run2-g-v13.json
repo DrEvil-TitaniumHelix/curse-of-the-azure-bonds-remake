@@ -1,0 +1,81 @@
+{
+ "route": "run2-g",
+ "profile": "cab-1.3",
+ "seed": 169084438,
+ "summary": {
+  "expect": [
+   "load G, begin: the overland: PASS"
+  ],
+  "checkpoints": 3,
+  "idle": true,
+  "events": 61,
+  "text": "4 same + 1 computed of 5, 0 mismatches",
+  "flags": "30 of 31 writes on an operand of their instruction, 1 by engine routines during it (4CFF force-animation cell: HorizontalMenu 6800:07a8), 0 unexplained"
+ },
+ "saves": null,
+ "checkpoints": [
+  {
+   "label": "top menu",
+   "idle": true,
+   "state": {
+    "dataset": 2,
+    "x": 7,
+    "y": 13,
+    "dir": 0,
+    "viewMode": 0,
+    "clock": null,
+    "party": [],
+    "cells": null
+   },
+   "expect": null
+  },
+  {
+   "label": "load G, begin: the overland",
+   "idle": true,
+   "state": {
+    "block": 80,
+    "dataset": 1,
+    "x": 5,
+    "y": 5,
+    "dir": 2,
+    "viewMode": 3,
+    "clock": "00:16",
+    "party": [
+     "ALPHA hp 44/44 AC 8"
+    ],
+    "cells": {
+     "4BF2 block": 80,
+     "4BE6 3D": 0,
+     "4BC5 map": 1,
+     "7F3E party": 1,
+     "7F12 dataset": 1
+    }
+   },
+   "expect": "PASS"
+  },
+  {
+   "label": "continue",
+   "idle": true,
+   "state": {
+    "block": 80,
+    "dataset": 1,
+    "x": 5,
+    "y": 5,
+    "dir": 2,
+    "viewMode": 3,
+    "clock": "00:16",
+    "party": [
+     "ALPHA hp 44/44 AC 8"
+    ],
+    "cells": {
+     "4BF2 block": 80,
+     "4BE6 3D": 0,
+     "4BC5 map": 1,
+     "7F3E party": 1,
+     "7F12 dataset": 1
+    }
+   },
+   "expect": null
+  }
+ ]
+}

@@ -24,6 +24,8 @@ let B = null;                          // the byoc back end (engine/byoc.js or m
 // cab: PER-12 — game name, version, file count and id prefix from the back end (engine/byoc.js gameInfo, set from the
 // profile by configure()); Pool's texts are the defaults
 const GI = () => (B && B.gameInfo) || { title: 'Pool of Radiance', version: '1.3', prefix: 'por', daxCount: 113, credits: 'the version shown in the credits' };
+// cab: v13-4 — the accepted versions as a phrase ('1.0 and 1.3'); gameInfo.versions comes from the manifests the importer knows
+const VERS = () => { const v = (GI().versions && GI().versions.length ? GI().versions : [GI().version]); return v.length > 1 ? `versions ${v.slice(0, -1).join(', ')} and ${v[v.length - 1]}` : `version ${v[0]}`; };
 
 async function backend(mod) {
   if (B) return B;
@@ -294,7 +296,7 @@ function screenWhere() {
       '',
       `Copy the whole game folder to this PC: START.EXE, ITEMS and the ${GI().daxCount} .DAX files${GI().prefix === 'por' ? ' (GAME.OVR may be there too)' : ' and GAME.OVR'}.`,
       '',
-      { text: `This reproduction is built on version ${GI().version} (${GI().credits}). Other versions are refused.`, colour: C.dim },
+      { text: `This reproduction is built on ${VERS()} (${GI().credits}). Other versions are refused.`, colour: C.dim },   // cab: v13-4
       '',
       { text: 'This page has no download links.', colour: C.dim },
     ],
@@ -400,7 +402,7 @@ function screenFailed(report, cands) {
   const head = {
     zip: 'This is a ZIP archive. Please unpack it first, then choose the unpacked folder.',
     nofolder: `This folder does not contain ${GI().title} (START.EXE and ${GI().daxCount} .DAX files). ${cands.length} file${cands.length === 1 ? '' : 's'} looked at.`,
-    other: `This looks like a different version of ${GI().title} (${bad.length} of ${n} files differ). This reproduction supports version ${GI().version} only.`,
+    other: `This looks like a different version of ${GI().title} (${bad.length} of ${n} files differ). This reproduction supports ${VERS()} only.`,   // cab: v13-4
     damaged: `${bad.length} of ${n} game files are missing or damaged. Copy the whole game folder again, then retry.`,
   }[kind];
   const showList = kind === 'other' || kind === 'damaged';
@@ -429,7 +431,7 @@ function screenStoreFailed(report, err) {
   return {
     id: 'BY-4', title: 'Game files cannot be stored',
     body: [
-      { text: `Your files are fine (version ${GI().version}), but this browser does not allow storing them here (private window, blocked site data or no space).`, colour: C.text },
+      { text: `Your files are fine (version ${report && report.version || GI().version}), but this browser does not allow storing them here (private window, blocked site data or no space).`, colour: C.text },   // cab: v13-4
       '',
       { text: String((err && err.message) || err).slice(0, 108), colour: C.dim },
     ],

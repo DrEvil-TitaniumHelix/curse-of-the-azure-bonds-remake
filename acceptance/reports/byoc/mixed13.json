@@ -1,0 +1,43 @@
+{
+ "case": "mixed13",
+ "folder": "acceptance/local/byoc/mixed13",
+ "url": "http://127.0.0.1:8190/index.html?screen=S010&fast=4",
+ "steps": [
+  {
+   "id": "BY-1",
+   "shown": true,
+   "shot": "acceptance/local/byoc/shots/mixed13-1-BY1.png",
+   "sha256": "651ae1e0ff8d3821ff4babd734f7f6e188748b48e28da217593974534ced6f53"
+  },
+  {
+   "id": "picker",
+   "mode": "selectMultiple",
+   "picked": "acceptance/local/byoc/mixed13"
+  },
+  {
+   "id": "BY-4",
+   "checked": true,
+   "report": {
+    "ok": false,
+    "manifestId": "cab-1.0",
+    "okCount": 84,
+    "requiredCount": 89,
+    "likelyOtherVersion": true,
+    "gameOvr": "match",
+    "variant": "patched-4A56",
+    "bad": [
+     "ECL1.DAX:size",
+     "ECL3.DAX:size",
+     "ECL4.DAX:size",
+     "ECL5.DAX:size",
+     "GEO4.DAX:size"
+    ],
+    "saves": 0
+   },
+   "shot": "acceptance/local/byoc/shots/mixed13-2-BY4.png",
+   "sha256": "afdc4238e7246ec1cb83c76b13982ea5509a703de8a5b7e27e0f11b54f07ff7f"
+  }
+ ],
+ "utc": "2026-10-21T10:28:43.183Z",
+ "result": "refused"
+}

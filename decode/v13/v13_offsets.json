@@ -1,0 +1,62 @@
+{
+ "id": "cab-1.3",
+ "source": "decode/V13_DELTA.md (lane cab-v13, 2026-10-21); generated evidence: decode/tools/v13match.py -> decode/v13/V13_MATCH.md",
+ "executable": {
+  "file": "ST.EXE",
+  "packedSize": 57789,
+  "exepack": true,
+  "unexepack": "decode/tools/unexepack.py (Pool's; header 18 bytes 'RB', 0x3AD commands, 480 relocations, image 62432 B = 0xF3E paragraphs)",
+  "unpackedLoadModule": 62432,
+  "entry": "0000:002F",
+  "stack": "13B0:4000",
+  "titleString": "0000:0006 'Curse of the Azure Bonds v1.3 '",
+  "compiler": "Turbo Pascal 6.0 (FBOV overlays, TP 6 System/Overlay units, DX:AX function results, smart-linked stub entries)"
+ },
+ "dataSegment": {
+  "v10": "0C1C",
+  "v13": "0ABE",
+  "v13ImageOffsetInLoadModule": 44000,
+  "v10ImageOffsetInLoadModule": 49600,
+  "initialisedBytes": {"v10": 18400, "v13": 18432},
+  "dsPlusBssBytes": {"v10": 36608, "v13": 36640},
+  "imageMap": [
+   {"v10": "0000-47A1", "v13": "0002-47A3", "delta": 2, "note": "every game table and string; byte-identical (18,338 B)"},
+   {"v10": "47A2-47A5", "v13": "-", "delta": null, "note": "TP 5 Overlay/System initialised words, replaced by TP 6 values at v1.3 47A4-47BD"},
+   {"v10": "47A6-47DF", "v13": "47BE-47F7", "delta": 24, "note": "System unit initialised data, byte-identical (58 B)"}
+  ],
+  "bssMap": [
+   {"v10": "47D2-4F92", "delta": 24},
+   {"v10": "4F98-4FC9", "delta": 25, "note": "one new byte variable before 4F98 (v1.3 4FB0 = memory-warning flag, HeapErrorHandler)"},
+   {"v10": "4FCA-8CAB", "delta": 26, "note": "one more new byte before 4FCA; 287 displacements from matched code, 1 ambiguous (6F9F)"}
+  ],
+  "runeRows": {"v10": "DS:0000", "v13": "DS:0002", "evidence": "ov03 RuneWheelCheck v1.3 reads [di+2]; 'CWLNRTESSCED...' at image 0xABE3"}
+ },
+ "engineDsReads": {
+  "rule": "all literal G.ds reads of the initialised image are below 47A2 (25 distinct, 00DD..3C76 + runtime cells) -> v1.3 offset = v1.0 offset + 2; build the v1.0-shaped DS image by copying v1.3 bytes 0002..47A3 to 0000..47A1 and 47BE..47F7 to 47A6..47DF",
+  "pediaSources": {"itemNameWords": {"v10": 4160, "v13": 4162}, "spellDefinitions": {"v10": 14298, "v13": 14300}, "spellNames": {"v10": 10173, "v13": 10175}}
+ },
+ "soundDriver": {
+  "segment": {"v10": "0713", "v13": "0699"},
+  "segmentBytes": {"v10": 9888, "v13": 6016},
+  "csVariablesDelta": -6,
+  "v13": {"tickDivider": "011A", "busy": "011B", "loopCounter": "011C", "recordSize": "011D", "countdown": "011E", "sndIdx": "0142", "curChannel": "0144", "chanBase": "0146", "noteTab": "0148", "ret": "014A", "sndIdxPerChannel": "014C", "outputEnable": "0150", "lengthTable": "0151 (19 bytes, still present, no longer read)", "jumpTable": "0164 (1591 15EF 15F6 1588 1571 15C2)", "speakerChannels": "0170", "speakerNoteTable": "02F0", "loudest": "0308", "psgChannels": "030A", "psgNoteTable": "048A", "speakerSoundTable": "04A2", "psgSoundTable": "0542", "noteData": "05F2-11D8"},
+  "v13Code": {"PlayOrStopSound": "0020", "StartSound": "00D4", "unitInit": "00FF (sets CountdownPtr := 0699:011E, was StartSound in v1.0)", "InstallSoundTimer": "12BF", "RemoveSoundTimer": "12F4", "ISR": "132D", "SpeakerChannelTick": "13BA", "SoundChannelStep": "14BD", "ReadSoundCommands": "154E", "finishStep": "15D2", "NoteList": "1604", "StartSpeakerChannels": "1685", "StartPsgChannels": "16F1", "SetSoundOutput": "175D", "asmCodeDelta": -3889},
+  "noteListFormat": {"v10": "2-byte entries {channel<<5 | lengthIndex, note|end}, length table CS:0157, notes on any channel, noteOff = duration - gap(+10h)", "v13": "3-byte entries {channel<<5, note|end, duration}; duration = tempo*duration (tempo<=1 -> duration); notes only on channel 0 (cl=channel, ja skip); noteOff = duration (no gap). Same as Pool's 08AE driver."},
+  "noteTablesIdentical": true,
+  "commandListsIdentical": "yes except embedded pointers (FF 1C <ptr> etc.)"
+ },
+ "gameOvr": {
+  "format": {"v10": "TPOV (4-byte header)", "v13": "FBOV (8-byte header, payload 0x42701)"},
+  "size": {"v10": 272218, "v13": 272137},
+  "units": 36,
+  "stubEntries": {"v10": "871 (853 live, 18 FFFF)", "v13": "536 (all live; smart-linked: only routines called from another unit)"},
+  "runeWheelBranch": {"v10": {"fileOffset": 19030, "hex": "0x4A56", "byte": "EB (patched)"}, "v13": {"fileOffset": 19100, "hex": "0x4A9C", "byte": "74 (retail check enabled)", "routine": "ov03 RuneWheelCheck v1.3 0118, JZ at 03C6; the 3-try/abyss retry compare at 03EC (0x4AC2) = 74 09"}},
+  "unitFileOffsets_v13": ["000008", "0000DA", "000909", "0046D5", "004B73", "005C7D", "0076FB", "0080D8", "00A558", "00BA3B", "00D721", "00F568", "00FEE7", "013368", "01802C", "018F6E", "01B731", "01FFE7", "02593F", "02705D", "02AD56", "02BC99", "02DFB5", "035022", "0376A5", "03AC60", "03C08D", "03D46C", "03D4EE", "03D6A6", "03DFC2", "03F485", "04003C", "04143D", "041ACC", "042411"]
+ },
+ "daxDelta": {
+  "changedFiles": ["ECL1.DAX", "ECL3.DAX", "ECL4.DAX", "ECL5.DAX", "GEO4.DAX"],
+  "changedRecords": {"ECL1/81": "+3 B (NEW_ECL 50 after the Dagger Falls reward text)", "ECL3/18": "SAVE #03 -> #01 into [4C02]", "ECL4/32": "+10 B (entry guard: if [4CE4]<>0 then [4CE4]:=0, EXIT)", "ECL5/49": "+4 B (wilderness exit: SAVE #FF,[7EC9]; IF_EQ EXIT)", "ECL5/50": "+58 B (two 7-instruction party-position clamps on vecB/entry; wilderness exit guard)", "GEO4/32": "plane 3: door bits moved from cell (1,5) E side to cell (2,5) W side"},
+  "identicalRecords": 14,
+  "opcodeSet": "unchanged (ov02 60 handlers 1:1, ov07 34/34 unchanged, ov34 58 opcode names identical)"
+ }
+}

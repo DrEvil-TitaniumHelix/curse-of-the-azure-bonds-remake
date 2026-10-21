@@ -76,7 +76,7 @@ const BY_SHOWN = "(() => { const o = document.getElementById('byoc-ui'); return 
 async function runCase(name) {
   // poolrad = the player's Pool of Radiance folder, picked in place (read only by the browser): another game, not a version
   const folder = name === 'poolrad' ? resolve(ROOT, '..', 're-targets', 'goldbox', 'por', 'POOLRAD') : resolve(local('byoc'), name);
-  if (!existsSync(join(folder, 'START.EXE'))) throw new Error(`no scratch copy ${folder} (run make_copies.py)`);
+  if (!existsSync(join(folder, 'START.EXE')) && !existsSync(join(folder, 'ST.EXE'))) throw new Error(`no scratch copy ${folder} (run make_copies.py / make_copies_v13.py)`);   // cab: v13-4 ST.EXE
   const port = 9900 + (process.pid % 50) + CASES.indexOf(name);
   const chrome = spawn(CHROME, ['--headless=new', `--remote-debugging-port=${port}`,
     `--user-data-dir=${join(tmpdir(), `cab-byoc-${name}-${process.pid}`)}`, '--window-size=1280,800', '--hide-scrollbars',
@@ -122,7 +122,12 @@ async function runCase(name) {
     const fromServer = s.requests.slice(reqMark).filter((p) => /^\/(dev)?data\//i.test(p));
     const stored = await evalJS(s, `new Promise((res) => { const q = indexedDB.open('${'cab-data'}'); q.onerror = () => res(null);
       q.onsuccess = () => { const db = q.result; res({ stores: [...db.objectStoreNames] }); db.close(); }; })`);
-    step('S010', { ready, dataRequests: fromServer, idb: stored, ...(await shot(s, `${name}-3-S010`)) });
+    // cab: v13-1 — which profile booted (version / overlay) and the DS image the engine built from the imported executable
+    const booted = await evalJS(s, `(() => { const E = window.E; if (!E || !E.profile || !E.G || !E.G.ds) return null; const ds = E.G.ds;
+      return { version: E.profile.version, variant: E.profile.variant || null, executable: E.profile.engine.state.executable,
+        dsBytes: ds.length, runeRow0: String.fromCharCode(...ds.subarray(1, 13)), titleAt6: E.G.image ? String.fromCharCode(...E.G.image.subarray(7, 37)) : null,
+        audioSeg: E.profile.engine.audio ? E.profile.engine.audio.segment : null }; })()`);
+    step('S010', { ready, dataRequests: fromServer, idb: stored, booted, ...(await shot(s, `${name}-3-S010`)) });
     // 5. reload: the import is kept, no BY-1
     await s.send('Page.navigate', { url: URL_ });
     await sleep(1500);

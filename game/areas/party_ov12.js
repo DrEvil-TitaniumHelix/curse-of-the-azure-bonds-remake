@@ -25,6 +25,7 @@
 import { G, newChar, newItem } from '../engine/state.js';
 import { MessageDelay } from '../engine/text.js';
 import { X } from './view_link.js';
+import { variant } from '../engine/variant.js';                      // cab: v13-3
 
 // TChar fields (PARTY.pas.md ## Character record)
 const STR = 0x11, INT = 0x13, WIS = 0x15, CON = 0x19, RACE = 0x74, AGE = 0x76, HP_MAX = 0x78, FIGHTER_LVL_EFF = 0xDD,
@@ -1038,7 +1039,11 @@ export function handlerTable() {
 export function InstallEffectHandlers() {
   const t = handlerTable();
   if (!Array.isArray(G.EffectHandler)) G.EffectHandler = new Array(0x94).fill(null);
-  for (let k = 0x01; k <= 0x93; k++) if (t[k]) G.EffectHandler[k] = t[k];   // 3600:2e3f .. 3568 (141 stores; nil slots untouched)
+  // cab: v13-3 — v1.3's ov12 (2AD8) no longer installs 53h EffStoneGaze and 7Eh EffParalyzingGaze: both gaze handlers moved
+  // to the magic unit (ov22 InitSpellTable: 53h := the stone gaze with the target-selector prologue, 7Eh := ov22's
+  // EffParalysingGaze, which ov12's store shadowed in v1.0). decode/V13_DELTA.md 3.4.
+  const skip = variant.is13 ? new Set([0x53, 0x7E]) : null;
+  for (let k = 0x01; k <= 0x93; k++) if (t[k] && !(skip && skip.has(k))) G.EffectHandler[k] = t[k];   // 3600:2e3f .. 3568 (141 stores; nil slots untouched)
   return G.EffectHandler;
 }
 

@@ -39,6 +39,7 @@ import { CellAt, CombatantCol, CombatantRow, CombatantIndex, PlaceCombatant, Res
   IsVisible } from './view_ov32.js';
 import { X } from './view_link.js';
 import { dev } from '../engine/dev.js';
+import { variant } from '../engine/variant.js';                          // cab: v13-3 the v1.3 behaviour switch
 
 // dev only (?screen=<id>, acceptance/areas_shots.sh): signal the screenshot and hold the game 1.5 s, so a timed line is
 // still on screen when the shot is taken (the rest loop would draw the next one); nothing happens for other targets
@@ -137,8 +138,45 @@ export function AddSpellLine(id) {
   ids()[n] = id & 0x7F;                                                  // 5800:059f
 }
 
+// cab: v13-3 — v1.3 ov22 05B9 AddSpellLineCounted (decode/V13_DELTA.md 3.5): the line is linked BEFORE the first line of a
+// higher level (or at the head / after the last line); a heading line also advances n; the same spell only bumps its count.
+async function AddSpellLineCounted13(id) {
+  const I = ids(), K = counts(), sp = id & 0x7F, lvl = LEVEL(sp);         // 05C0 .. 05E2
+  let p = G.sl_List, n = 0;
+  if (!p) {                                                              // 05E5
+    K.fill(0); p = node(); G.sl_List = p; K[0] = 1;                       // 05EE .. 0632
+  } else {
+    let done = false;
+    while (p && !done) {                                                 // 063E .. 06B6
+      if (!p.isHeader) {
+        if (LEVEL(I[n]) > lvl) done = true;                              // 0656 .. 066F
+        else if (I[n] === sp) done = true;                               // 0671 .. 0684
+        else { n++; p = p.next; }                                        // 0686 .. 069A
+      } else { p = p.next; n++; }                                        // 06A2 .. 06B3
+    }
+    if (I[n] === sp) K[n] = (K[n] + 1) & 0xFF;                           // 06B8 .. 06CD -> 07CF
+    else {
+      let q = G.sl_List;                                                 // 06D0
+      if (q === p) { const nw = node(); nw.next = p; G.sl_List = nw; p = nw; }   // 0759 .. 078F at the head
+      else {
+        while (q.next !== p) q = q.next;                                 // 06ED .. 0713 (p null: after the last line)
+        const nw = node(); nw.next = q.next; q.next = nw; p = nw;        // 0715 .. 0754
+      }
+      let carry = 1;
+      for (let k = n; k <= 0x53; k++) { const t = K[k]; K[k] = carry; carry = t; }   // 0792 .. 07CB
+    }
+  }
+  p.text = (id > 0x7F ? ' *' : '  ') + spellName(sp); p.isHeader = 0;    // 07D9 .. 083E
+  if (K[n] > 1) p.text = (p.text + ' (' + (await X.ByteToStr(K[n])) + ')').slice(0, 40);   // 0846 .. 089B
+  if (I[n] !== sp) {                                                     // 08A0 .. 08B3
+    let t = I[n]; I[n] = sp;                                             // 08B5 .. 08CF
+    for (let k = n + 1; k <= 0x53; k++) { const u = I[k]; I[k] = t; t = u; }   // 08D3 .. 090A
+  }
+}
+
 // 5800:05B4 AddSpellLineCounted(id)
 export async function AddSpellLineCounted(id) {
+  if (variant.is13) return AddSpellLineCounted13(id);                    // cab: v13-3
   const I = ids(), K = counts();
   let p = G.sl_List, n, prevLevel;
   if (!p) {                                                              // 5800:05c7
@@ -831,7 +869,8 @@ export async function HasteSlow(cancels, side, msg) {
     } else tg()[k] = null;                                               // 5800:389f
   }
   await ApplySpell(G.sp_Current, 0, 0, 0, 0, msg);                       // 5800:38d2
-  for (let k = 1; k <= G.SpellTargetCount; k++) await X.CallEffectHooks(0x12, tg()[k]);   // 5800:38d5 .. 390b (nil targets too, as compiled)
+  if (!variant.is13)                                                     // cab: v13-3  v1.3 387B ends here (21 instructions dropped)
+    for (let k = 1; k <= G.SpellTargetCount; k++) await X.CallEffectHooks(0x12, tg()[k]);   // 5800:38d5 .. 390b (nil targets too, as compiled)
 }
 export async function ov22_391D() { await HasteSlow(0x2A, G.SelectedChar.b[0x197], 'is Hasted'); }            // 30 5800:3940
 
@@ -1379,6 +1418,17 @@ export function InitSpellTable() {
   G.EffectHandler[0x80] = EffFireCone;                                   // DS:71A6
   G.EffectHandler[0x83] = EffFireBreathShort;                            // DS:71B2
   G.EffectHandler[0x84] = EffThrowLightning;                             // DS:71B6
+  if (variant.is13) G.EffectHandler[0x53] = EffStoneGazeTargeted;        // cab: v13-3  v1.3 658F: [710C] := ov22 585E (DS:70F2 = 53h)
+}
+
+// cab: v13-3 — v1.3 ov22 585E (181 instr): EffStoneGaze (v1.0 ov12 1A65, moved to the magic unit) with the prologue of
+// EffParalysingGaze: the victim comes from the target selector SpellHandlers[0](41h, 1, var ok) instead of the attacker's
+// current target; nothing happens without a target. The body is the v1.0 stone gaze (shape ratio 0.942, one hunk).
+export async function EffStoneGazeTargeted(c, e, mode) {
+  if (c.combat) c.combat.target = null;                                  // 585E:5864 .. 5872  c^.p18D^.target := nil
+  await okFlag(0x41);                                                    // 585E:5876 .. 5881  SpellHandlers[0](41h, 1, @7746)
+  if (!(c.combat && c.combat.target)) return;                            // 585E:5885 .. 5897
+  await X.EffStoneGaze(c, e, mode);                                      // 585E:589A ..  = ov12 1A65 (reads cr(c).target first)
 }
 
 // 5800:0000 ov22_LoadDeps / 5800:68A5 ov22_init: empty.

@@ -55,7 +55,8 @@ export async function fetchScenario(name) {
 async function playerNames(profile) {
   const { fetchFile } = await import('../../engine/dax.js');
   profile ??= await (await import('../games.js')).loadProfile('cab');
-  return gameNames(loadModule(await fetchFile('START.EXE')).subarray(profile.engine.state.dsImageOffset));
+  const st = profile.engine.state, { dsImageFromExe } = await import('../../engine/state.js');   // cab: v13-1
+  return gameNames(dsImageFromExe(await fetchFile(st.executable || 'START.EXE'), { exepack: !!st.exepack, dsImageOffset: st.dsImageOffset, dsBytes: st.dsBytes, dsMap: st.dsMap || null }).ds);
 }
 // build the party, serve the scenario's ECL, hand the start to the engine
 export async function runScenario(s, { dev, names, bus = hooks } = {}) {

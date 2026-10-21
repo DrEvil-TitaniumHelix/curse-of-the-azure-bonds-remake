@@ -33,8 +33,9 @@ export async function buildPedia({profile,readFile}={}) {
  const file=async name => { if(!files.has(name)) files.set(name,Promise.resolve(readFile(name)));return files.get(name); };
  const archive=async name => { if(!archives.has(name)) archives.set(name,file(name).then(bytes => {if(!bytes) throw new Error(`Imported file missing: ${name}`);return archiveRecords(bytes);}));return archives.get(name); };
  const state=profile.engine.state,exe=await file(state.executable);if(!exe) throw new Error('Import your own supported game files before opening the pedia');
- const image=loadModule(exe);need(image,state.dsImageOffset+0x37DA+(0x64+1)*16,'executable DS');
- const ds=image.subarray(state.dsImageOffset),entries=[];
+ const {dsImageFromExe}=await import('../../engine/state.js');   // cab: v13-1 EXEPACK + dsMap of the v1.3 profile overlay
+ const ds=dsImageFromExe(exe,{exepack:!!state.exepack,dsImageOffset:state.dsImageOffset,dsBytes:state.dsBytes,dsMap:state.dsMap||null}).ds;need(ds,0x37DA+(0x64+1)*16,'executable DS');
+ const entries=[];
  const catalogue=await file('ITEMS');need(catalogue,2050,'ITEMS');
  for(let i=0;i<128;i++) entries.push(extractItemType(catalogue.subarray(2+i*16,18+i*16),i));
  entries.push(...extractSpells(ds));

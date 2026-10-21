@@ -24,6 +24,7 @@ import { tiles, LoadCombatIcon, FreeCombatIcon } from '../engine/tiles_cab.js';
 import { view } from './view_ov30.js';
 import { X } from './view_link.js';
 import { dev } from '../engine/dev.js';
+import { variant } from '../engine/variant.js';            // cab: v13-3
 import { hooks } from '../plus/hooks.js';   // GBP W1 (docs/PLUS_HOOKS.md): emit only
 
 const SavePath = () => G.SavePath ?? '';                // DS:5BF0 (curse.cfg line 3)
@@ -259,7 +260,8 @@ export function ConvertPoolCharacter(p, ch) {
   c[0x1C] = p[0x16];                                                      // 4300:18fb  exceptional STR
   // 4300:191a / 195b  quirk: DS:3F8A[race*16+sex] = the exceptional-STR maximum (human male 100); with the loop variable
   // left at 5 the test lands on CHA max (+1Ah), not on +1Ch, and raises it to that value (CHA current +1Bh unchanged)
-  if (c[0x10 + 2 * i] < dsb(0x3F8A + rs())) c[0x10 + 2 * i] = dsb(0x3F8A + rs());
+  if (variant.is13) { if (c[0x10] < dsb(0x3F8A + rs())) c[0x10] = dsb(0x3F8A + rs()); }   // cab: v13-3  v1.3 1933 .. 196C: the test lands on STR (+10h)
+  else if (c[0x10 + 2 * i] < dsb(0x3F8A + rs())) c[0x10 + 2 * i] = dsb(0x3F8A + rs());
   c[0x1D] = p[0x16];                                                      // 4300:196e
   c[0x73] = p[0x2D];                                                      // 4300:1981
   c[0x75] = p[0x2F];                                                      // 4300:1994  class

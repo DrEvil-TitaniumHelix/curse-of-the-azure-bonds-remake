@@ -65,18 +65,32 @@ export function unexepack(raw) {
 
 // cab: param (engine.state, recordSizes) — profile values (game/profiles/cab.json): Curse START.EXE is not EXEPACK'ed
 // (CurseAzureBondsRE decode/LAYOUT.md): the load module is the file after the 7B0h-byte header, DS = 0C1C, DS+BSS = 8F00h.
-const stateConfig = { exepack: true, headerBytes: 0, dsImageOffset: 0xC7C0, dsBytes: 0x8760 };
+// cab: v13-1 — `executable` (START.EXE / ST.EXE) and `dsMap`: a list of {from, to, length} byte copies from the unpacked
+// image's DS (offset dsImageOffset) into the v1.0 DS positions, so every v1.0 DS offset in game/ keeps working for v1.3
+// (decode/V13_DELTA.md section 2: the v1.3 image is the v1.0 image shifted by +2 / +18h). null = a straight copy (v1.0).
+const stateConfig = { exepack: true, headerBytes: 0, dsImageOffset: 0xC7C0, dsBytes: 0x8760, executable: 'START.EXE', dsMap: null };
 export function configureState(engineState, recordSizes) {
-  if (engineState) Object.assign(stateConfig, engineState);
+  if (engineState) { if (!('dsMap' in engineState)) stateConfig.dsMap = null; Object.assign(stateConfig, engineState); }   // cab: v13-1
   if (recordSizes) { CHAR_SIZE = recordSizes.TChar ?? CHAR_SIZE; ITEM_SIZE = recordSizes.item ?? ITEM_SIZE;
     EFFECT_SIZE = recordSizes.effect ?? EFFECT_SIZE; COMBAT_SIZE = recordSizes.combat ?? COMBAT_SIZE; }
 }
-function loadModule(exe) {
-  if (stateConfig.exepack) return unexepack(exe);
+export function loadModule(exe, cfg = stateConfig) {
+  if (cfg.exepack) return unexepack(exe);
   const u16 = (o) => exe[o] | (exe[o + 1] << 8);
   const size = u16(2) ? (u16(4) - 1) * 512 + u16(2) : u16(4) * 512;
   return exe.slice(u16(8) * 16, size);                       // MZ header paragraphs (e_cparhdr) .. end of the load module
 }
+// cab: v13-1 — the v1.0-shaped DS image (initialised data + zero BSS) and the whole load module from an executable file
+export function dsImageFromExe(exe, cfg = stateConfig) {
+  const img = loadModule(exe, cfg);
+  const ds = new Uint8Array(cfg.dsBytes);
+  const o = cfg.dsImageOffset;
+  if (Array.isArray(cfg.dsMap) && cfg.dsMap.length) {
+    for (const m of cfg.dsMap) ds.set(img.subarray(o + m.from, Math.min(img.length, o + m.from + m.length)), m.to);
+  } else ds.set(img.subarray(o, Math.min(img.length, o + cfg.dsBytes)));
+  return { ds, image: img };
+}
+export const stateConfigView = () => ({ ...stateConfig });
 
 export async function initState() {
   try {
@@ -84,14 +98,11 @@ export async function initState() {
     const names = await (await fetch(new URL('../state/globals.json', import.meta.url))).json();
     for (const [a, n] of Object.entries(names)) { nameOf[a] = n; addrOf[n] = a; }
   } catch (e) { console.warn('state.js: globals.json not loaded', e); }
-  const exe = await fetchFile('START.EXE');
+  const exe = await fetchFile(stateConfig.executable);       // cab: v13-1  START.EXE (v1.0) / ST.EXE (v1.3, EXEPACK)
   if (exe) {
-    const img = loadModule(exe);                             // cab: param engine.state.exepack
-    const ds = new Uint8Array(stateConfig.dsBytes);          // DS .. stack segment (initialised part + BSS)
-    const o = stateConfig.dsImageOffset;
-    ds.set(img.subarray(o, Math.min(img.length, o + stateConfig.dsBytes)));
-    store.ds = ds;
-    store.image = img;                                       // whole load module (segment s at s*16): audio.js reads 08AE
+    const { ds, image } = dsImageFromExe(exe);               // cab: param engine.state.exepack; v13-1 dsMap
+    store.ds = ds;                                           // DS .. stack segment (initialised part + BSS), v1.0 positions
+    store.image = image;                                     // whole load module (segment s at s*16): audio reads the driver segment
   }
 }
 

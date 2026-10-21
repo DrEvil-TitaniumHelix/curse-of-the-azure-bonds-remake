@@ -1,0 +1,63 @@
+{
+ "schemaVersion": 1,
+ "id": "cab-1.3",
+ "basedOn": "cab.json",
+ "title": "Curse of the Azure Bonds",
+ "version": "1.3",
+ "supported": true,
+ "proposal": "Profile OVERLAY for the WizardWorks / AD&D Collectors CD copy = Curse v1.3 (decode/V13_DELTA.md; lane cab-v13, 2026-10-21). game/plus/games.js applyOverlay() merges it over cab.json once the BYOC importer has matched the player's files to manifest-cab-1.3.json (engine/main_cab.js, requests v13-1 .. v13-4): objects merge key by key, arrays and scalars replace; the merged profile keeps id 'cab' (storage, Plus settings) and gets variant 'cab-1.3'. Every key not listed here is the v1.0 value.",
+ "manifest": {
+  "url": "../byoc/manifest-cab-1.3.json",
+  "id": "cab-1.3",
+  "requiredCount": 89,
+  "filesDelta": {
+   "replace": {"START.EXE": "ST.EXE"},
+   "note": "the other 88 names are those of cab.json; 82 of them have the v1.0 hashes"
+  }
+ },
+ "engine": {
+  "id": "cab-1.3",
+  "state": {
+   "executable": "ST.EXE",
+   "exepack": true,
+   "headerBytes": 0,
+   "dsSegment": 2750,
+   "dsImageOffset": 44000,
+   "dsBytes": 36640,
+   "dsMap": [
+    {"from": 2, "to": 0, "length": 18338},
+    {"from": 18366, "to": 18342, "length": 58}
+   ],
+   "dsMapNote": "state.js dsImageFromExe copies the v1.3 initialised image (v1.0 bytes 0000..47A1 = v1.3 0002..47A3, 47A6..47DF = 47BE..47F7) into the v1.0 positions, so every v1.0 DS offset in game/ (G.ds, globals.json, pediaSources, Plus map/pedia) keeps working; decode/v13/v13_offsets.json dataSegment.imageMap"
+  },
+  "audio": {
+   "segment": 1689,
+   "segmentBytes": 6016,
+   "variableDelta": -6,
+   "noteEntryBytes": 3,
+   "notesOnChannel0Only": true,
+   "noteOffGap": false,
+   "note": "res_0699 = v1.0 res_0713 rebuilt by TP 6: CS variables 6 bytes lower, timer code 0xF31 lower, Pool-style 3-byte note lists (decode/V13_DELTA.md 3.3); audio_cab.js configureAudio()"
+  },
+  "copyProtection": {
+   "retailCheckEnabled": true,
+   "gameOvrByte": {"offset": 19100, "retail": 116, "patched": 235},
+   "note": "the CD ships the rune-wheel check enabled (JZ 74 at GAME.OVR 0x4A9C); the engine's own flag (bypass by default, FOREMAN.md) is unchanged"
+  },
+  "behaviour": {
+   "id": "cab-1.3",
+   "note": "engine/variant.js: the v1.3 logic the areas switch on (decode/V13_DELTA.md 3.4: gaze handlers, list-menu top reset, spell-list ordering, haste/slow without the per-target hook, load/begin won-flag guard, Pool-import STR clamp)"
+  }
+ },
+ "areasDelta": {
+  "scriptsDelta": {
+   "ECL1/81": "NEW_ECL 50 after the Dagger Falls reward (v1.0: GOTO)",
+   "ECL3/18": "SAVE #01,[4C02] (v1.0 #03)",
+   "ECL4/32": "entry guard on [4CE4]",
+   "ECL5/49": "wilderness-exit guard",
+   "ECL5/50": "party position clamps + wilderness-exit guard",
+   "GEO4/32": "door bits (1,5)E -> (2,5)W"
+  },
+  "note": "the engine reads scripts and maps from the player's own DAX files, so the v1.3 records load as-is; listed for the trace/acceptance lanes (decode/v13/ECL_DIFF_V13.txt)"
+ }
+}

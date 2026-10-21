@@ -1,0 +1,71 @@
+==== ECL1_81
+@@ v1.0 93E9..93E9  v1.3 93E9..93EC  (replace)
+- 93E9               GOTO            [L]
++ 93E9                  NEW_ECL         #50
++ 93EC  db 01 01 4B 81
+@@ v1.0 9D9E..9D9E  v1.3 9DA1..9DA1  (replace)
+- 9D9E  db 1F FF 04 FF FF FF 03
++ 9DA1  db 1F FF 04 FF FF FF 00
+instructions: 753 old, 754 new, 751 equal, 2 removed, 3 added
+==== ECL3_18
+@@ v1.0 832D..832D  v1.3 832D..832D  (replace)
+- 832D         SAVE            #03, [4C02]
++ 832D         SAVE            #01, [4C02]
+instructions: 861 old, 861 new, 860 equal, 1 removed, 1 added
+==== ECL4_32
+@@ v1.0 8084..8084  v1.3 8084..8089  (replace)
+- 8084                        IF_GT
++ 8084                        IF_EQ
++ 8085               GOTO            [L]
++ 8089         SAVE            #00, [4CE4]
+@@ v1.0 9A2D..9A3D  v1.3 9A37..9A47  (replace)
+- 9A2D  db 41 52 FC 02 01 8B 9C 03 01 79 7F 00 01 16 20 00 ; AR.......y.... .
+- 9A3D  db 21 09 00 FF 01 C9 7E 01 01 45 92
++ 9A37  db 41 52 FC 02 01 95 9C 03 01 79 7F 00 01 16 20 00 ; AR.......y.... .
++ 9A47  db 21 09 00 FF 01 C9 7E 01 01 4F 92
+@@ v1.0 9CEE..9CEE  v1.3 9CF8..9CF8  (replace)
+- 9CEE  db 02
++ 9CF8  db 00
+instructions: 737 old, 739 new, 733 equal, 4 removed, 6 added
+==== ECL5_49
+@@ v1.0 8433..8433  v1.3 8433..843A  (replace)
+- 8433               GOTO            [L]
++ 8433         SAVE            #FF, [7EC9]
++ 8439                        IF_EQ
++ 843A                        EXIT
+@@ v1.0 8EBB..8EBB  v1.3 8EBF..8EBF  (replace)
+- 8EBB  db 15
++ 8EBF  db 00
+instructions: 394 old, 396 new, 392 equal, 2 removed, 4 added
+==== ECL5_50
+@@ v1.0 811D..-  v1.3 811D..8132  (insert)
++ 811D         COMPARE         [C04B], #06
++ 8123                        IF_LT
++ 8124         SAVE            #FF, [7EC9]
++ 812A                        IF_LT
++ 812B         SAVE            #0F, [C04B]
++ 8131                        IF_LT
++ 8132         SAVE            #0F, [C04C]
+@@ v1.0 84B6..84B6  v1.3 84D1..84D8  (replace)
+- 84B6               GOTO            [L]
++ 84D1         SAVE            #FF, [7EC9]
++ 84D7                        IF_EQ
++ 84D8                        EXIT
+@@ v1.0 85B5..-  v1.3 85D4..85E9  (insert)
++ 85D4         COMPARE         [C04B], #06
++ 85DA                        IF_LT
++ 85DB         SAVE            #FF, [7EC9]
++ 85E1                        IF_LT
++ 85E2         SAVE            #0F, [C04B]
++ 85E8                        IF_LT
++ 85E9         SAVE            #0F, [C04C]
+@@ v1.0 968D..968D  v1.3 96C7..96C7  (replace)
+- 968D  db 4D C0 2D 01 10 2E 02 01 3B 97 12 80 16 50 81 59 ; M.-.....;....P.Y
++ 96C7  db 4D C0 2D 01 10 2E 02 01 75 97 12 80 16 50 81 59 ; M.-.....u....P.Y
+@@ v1.0 96AD..96AD  v1.3 96E7..96E7  (replace)
+- 96AD  db 14 84 B8 02 01 3B 97 01 01 13 85
++ 96E7  db 14 84 B8 02 01 75 97 01 01 32 85
+@@ v1.0 9791..9791  v1.3 97CB..97CB  (replace)
+- 9791  db 01 02 02 02 02 03 FF 30 FF FF 32 82 FF
++ 97CB  db 01 02 02 02 02 03 FF 30 FF FF 32 82 00
+instructions: 644 old, 660 new, 640 equal, 4 removed, 20 added

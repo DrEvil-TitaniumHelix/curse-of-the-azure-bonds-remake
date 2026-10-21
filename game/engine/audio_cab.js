@@ -9,23 +9,39 @@
 
 import { G } from './state.js';
 
-const SEG = 0x0713;
+let SEG = 0x0713, SEGLEN = 0x2700;
 let seg = null;                         // Uint8Array: the 0713 segment (CS = DS for the driver routines)
 const w = (o) => seg[o] | (seg[o + 1] << 8);
 const sw = (o, v) => { seg[o] = v & 0xFF; seg[o + 1] = (v >> 8) & 0xFF; };
 const sx16 = (v) => ((v & 0xFFFF) ^ 0x8000) - 0x8000;
 
-// CS-relative variables (RESIDENT.pas.md res_0713 header)
-const V_BUSY = 0x121, V_LOOP = 0x122, V_RECSIZE = 0x123, V_SOUND = 0x148, V_CUR = 0x14A,
+// CS-relative variables (RESIDENT.pas.md res_0713 header); v1.0 values. cab: v13-2 — configureAudio() moves them by the
+// profile's `variableDelta` (v1.3: -6, segment 0699, decode/V13_DELTA.md 3.3 / decode/v13/v13_offsets.json soundDriver)
+let V_BUSY = 0x121, V_LOOP = 0x122, V_RECSIZE = 0x123, V_SOUND = 0x148, V_CUR = 0x14A,
   V_CHANBASE = 0x14C, V_NOTETAB = 0x14E, V_RET = 0x150, V_SNDIDX = 0x152, V_OUTPUT = 0x156, V_LENTAB = 0x157, V_LOUDEST = 0x30E;
-const SPK_CHANNELS = 0x176, SPK_NOTES = 0x2F6, SPK_TABLE = 0x4A8;
+let SPK_CHANNELS = 0x176, SPK_NOTES = 0x2F6, SPK_TABLE = 0x4A8;
+// cab: v13-2 — note-list format: v1.0 2-byte entries + length table, notes on any channel, noteOff = duration - gap;
+// v1.3 (= Pool's driver) 3-byte entries {channel<<5, note|end, duration}, notes on channel 0 only, noteOff = duration
+const fmt = { noteEntryBytes: 2, notesOnChannel0Only: false, noteOffGap: true };
+const V10 = { segment: 0x0713, segmentBytes: 0x2700, variableDelta: 0, noteEntryBytes: 2, notesOnChannel0Only: false, noteOffGap: true };
+export function configureAudio(cfg) {
+  const c = { ...V10, ...(cfg || {}) };
+  SEG = c.segment; SEGLEN = c.segmentBytes;
+  const d = c.variableDelta | 0;
+  [V_BUSY, V_LOOP, V_RECSIZE, V_SOUND, V_CUR, V_CHANBASE, V_NOTETAB, V_RET, V_SNDIDX, V_OUTPUT, V_LENTAB, V_LOUDEST] =
+    [0x121, 0x122, 0x123, 0x148, 0x14A, 0x14C, 0x14E, 0x150, 0x152, 0x156, 0x157, 0x30E].map((v) => v + d);
+  [SPK_CHANNELS, SPK_NOTES, SPK_TABLE] = [0x176, 0x2F6, 0x4A8].map((v) => v + d);
+  fmt.noteEntryBytes = c.noteEntryBytes; fmt.notesOnChannel0Only = !!c.notesOnChannel0Only; fmt.noteOffGap = c.noteOffGap !== false;
+  seg = null;
+  return { SEG, SEGLEN, V_BUSY, V_LENTAB, V_LOUDEST, SPK_CHANNELS, SPK_NOTES, SPK_TABLE, ...fmt };
+}
 
 export const audio = { ctx: null, osc: null, gain: null, timer: null, tickAt: 0 };
 
 function ensureSegment() {
   if (seg) return true;
   if (!G.image) return false;
-  seg = G.image.slice(SEG * 16, SEG * 16 + 0x2700);
+  seg = G.image.slice(SEG * 16, SEG * 16 + SEGLEN);
   return true;
 }
 
@@ -126,21 +142,22 @@ function finishStep(p) {                                                   // 07
 // 0713:2535 NoteList: 2-byte entries {e0 = channel (bits 7..5) + length index (bits 4..0), e1 = note (bit 7 = last, 7Fh = rest)}
 function noteList(si, di) {
   for (let guard = 0; guard < 256; guard++) {
-    const e0 = seg[di], e1 = seg[di + 1];
-    const dst = (w(V_CHANBASE) + (e0 >> 5) * seg[V_RECSIZE]) & 0xFFFF;    // 0713:2539
-    let t = seg[si + 0x0E]; if (t === 0) t = 1;                            // 0713:254c  Lo(tempo)
-    sw(si, t * seg[V_LENTAB + (e0 & 0x1F)]);                               // 0713:2555  quirk: indexes 19..31 read the jump table
+    const e0 = seg[di], e1 = seg[di + 1], ch = e0 >> 5;
+    const dst = (w(V_CHANBASE) + ch * seg[V_RECSIZE]) & 0xFFFF;            // 0713:2539
+    let t = seg[si + 0x0E];                                                // 0713:254c  Lo(tempo)
+    if (fmt.noteEntryBytes === 3) sw(si, t <= 1 ? seg[di + 2] : (t * seg[di + 2]) & 0xFFFF);   // cab: v13-2  0699:161C .. 162D duration byte
+    else { if (t === 0) t = 1; sw(si, t * seg[V_LENTAB + (e0 & 0x1F)]); }  // 0713:2555  quirk: indexes 19..31 read the jump table
     let n = e1 & 0x7F;                                                     // 0713:255d
-    if (n !== 0x7F) {                                                      // 0713:2562
+    if (n !== 0x7F && !(fmt.notesOnChannel0Only && ch !== 0)) {           // 0713:2562; cab: v13-2 0699:1639 channel 0 only
       sw(dst, w(si));                                                      // 0713:2567
-      sw(dst + 0x14, w(si) - w(dst + 0x10));                               // 0713:256b  noteOff = duration - gap
+      sw(dst + 0x14, fmt.noteOffGap ? w(si) - w(dst + 0x10) : w(si));      // 0713:256b  noteOff = duration - gap; v13-2: no gap (0699:1642)
       n = (n + w(dst + 0x12)) & 0xFFFF;                                    // 0713:2571  transpose
       sw(dst + 0x18, 0); sw(dst + 0x1A, 1);                                // 0713:2574  attack
       const oct = Math.floor(n / 12); n %= 12;                             // 0713:257e
       const pitch = w(w(V_NOTETAB) + n * 2) >> oct;                        // 0713:2595
       sw(dst + 4, pitch); sw(dst + 8, pitch);
     }
-    di += 2;
+    di += fmt.noteEntryBytes;                                              // cab: v13-2  0699:167A / 167B inc di; inc di
     if (e1 & 0x80) break;                                                  // 0713:25a3
   }
   finishStep(di);

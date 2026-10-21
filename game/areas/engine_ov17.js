@@ -10,6 +10,7 @@ import { HorizontalMenu, AskYesNo, ClearMenuLine } from '../engine/menus_cab.js'
 import { TerminateGame } from '../engine/input.js';
 import { ParamStr } from '../engine/tp.js';
 import { dev } from '../engine/dev.js';
+import { variant } from '../engine/variant.js';            // cab: v13-3
 import { X } from './view_link.js';
 import { CreateCharacter } from './engine_ov17_create.js';
 import { DropCharacterForever, ModifyCharacter, AddCharacterMenu, RemovePartyMember } from './engine_ov17_edit.js';
@@ -92,7 +93,7 @@ export async function PartyCreationMenu() {
       case 'L':
         if (on(8)) {                                              // 4800:0548
           await X.LoadGame();                                     // 4800:054f
-          if (G.ecl_Mem4B00[0x3FA >> 1] !== 0) {                  // 4800:0558  VM word 4CFD
+          if (!variant.is13 && G.ecl_Mem4B00[0x3FA >> 1] !== 0) { // 4800:0558  VM word 4CFD; cab: v13-3 removed in v1.3 (01CC)
             await ShowBottomPromptAndReadKey(0x0E, 0, "You've already defeated Tyranthraxus.");   // 4800:0575
             await TerminateGame();                                // 4800:057a
           }
@@ -100,7 +101,8 @@ export async function PartyCreationMenu() {
         break;
       case 'S': if (on(9) && G.PartyList) await X.SaveGame(); break;                        // 4800:0586 / 0596
       case 'B':
-        if (on(10) && (G.PartyList || G.DemoMode)) {              // 4800:05a2 .. 05b2
+        // cab: v13-3 — v1.3 0569 .. 058C: Begin only with a party whose game-won flag (VM 4CFD) is clear, or in the demo
+        if (on(10) && (variant.is13 ? ((G.PartyList && G.ecl_Mem4B00[0x3FA >> 1] === 0) || G.DemoMode) : (G.PartyList || G.DemoMode))) {   // 4800:05a2 .. 05b2
           G.view_Mode = savedMode;                                // 4800:05b9
           if (!G.Resuming && G.anim_Id !== 0x50) {                // 4800:05bf / 05c6
             if (G.view_Mode === 3) FrameWithTextBar(); else FrameExplore();   // 4800:05cd .. 05db

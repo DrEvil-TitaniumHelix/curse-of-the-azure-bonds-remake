@@ -3,7 +3,9 @@ RELEASE.md rule 4, rulings PR-2 A / PR-3, CR-1 A).
 
 Usage: python -I tools/public_gate.py REPO [--originals DIR] [--workspace DIR] [--json OUT]
   REPO         the candidate (a git repo): every blob of `git rev-list --all --objects` (the tree of HEAD is a subset)
-  --originals  the player's v1.0 folder, read only (default env CAB_DATA or re-targets/goldbox/cotab/curazure next to the repos)
+  --originals  an original game folder, read only; may be given more than once (default: env CAB_DATA or
+               re-targets/goldbox/cotab/curazure = the owner's v1.0 copy, plus the v1.3 CD copy
+               re-targets/goldbox/adnd-collectors-cd/WIZWORKS/CURSE when it exists; cab-v13)
   --workspace  this RE workspace, for the hashes of its own derived material (renders, saves, decode/bin extracts)
 
 FAIL (exit 1) when any of these is found:
@@ -45,16 +47,27 @@ SECRET_RX = [('e-mail', re.compile(rb'[\w.+-]+@(?!users\.noreply\.github\.com|an
 JOURNAL_HEAD = re.compile(rb'(?im)^\s*(?:journal\s+)?entry\s+\d{1,3}[.:]?\s*$')
 
 
-def originals(orig_dir, ws):
-    """name -> bytes: every original file (recursive) and every decoded DAX record (Curse's START.EXE is not EXEPACKed)"""
+def originals(orig_dirs, ws):
+    """name -> bytes: every original file (recursive) and every decoded DAX record, over every folder given (cab-v13: the
+    v1.0 owner copy and the v1.3 CD copy; keys carry the folder index when there is more than one). v1.3's ST.EXE is
+    EXEPACK packed: its unpacked image is indexed too (decode/tools/unexepack.py), so neither form may leak."""
     sys.path.insert(0, os.path.join(ws, 'decode', 'tools'))
     import dax  # noqa: E402
     out = {}
-    for root, _, files in os.walk(orig_dir):
-        for f in files:
-            p = os.path.join(root, f)
-            with open(p, 'rb') as fh:
-                out[os.path.relpath(p, orig_dir).replace('\\', '/').upper()] = fh.read()
+    dirs = list(orig_dirs) if isinstance(orig_dirs, (list, tuple)) else [orig_dirs]
+    for i, orig_dir in enumerate(dirs):
+        pre = '' if len(dirs) == 1 else f'{i}:'
+        for root, _, files in os.walk(orig_dir):
+            for f in files:
+                p = os.path.join(root, f)
+                with open(p, 'rb') as fh:
+                    out[pre + os.path.relpath(p, orig_dir).replace('\\', '/').upper()] = fh.read()
+                if f.upper() == 'ST.EXE':
+                    try:
+                        import unexepack  # noqa: E402
+                        out[pre + 'ST.EXE:UNPACKED'] = unexepack.unpack(out[pre + 'ST.EXE'])[0]
+                    except Exception as e:  # noqa: BLE001
+                        print('warning: ST.EXE not unpacked for the gate:', e)
     for name in [n for n in out if n.endswith('.DAX')]:
         data = out[name]
         try:
@@ -92,14 +105,15 @@ def derived_hashes(orig, ws):
                         hs.setdefault(hashlib.sha256(fh.read()).hexdigest(), 'workspace:' + os.path.relpath(p, ws).replace('\\', '/'))
                 except OSError:
                     pass
-    try:                                               # the BYOC manifest's own list of original-file hashes
-        man = json.load(open(os.path.join(ws, 'game', 'byoc', 'manifest-cab-1.0.json'), encoding='utf-8'))
-        for name, f in man.get('files', {}).items():
-            for k in ('sha256', 'sha256Patched', 'sha256Retail'):
-                if isinstance(f.get(k), str):
-                    hs.setdefault(f[k].lower(), 'manifest:' + name)
-    except (OSError, ValueError):
-        pass
+    for mf in ('manifest-cab-1.0.json', 'manifest-cab-1.3.json'):   # the BYOC manifests' lists of original-file hashes (cab-v13: both)
+        try:
+            man = json.load(open(os.path.join(ws, 'game', 'byoc', mf), encoding='utf-8'))
+            for name, f in man.get('files', {}).items():
+                for k in ('sha256', 'sha256Patched', 'sha256Retail'):
+                    if isinstance(f.get(k), str):
+                        hs.setdefault(f[k].lower(), 'manifest:' + name)
+        except (OSError, ValueError):
+            pass
     return hs
 
 
@@ -164,12 +178,20 @@ def git(repo, *a, data=None):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('repo')
-    ap.add_argument('--originals', default=os.environ.get('CAB_DATA', os.path.join(os.path.dirname(WS_DEFAULT), 're-targets', 'goldbox', 'cotab', 'curazure')))
+    ap.add_argument('--originals', action='append')
     ap.add_argument('--workspace', default=WS_DEFAULT)
     ap.add_argument('--json')
     a = ap.parse_args()
-    if not os.path.isfile(os.path.join(a.originals, 'START.EXE')):
-        sys.exit(f'originals not found: {a.originals} (START.EXE missing); the gate needs the player copy to compare against')
+    if not a.originals:                                  # cab-v13: default = the v1.0 owner copy + the v1.3 CD copy when present
+        rt = os.path.join(os.path.dirname(WS_DEFAULT), 're-targets', 'goldbox')
+        a.originals = [os.environ.get('CAB_DATA', os.path.join(rt, 'cotab', 'curazure'))]
+        cd = os.environ.get('CAB_V13_DATA', os.path.join(rt, 'adnd-collectors-cd', 'WIZWORKS', 'CURSE'))
+        if os.path.isfile(os.path.join(cd, 'ST.EXE')):
+            a.originals.append(cd)
+    for d in a.originals:
+        if not (os.path.isfile(os.path.join(d, 'START.EXE')) or os.path.isfile(os.path.join(d, 'ST.EXE'))):
+            sys.exit(f'originals not found: {d} (START.EXE / ST.EXE missing); the gate needs the player copy to compare against')
+    print('originals folders:', ', '.join(os.path.relpath(d, WS_DEFAULT).replace(os.sep, '/') for d in a.originals))
     orig = originals(a.originals, a.workspace)
     idx = build_index(orig)
     hashes = derived_hashes(orig, a.workspace)

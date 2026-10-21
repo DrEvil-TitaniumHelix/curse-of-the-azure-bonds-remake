@@ -1,0 +1,191 @@
+{
+ "route": "run1",
+ "profile": "cab-1.3",
+ "seed": 169084438,
+ "summary": {
+  "expect": null,
+  "checkpoints": 6,
+  "idle": true,
+  "events": 92,
+  "text": "8 same + 0 computed of 8, 0 mismatches",
+  "flags": "12 of 21 writes on an operand of their instruction, 9 by engine routines during it (4BC5 3D map id: LOAD FILES 2200:0C15; 4CFF force-animation cell: HorizontalMenu 6800:07a8; 7EC9: ExploreCommand 3f00:0911), 0 unexplained"
+ },
+ "saves": {
+  "SAVGAMB.DAT": {
+   "size": [
+    13149,
+    13149
+   ],
+   "differing": 239,
+   "first": [
+    "321f",
+    "3220",
+    "3221",
+    "3222",
+    "3223",
+    "3224",
+    "3225",
+    "3226",
+    "3227",
+    "3228",
+    "3229",
+    "322a"
+   ]
+  },
+  "CHRDATB1.SAV": {
+   "size": [
+    422,
+    422
+   ],
+   "differing": 3,
+   "first": [
+    "f2",
+    "f4",
+    "f5"
+   ]
+  },
+  "CHRDATB1.FX": {
+   "size": [
+    27,
+    27
+   ],
+   "differing": 6,
+   "first": [
+    "5",
+    "7",
+    "8",
+    "e",
+    "10",
+    "11"
+   ]
+  }
+ },
+ "checkpoints": [
+  {
+   "label": "top menu",
+   "idle": true,
+   "state": {
+    "dataset": 2,
+    "x": 7,
+    "y": 13,
+    "dir": 0,
+    "viewMode": 0,
+    "clock": null,
+    "party": [],
+    "cells": null
+   },
+   "expect": null
+  },
+  {
+   "label": "party of one",
+   "idle": true,
+   "state": {
+    "dataset": 2,
+    "x": 7,
+    "y": 13,
+    "dir": 0,
+    "viewMode": 0,
+    "clock": null,
+    "party": [],
+    "cells": null
+   },
+   "expect": null
+  },
+  {
+   "label": "begin: start room 7,13 E",
+   "idle": true,
+   "state": {
+    "block": 1,
+    "dataset": 2,
+    "x": 7,
+    "y": 13,
+    "dir": 2,
+    "viewMode": 4,
+    "clock": "00:00",
+    "party": [
+     "ALPHA hp 44/44 AC 8"
+    ],
+    "cells": {
+     "4BF2 block": 1,
+     "4BE6 3D": 1,
+     "4BC5 map": 1,
+     "7F3E party": 1,
+     "7F12 dataset": 2
+    }
+   },
+   "expect": null
+  },
+  {
+   "label": "area map on / off",
+   "idle": true,
+   "state": {
+    "block": 1,
+    "dataset": 2,
+    "x": 7,
+    "y": 13,
+    "dir": 2,
+    "viewMode": 4,
+    "clock": "00:00",
+    "party": [
+     "ALPHA hp 44/44 AC 8"
+    ],
+    "cells": {
+     "4BF2 block": 1,
+     "4BE6 3D": 1,
+     "4BC5 map": 1,
+     "7F3E party": 1,
+     "7F12 dataset": 2
+    }
+   },
+   "expect": null
+  },
+  {
+   "label": "camp",
+   "idle": true,
+   "state": {
+    "block": 1,
+    "dataset": 2,
+    "x": 7,
+    "y": 13,
+    "dir": 2,
+    "viewMode": 2,
+    "clock": "00:00",
+    "party": [
+     "ALPHA hp 44/44 AC 8"
+    ],
+    "cells": {
+     "4BF2 block": 1,
+     "4BE6 3D": 1,
+     "4BC5 map": 1,
+     "7F3E party": 1,
+     "7F12 dataset": 2
+    }
+   },
+   "expect": null
+  },
+  {
+   "label": "save B",
+   "idle": true,
+   "state": {
+    "block": 1,
+    "dataset": 2,
+    "x": 7,
+    "y": 13,
+    "dir": 2,
+    "viewMode": 2,
+    "clock": "00:00",
+    "party": [
+     "ALPHA hp 44/44 AC 8"
+    ],
+    "cells": {
+     "4BF2 block": 1,
+     "4BE6 3D": 1,
+     "4BC5 map": 1,
+     "7F3E party": 1,
+     "7F12 dataset": 2
+    }
+   },
+   "expect": null
+  }
+ ]
+}

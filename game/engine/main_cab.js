@@ -14,8 +14,9 @@ import { G, initState, configureState } from './state.js';
 import { configureFiles } from './files.js';
 import { dev } from './dev.js';
 import { installErrorTrap, reportError, errorKeys } from './errors.js';
-import { PlayOrStopSound, soundKey } from './audio_cab.js';
+import { PlayOrStopSound, soundKey, configureAudio } from './audio_cab.js';
 import { hooks } from '../plus/hooks.js';
+import { variant } from './variant.js';                                 // cab: v13-3 the version behaviour switch
 
 async function optionalImport(path) {
   try { return await import(path); } catch (e) {
@@ -255,7 +256,16 @@ export async function MainProgram(canvas, { profile } = {}) {
     byoc.configure(profile);                                                           // cab: PER-5
     const response = await fetch(profileResource(profile, profile.manifest.url));
     if (!response.ok) throw new Error('Profile manifest unavailable');
-    byoc.setManifest(await response.json());
+    // cab: v13-4 — every version's manifest (the base profile's and each overlay's); the importer picks the matching one
+    const { loadOverlays, applyOverlay } = await import('../plus/games.js');
+    const overlays = (await loadOverlays().catch((e) => { console.warn('profile overlays: ' + e.message); return []; }))
+      .filter((o) => o.basedOn === profile.url.split('/').pop());
+    const manifests = [await response.json()];
+    for (const o of overlays) {
+      const r = await fetch(new URL(o.manifest.url, o.url));
+      if (r.ok) manifests.push(await r.json()); else console.warn('overlay manifest unavailable: ' + o.manifest.url);
+    }
+    byoc.setManifests(manifests);
     keyState.curse = true; keyState.demo = () => !!G.DemoMode;                        // cab: PER-9
     keyState.onKeyHook = keyHook; keyState.onTerminateGame = TerminateGameCab;
     hooks.configure(profile.plus);                                                     // cab: param — record layout, VM cells
@@ -268,6 +278,20 @@ export async function MainProgram(canvas, { profile } = {}) {
     script.keys = dev.keys.slice(); script.readyWhenIdle = dev.target === 'idle';
     window.E = { pic, G, dev, profile, input: await import('./input.js'), files: await import('./files.js') };   // dev inspection (headless runs)
     if (!(await openGameFiles(byoc))) throw new Error('The game files are not imported (BYOC).');
+    // cab: v13-1 — the player's files matched another version's manifest: apply that version's profile overlay
+    // (game/profiles/cab-1.3.json over cab.json): executable, EXEPACK, DS map, sound segment, behaviour switch
+    const am = byoc.activeManifest();
+    if (am && am.id !== profile.manifest.id) {
+      const o = overlays.find((x) => x.manifest && x.manifest.id === am.id);
+      if (!o) throw new Error(`No profile for the imported version (manifest ${am.id})`);
+      profile = applyOverlay(profile, o);
+      configureState(profile.engine.state, profile.recordSizes);
+      byoc.configure(profile); byoc.setManifests(manifests);
+      window.E.profile = profile;
+      console.log(`BYOC: ${am.id} -> profile overlay ${profile.variant}`);
+    }
+    variant.set(profile.engine.behaviour && profile.engine.behaviour.id);             // cab: v13-3
+    configureAudio(profile.engine.audio);                                              // cab: v13-2
     const ui = await optionalImport('../byoc/ui/byoc-ui.js');                          // BY-5 gear + gamepad Menu
     if (ui && ui.mountSettings) { try { ui.mountSettings(byoc); } catch (e) { console.warn('BYOC ui: ' + e.message); } }
     // Gold Box Plus (plus request #5, cab-plus-shell; as Pool engine/main.js 152..159): the panel (F12 / gear / pad Menu)

@@ -1,0 +1,9 @@
+{
+ "id": "d-S056",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}pa{Enter}ldb{Left}{Left}{Up}",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/d-S056.png",
+ "sha256": "0858be9101980889ed2dcc18dc7f9b6307b577bb30d8d9a398adb68d136f83f0",
+ "utc": "2026-10-20T19:07:42.268Z"
+}

@@ -1,0 +1,9 @@
+{
+ "id": "r2-import",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}LDAP",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r2-import.png",
+ "sha256": "de4ee46c88983e419075cf2fe6620cd41f22d4b0314f0738d30e50a37481343b",
+ "utc": "2026-10-20T18:46:23.875Z"
+}

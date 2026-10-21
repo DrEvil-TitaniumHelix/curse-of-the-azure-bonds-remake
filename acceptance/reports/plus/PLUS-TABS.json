@@ -1,0 +1,185 @@
+{
+ "id": "PLUS-TABS",
+ "utc": "2026-10-21T08:52:02.508Z",
+ "results": [
+  {
+   "id": "status",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "status",
+    "text": "StatusSave slotSession (not saved)PlaceECL2/1: 3D map 1, square (7, 13), facing EastGame time00:00, day 0, month 0, year 0Active helpersAutomapPartyCharacterHPA"
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-status.png",
+   "sha256": "70346eaaad0b92e95c46419c623f40d4f222e7bb59bc55c8df8669b003fbe00e"
+  },
+  {
+   "id": "keys",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "keys",
+    "text": "KeysCurrent game menuKeyActionAAreaCCastVViewEEncampSSearchLLookEnterConfirm the highlighted optionUpMove forwardLeft / RightTurn left / rightDownTurn aroundF12"
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-keys.png",
+   "sha256": "e1599c697b2406bc8264d3f7b2f1d844ab8250585c9e9920a0a4d7734f0d2db5"
+  },
+  {
+   "id": "about",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "about",
+    "text": "Gold Box Plus for Curse of the Azure Bonds: optional helpers on top of the faithful engine. \"Play the original game\" turns every addition off.Built on Gold Box "
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-about.png",
+   "sha256": "c76103c5634bcc1d2a495dae46e152009760befec99aa1c0ad2eb6f38a09b35a"
+  },
+  {
+   "id": "journal",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "journal",
+    "text": "JournalSave slot unsaved. 4 notes.Journal entries the game has citedNo journal entry has been cited in this save slot yet. Entries appear here when the game tel"
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-journal.png",
+   "sha256": "fc6bb13ccf80b1f7a95c451299dde6c463d1e9f773fde24a684a70a8363fd8cb"
+  },
+  {
+   "id": "map",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "map",
+    "text": "MapZoom  100%Refresh current areaECL2/1 — 3D map 1, 16 × 16, north up1 cells visited in save slot unsaved. Unvisited cells are hidden. Gold arrow: party and fac"
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-map.png",
+   "sha256": "ad34b057615c4d95c38e6de4b72ebddc6cdd06b9b5d056b02e89e803ed5ba1ea"
+  },
+  {
+   "id": "pedia",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "pedia",
+    "text": "Gold Box-pediaAllMonstersPeopleItemsItem typesSpellsPlacesReading your imported game files…How to read these entriesDiscoveries and save slotsMonster recordsIte"
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-pedia.png",
+   "sha256": "89d7aa830192a648a7528cf7be764bbcdbf2235e2b7614555a1334d25d2c26b3"
+  },
+  {
+   "id": "quests",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "quests",
+    "text": "QuestsNo quests met yet. A quest appears here once the game offers it or records progress on it."
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-quests.png",
+   "sha256": "a49d4adc3266bb019fa490baac3d52decc837f71480d5102a175443da7a35bd5"
+  },
+  {
+   "id": "notes",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "journal",
+    "text": "JournalSave slot unsaved. 5 notes.Journal entries the game has citedNo journal entry has been cited in this save slot yet. Entries appear here when the game tel"
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-notes.png",
+   "sha256": "d3ca6b8ad237b88ae3267e2ccf10b3a02aa728b355f34c6bd0265a50ba951a45"
+  },
+  {
+   "id": "hint",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "where": "below",
+    "position": "fixed",
+    "hint": [
+     388,
+     639,
+     224,
+     22
+    ],
+    "frame": [
+     20,
+     35,
+     960,
+     600
+    ],
+    "viewport": [
+     1000,
+     700
+    ],
+    "canvasUnchanged": true
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-hint.png",
+   "sha256": "75b416a364ea3e3855d156f74f789481ff95da41c9899db9e0d909e3bb0d3b95"
+  },
+  {
+   "id": "dev",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "cheats",
+    "text": "Cheats (developer tools)Scenario Start selected scenarioor a JSON file Party (current game)Teleportx y facing NESWdata set block TeleportClockhour minute day mo",
+    "visible": [
+     "status",
+     "quests",
+     "journal",
+     "pedia",
+     "map",
+     "helpers",
+     "keys",
+     "cheats",
+     "scenario",
+     "games",
+     "about"
+    ]
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-dev.png",
+   "sha256": "c38a7a01edc6d8cc6953ffdebe915870144307ba591621842c3310a5023a5bec"
+  },
+  {
+   "id": "frame",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "where": "below",
+    "position": "fixed",
+    "hint": [
+     208,
+     289,
+     224,
+     22
+    ],
+    "frame": [
+     160,
+     85,
+     320,
+     200
+    ],
+    "viewport": [
+     640,
+     400
+    ],
+    "canvasUnchanged": true
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-frame.png",
+   "sha256": "0ea78072541470e0bff2ef4e33257d211ed05ce114fc68f2d9d1130584cf7c20"
+  }
+ ]
+}

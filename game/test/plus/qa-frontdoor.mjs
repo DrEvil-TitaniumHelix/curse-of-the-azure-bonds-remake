@@ -1,0 +1,15 @@
+import {productionSnapshot} from './qa-source.mjs';
+import {mkdtempSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {writeFileSync,readFileSync,mkdirSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+const command=new URL('./integrate-frontdoor.mjs',import.meta.url);
+const snapshot=productionSnapshot(),temp=mkdtempSync(join(tmpdir(),'gbp-qa-frontdoor-'));
+const copy=new URL('../../../acceptance/local/qa-frontdoor-'+process.pid+'.mjs',import.meta.url);mkdirSync(new URL('../../../acceptance/local/',import.meta.url),{recursive:true});
+const base=(process.env.GAME_URL||'http://127.0.0.1:8188/index.html').replace(/\/index\.html$/,'');
+const source=readFileSync(command,'utf8').replaceAll('http://127.0.0.1:8188',base).replace("'../../../acceptance/runlock.mjs'",JSON.stringify(new URL('../../../acceptance/runlock.mjs',import.meta.url).href));writeFileSync(copy,source);
+const result=spawnSync(process.execPath,[fileURLToPath(copy)],{encoding:'utf8',env:{...process.env,TEMP:temp,TMP:temp}});
+process.stdout.write(result.stdout||'');process.stderr.write(result.stderr||'');
+writeFileSync(new URL('../../../acceptance/plus/reports/QA-FRONTDOOR.json',import.meta.url),JSON.stringify({qa:{...snapshot,stableProduction:snapshot.productionSha256===productionSnapshot().productionSha256},name:'QA-FRONTDOOR',pass:result.status===0,command:'node game/test/plus/integrate-frontdoor.mjs',exitCode:result.status,summary:'Actual index selection, dev=1, Helpers developer setting and original-mode gate'},null,2)+'\n');process.exitCode=result.status??1;

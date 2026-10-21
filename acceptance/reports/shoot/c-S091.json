@@ -1,0 +1,9 @@
+{
+ "id": "c-S091",
+ "url": "http://127.0.0.1:8189/index.html?screen=S091&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{End}{End}{End}{End}{End}{Enter}{Enter}{Enter}{Enter}NBETA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}EMM{Home}{Home}{Home}{Home}{Home}{Home}{Enter}{Enter}EEYRR",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/c-S091.png",
+ "sha256": "46314420556adf9ee60d1e7550a1273ba990720caf394e1a4e01a4a5b7267d80",
+ "utc": "2026-10-20T19:01:45.617Z"
+}

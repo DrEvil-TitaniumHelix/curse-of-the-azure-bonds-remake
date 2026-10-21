@@ -1,0 +1,58 @@
+{
+ "case": "retail74",
+ "folder": "acceptance/local/byoc/retail74",
+ "url": "http://127.0.0.1:8190/index.html?screen=S010&fast=4",
+ "steps": [
+  {
+   "id": "BY-1",
+   "shown": true,
+   "shot": "acceptance/local/byoc/shots/retail74-1-BY1.png",
+   "sha256": "651ae1e0ff8d3821ff4babd734f7f6e188748b48e28da217593974534ced6f53"
+  },
+  {
+   "id": "picker",
+   "mode": "selectMultiple",
+   "picked": "acceptance/local/byoc/retail74"
+  },
+  {
+   "id": "BY-3",
+   "checked": true,
+   "report": {
+    "ok": true,
+    "manifestId": "cab-1.0",
+    "okCount": 89,
+    "requiredCount": 89,
+    "likelyOtherVersion": false,
+    "gameOvr": "match",
+    "variant": "retail",
+    "bad": [],
+    "saves": 0
+   },
+   "shot": "acceptance/local/byoc/shots/retail74-2-BY3.png",
+   "sha256": "f37a26090d0bf898bdeafcdb827387d43e7fa0603479f203cc0b6093b0a0f9de"
+  },
+  {
+   "id": "S010",
+   "ready": true,
+   "dataRequests": [],
+   "idb": {
+    "stores": [
+     "files",
+     "meta"
+    ]
+   },
+   "shot": "acceptance/local/byoc/shots/retail74-3-S010.png",
+   "sha256": "2568ef73ac672e0350205ab06cd321ee444e0d5b3dfeca4f44bbdf819f7bd61d"
+  },
+  {
+   "id": "reload-S010",
+   "ready": true,
+   "by1Shown": false,
+   "shot": "acceptance/local/byoc/shots/retail74-4-reload-S010.png",
+   "sha256": "2568ef73ac672e0350205ab06cd321ee444e0d5b3dfeca4f44bbdf819f7bd61d"
+  }
+ ],
+ "utc": "2026-10-21T06:12:11.603Z",
+ "result": "accepted",
+ "errors": []
+}

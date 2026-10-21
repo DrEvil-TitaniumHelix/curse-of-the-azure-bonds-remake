@@ -1,0 +1,117 @@
+{
+  "name": "GBP-HELPERS-1",
+  "query": "save=testparty&force=1&sting=1&seed=7&fast=4",
+  "steps": [
+    {
+      "name": "menu",
+      "keys": ""
+    },
+    {
+      "name": "load-C",
+      "keys": "LC"
+    },
+    {
+      "name": "begin",
+      "keys": "B"
+    },
+    {
+      "name": "tour",
+      "keys": "{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}",
+      "ms": 90000
+    },
+    {
+      "name": "helpers-toggles",
+      "keys": "",
+      "probe": "(async()=>{\n const {startHelpers}=await import('/plus/helpers/index.js');const plus=window.goldBoxPlus;await plus.ready;\n const names=['tooltips','combatLog','quicksave','autosave','spellPresets','margins','crispFont'];\n for(const k of names)await plus.setSetting(k,false);\n const h=await startHelpers(plus,{pedia:{get revealed(){return window.__testRevealed||new Map();}}});\n const game=document.getElementById('screen'),frame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));\n const ids=['por-plus-crisp','por-plus-combatlog','por-plus-tooltip'],none=()=>ids.every(i=>!document.getElementById(i));\n await frame();const A=game.toDataURL(),W=game.style.width,r={offClean:none()};\n await plus.setSetting('crispFont',true);await frame();await frame();const cr=document.getElementById('por-plus-crisp');\n r.crisp=!!cr&&Number(cr.dataset.cells)>10;r.crispCells=cr&&cr.dataset.cells;r.crispCanvasSame=game.toDataURL()===A;\n await plus.setSetting('crispFont',false);r.crispOff=!document.getElementById('por-plus-crisp');\n await plus.setSetting('margins',true);r.marginsScaleSet=game.dataset.plusScale==='1';await plus.setSetting('margins',false);r.marginsOff=game.style.width===W&&!game.dataset.plusScale;const H=game.style.height,big=(await import('/plus/helpers/margins.js')).createMargins({canvas:game,viewport:()=>({w:1280,h:800})});big.set(true);r.marginsOn1280=game.style.width;big.set(false);r.marginsOff1280=game.style.width;game.style.width=W;game.style.height=H;r.margins=r.marginsScaleSet&&r.marginsOff&&r.marginsOn1280==='960px'&&r.marginsOff1280==='1280px';\n await plus.setSetting('tooltips',true);const rc=game.getBoundingClientRect(),cell=(c,row)=>[rc.left+(c+.5)*rc.width/40,rc.top+(row+.5)*rc.height/25];\n const line=(await import('/plus/helpers/textcells.js')).lineText((await import('/plus/helpers/textcells.js')).readScreen(window.E.pic.display.pix,(await (await import('/plus/helpers/textcells.js')).engineScreen()).table())[24]);\n const col=line.toUpperCase().indexOf('ENCAMP');r.menuLine=line.trim();\n h.helpers.tooltips.hoverAt(...cell(col+1,24));r.tipHiddenUnrevealed=!document.getElementById('por-plus-tooltip')||document.getElementById('por-plus-tooltip').hidden;\n window.__testRevealed=new Map([['test:encamp',{id:'test:encamp',name:'Encamp',kind:'how-to',stats:{Note:'test entry'}}]]);\n h.helpers.tooltips.hoverAt(...cell(col+1,24));const tip=document.getElementById('por-plus-tooltip');r.tip=!!tip&&!tip.hidden&&tip.dataset.entry==='test:encamp';\n h.helpers.tooltips.hoverAt(...cell(2,10));r.tipHidesElsewhere=tip.hidden;window.__testRevealed=new Map();\n await plus.setSetting('tooltips',false);r.tipOff=!document.getElementById('por-plus-tooltip');\n await plus.setSetting('quicksave',true);dispatchEvent(new KeyboardEvent('keydown',{key:'F5'}));r.quickMsg=document.getElementById('por-plus-toast')?.textContent;\n await plus.setSetting('quicksave',false);\n await plus.setSetting('combatLog',true);r.logPanel=!!document.getElementById('por-plus-combatlog');\n await plus.setSetting('combatLog',false);r.logOff=!document.getElementById('por-plus-combatlog');\n await frame();r.allOffCanvasSame=game.toDataURL()===A&&none()&&game.style.width===W;\n await plus.setSetting('combatLog',true);\n const ok=r.offClean&&r.crisp&&r.crispCanvasSame&&r.crispOff&&r.margins&&r.tipHiddenUnrevealed&&r.tip&&r.tipHidesElsewhere&&r.tipOff&&/hooks request #16/.test(r.quickMsg||'')&&r.logPanel&&r.logOff&&r.allOffCanvasSame;\n if(!ok)console.error('HELPERS FAIL toggles',JSON.stringify(r));return {pass:!!ok,...r};\n})()"
+    },
+    {
+      "name": "encamp",
+      "keys": "E"
+    },
+    {
+      "name": "select-alys",
+      "keys": "{End}{End}"
+    },
+    {
+      "name": "magic",
+      "keys": "M"
+    },
+    {
+      "name": "cast-list",
+      "keys": "C"
+    },
+    {
+      "name": "highlight-clw",
+      "keys": "{End}{End}"
+    },
+    {
+      "name": "cast-clw",
+      "keys": "C"
+    },
+    {
+      "name": "on-whom",
+      "keys": "S"
+    },
+    {
+      "name": "cast-list-exit",
+      "keys": "E"
+    },
+    {
+      "name": "preset-apply",
+      "keys": "",
+      "probe": "(async()=>{\n const plus=window.goldBoxPlus,h=window.goldBoxPlusHelpers.helpers,{hooks}=await import('/plus/hooks.js'),{script}=await import('/engine/input.js');\n const {memorised}=await import('/plus/helpers/presets.js');const alys=()=>hooks.state.party({withRecord:true}).find(c=>c.name==='ALYS');\n const before=memorised(alys().record,window.E.G.ds),sel=hooks.state.party().find(c=>c.selected)?.name;\n await plus.setSetting('spellPresets',true);\n const {createStore}=await import('/plus/store.js');await createStore({profile:'por',slot:'helpers'}).set('spellPresets',{ALYS:['Cure Light Wounds']});\n window.__lists=[];hooks.on('listDrawn',p=>window.__lists.push({index:p.index,top:p.top,n:p.items.length,items:p.items.map(i=>(i.header?'#':'')+i.text).join('|')}));await h.presets.apply();\n for(let i=0;i<120&&(script.keys.length||h.presets.job);i++)await new Promise(r=>setTimeout(r,100));\n await new Promise(r=>setTimeout(r,1500));\n const after=memorised(alys().record,window.E.G.ds),raw=[...alys().record.subarray(0x17,0x17+21)].filter(Boolean);\n const ok=sel==='ALYS'&&after.length===before.length+1&&after.filter(s=>s==='Cure Light Wounds').length===before.filter(s=>s==='Cure Light Wounds').length+1;\n await plus.setSetting('spellPresets',false);\n if(!ok)console.error('HELPERS FAIL presets',JSON.stringify({sel,before,after,raw,left:script.keys.length,job:h.presets.job}));\n return {pass:ok,selected:sel,before,after,raw,lists:window.__lists};})()",
+      "ms": 60000
+    },
+    {
+      "name": "magic-exit",
+      "keys": "E"
+    },
+    {
+      "name": "camp-exit",
+      "keys": "E",
+      "probe": "(async()=>{const {hooks}=await import('/plus/hooks.js');const m=hooks.regions().find(r=>r.id==='hmenu');return {menu:(m?.draw?.items||[]).map(i=>i.label).join('|')};})()"
+    },
+    {
+      "name": "walk-until-encounter",
+      "keys": "{Up}{Up}{Right}{Up}{Left}",
+      "until": "(e => e.g_84E9 === 1 || e.g_49F3 === 5)((await import('/areas/ecl_host.js')).eclG)",
+      "repeat": 40,
+      "ms": 40000
+    },
+    {
+      "name": "combat-choice",
+      "keys": "C",
+      "until": "(e => e.g_49F3 === 5)((await import('/areas/ecl_host.js')).eclG)",
+      "repeat": 3,
+      "ms": 60000
+    },
+    {
+      "name": "quick-until-done",
+      "keys": "Q",
+      "until": "(e => e.g_49F3 !== 5)((await import('/areas/ecl_host.js')).eclG)",
+      "repeat": 60,
+      "ms": 60000
+    },
+    {
+      "name": "after-combat",
+      "keys": "{Enter}",
+      "ms": 60000
+    },
+    {
+      "name": "treasure-exit",
+      "keys": "E",
+      "ms": 60000
+    },
+    {
+      "name": "leave-treasure-no",
+      "keys": "N",
+      "ms": 60000
+    },
+    {
+      "name": "xp-continue",
+      "keys": "{Enter}",
+      "ms": 60000,
+      "probe": "(async()=>{await new Promise(r=>setTimeout(r,500));const m=window.goldBoxPlusHelpers.helpers.combatLog.model;const e=m.entries;\n const ok=e.some(x=>x.kind==='start')&&e.some(x=>x.kind==='treasure')&&e.filter(x=>x.kind==='message'&&/ATTACKS .+ (HITTING|AND MISSES)|GOES DOWN/.test(x.text)).length>=3&&!!document.querySelector('#por-plus-combatlog li');\n if(!ok)console.error('HELPERS FAIL combat',JSON.stringify(e.slice(0,40)));return {pass:ok,n:e.length,entries:e.slice(0,6).concat(e.slice(-6)).map(x=>x.kind[0]+': '+x.text)};})()"
+    }
+  ]
+}

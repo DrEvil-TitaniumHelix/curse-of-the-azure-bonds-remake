@@ -1,0 +1,9 @@
+{
+ "id": "d-S101",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}pa{Enter}ldb{Left}{Left}{Up}{Enter}{Enter}{Right}{Up}{Enter}{Left}{Up}{Up}{Up}{Enter}{Up}yb{Enter}{End}{Enter}{Esc}vir{End}rdns",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/d-S101.png",
+ "sha256": "3d2b1615e46601ee73c44d16d9d23f16fff6337e85af3eaa4fa1243169321a62",
+ "utc": "2026-10-20T19:20:55.521Z"
+}

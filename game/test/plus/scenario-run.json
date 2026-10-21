@@ -1,0 +1,24 @@
+{
+  "name": "GBP-SCENARIO",
+  "query": "sting=1&seed=1&fast=4",
+  "steps": [
+    {
+      "name": "party-menu"
+    },
+    {
+      "name": "load",
+      "keys": "L"
+    },
+    {
+      "name": "explore-before",
+      "keys": "A"
+    },
+    {
+      "name": "scenario-workshop",
+      "probe": "(async()=>{\n const {mountPlus}=await import('/plus/plus.js'),{registerScenarioTab}=await import('/plus/tabs/scenario.js'),{currentMapContext,loadCurrentMap}=await import('/plus/map/load.js');\n const plus=mountPlus();await plus.ready;await plus.setSetting('original',false);\n const canvas=document.getElementById('screen'),before=canvas.toDataURL(),context=await currentMapContext(),source=await loadCurrentMap(context),original=JSON.stringify(source.cells);\n const editor=registerScenarioTab(plus);plus.open();plus.selectTab('scenario');\n const host=document.getElementById('por-plus-content');for(let i=0;i<200&&!host.querySelector('canvas');i++)await new Promise(r=>setTimeout(r,20));if(!host.querySelector('canvas'))throw Error('map did not open');\n const field=name=>host.querySelector('[aria-label=\"'+name+'\"]'),button=text=>[...host.querySelectorAll('button')].find(b=>b.textContent===text);\n const wall=(editor.draft.cells[0].wall[0]+1)%16;field('Cell X').value='0';field('Cell Y').value='0';field('Side').value='0';field('Wall type').value=String(wall);field('Passage state').value='2';button('Apply side').click();button('Export scenario JSON').click();\n const exported=JSON.parse(field('Exported scenario JSON').value);if(exported.maps[0].cells[0].wall[0]!==wall||exported.maps[0].cells[0].door[0]!==2||exported.maps[0].cells.length!==256)throw Error('edit/export failed');\n if(JSON.stringify(source.cells)!==original||JSON.stringify((await loadCurrentMap(context)).cells)!==original)throw Error('live map mutated');\n plus.selectTab('about');plus.selectTab('scenario');if(editor.draft.cells[0].wall[0]!==wall)throw Error('draft lost on tab switch');\n await plus.setSetting('original',true);plus.selectTab('scenario');if(host.querySelector('canvas')||!host.textContent.includes('off in original'))throw Error('original bypass failed');await plus.setSetting('original',false);plus.close();\n if(before!==canvas.toDataURL())throw Error('game canvas changed');return {pass:true,openedImportedGeo:true,edited:true,exportedCells:256,directedSides:true,sourceUnchanged:true,draftRetained:true,originalBypass:true,canvasUnchanged:true};\n})()"
+    },
+    {
+      "name": "explore-after"
+    }
+  ]
+}

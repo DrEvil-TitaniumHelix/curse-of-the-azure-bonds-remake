@@ -1,0 +1,9 @@
+{
+ "id": "g0-S026",
+ "url": "http://127.0.0.1:8189/index.html?screen=S026&sting=1&seed=169084438&wheel=1&fast=4&freshsaves=1&keys=Pa{Enter}C{Enter}{Enter}{Enter}{Enter}N&plus=0",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/g0-S026.png",
+ "sha256": "840d9e42bdef677b9e8af01a15cc9b721229f8ddee1859e174b45e46acc90e0c",
+ "utc": "2026-10-21T08:28:43.672Z"
+}

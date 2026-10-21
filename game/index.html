@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Curse of the Azure Bonds</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  body { display: flex; align-items: center; justify-content: center; }
+  canvas { image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+  #err { position: fixed; left: 8px; bottom: 8px; color: #f55; font: 12px monospace; white-space: pre; }
+</style>
+</head>
+<body>
+<canvas id="screen" width="320" height="200"></canvas>
+<div id="err"></div>
+<script type="module">
+  import { chooseProfile, profileResource } from './plus/games.js';
+  const c = document.getElementById('screen');
+  // integer scaling, nearest neighbour (BUILD_PLAN §1)
+  // plus request #6: plus.js sets <html data-plus-hint="<px>"> while the F12 hint strip is shown (never in original mode)
+  function fit() {
+    const reserve = Number(document.documentElement.dataset.plusHint || 0);
+    const s = Math.max(1, Math.floor(Math.min(innerWidth / 320, (innerHeight - reserve) / 200)));
+    c.style.width = 320 * s + 'px'; c.style.height = 200 * s + 'px'; c.style.marginBottom = reserve + 'px';
+  }
+  addEventListener('resize', fit); fit();
+  async function boot() {
+    const query = new URLSearchParams(location.search);
+    // cab: this build carries one profile (game/FORK.md): boot it unless another id is asked for
+    const profile = await chooseProfile({ id: query.get('profile') || 'cab' });
+    const module = await import(profileResource(profile, profile.engine.entryModule));
+    if (typeof module[profile.engine.entryExport] !== 'function') throw new Error('Profile entry point unavailable');
+    await module[profile.engine.entryExport](c, { profile });
+  }
+  boot().catch((e) => {
+    if (String(e && e.message) === 'TerminateGame') return;
+    // already reported (drawn on the game screen, stored in localStorage por:lastError / por:errors) by engine/errors.js
+    document.getElementById('err').textContent = String(e && e.stack || e);
+    window.__screenReady = true;   // a stopped program is the final screen for headless runs
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "GBP-MAP-1",
+  "query": "sting=1&seed=1&fast=4",
+  "steps": [
+    {
+      "name": "party-menu"
+    },
+    {
+      "name": "load",
+      "keys": "L"
+    },
+    {
+      "name": "explore-before",
+      "keys": "A"
+    },
+    {
+      "name": "map-geo-overland-zoom",
+      "probe": "(async()=>{\n const {registerMapTab}=await import('/plus/tabs/map.js'),{currentMapContext,loadCurrentMap}=await import('/plus/map/load.js'),{mountPlus}=await import('/plus/plus.js');\n const plus=mountPlus();await plus.ready;await plus.setSetting('original',false);await plus.setSetting('automap',true);\n const game=document.getElementById('screen'),before=game.toDataURL(),snapshot=await currentMapContext();\n if(!snapshot)throw Error('current context missing');const model=await loadCurrentMap(snapshot);if(model.kind!=='geo')throw Error('explore GEO not selected');\n registerMapTab(plus);plus.open();plus.selectTab('map');\n const wait=async condition=>{for(let i=0;i<100;i++){if(condition())return;await new Promise(r=>setTimeout(r,20));}throw Error('map UI timeout');};\n const host=document.getElementById('por-plus-content');await wait(()=>host.querySelector('canvas'));\n if(host.querySelector('canvas').width!==385 || !host.textContent.includes('16 \u00d7 16'))throw Error('GEO layout missing');\n const range=host.querySelector('input[type=range]');range.value='2';range.dispatchEvent(new Event('input'));if(host.querySelector('canvas').style.width!=='770px')throw Error('zoom failed');\n host.querySelector('button').click();await wait(()=>!host.querySelector('button').disabled);\n registerMapTab(plus,{context:async()=>({...snapshot,dataset:6,block:25,travelMode:2})});plus.selectTab('map');await wait(()=>host.querySelector('canvas'));\n if(host.querySelector('canvas').width!==384 || host.querySelector('canvas').height!==864 || !host.textContent.includes('overland'))throw Error('overland layout missing');\n await plus.setSetting('automap',false);plus.selectTab('map');if(host.querySelector('canvas') || !host.textContent.includes('Map is off'))throw Error('automap bypass failed');\n await plus.setSetting('automap',true);await plus.setSetting('original',true);plus.selectTab('map');if(host.querySelector('canvas'))throw Error('original bypass failed');\n await plus.setSetting('original',false);plus.close();if(before!==game.toDataURL())throw Error('game canvas changed');\n return {pass:true,geo:true,overland:true,zoom:true,refresh:true,helperBypass:true,originalBypass:true,canvasUnchanged:true};\n})()"
+    },
+    {
+      "name": "explore-after"
+    }
+  ]
+}

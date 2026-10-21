@@ -1,0 +1,9 @@
+{
+ "id": "r1-walk",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}{Up}{Left}{Up}",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r1-walk.png",
+ "sha256": "dddc4daee1d78695fa52a3b062a03d0468485df873e9f4668f4e00afcb5edb4d",
+ "utc": "2026-10-20T14:34:22.276Z"
+}

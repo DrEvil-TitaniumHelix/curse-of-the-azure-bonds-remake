@@ -1,0 +1,9 @@
+{
+ "id": "c-S106",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{End}{End}{End}{End}{End}{Enter}{Enter}{Enter}{Enter}NBETA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}EMM{Home}{Home}{Home}{Home}{Home}{Home}{Enter}{Enter}{Home}{Home}{Enter}EEYRR{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}EVS",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/c-S106.png",
+ "sha256": "9f3405001d87b819120af321e7da257b61fd2e72368517dd5f637062c25265c1",
+ "utc": "2026-10-20T18:50:01.188Z"
+}

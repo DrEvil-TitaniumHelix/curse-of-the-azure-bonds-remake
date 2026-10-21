@@ -1,0 +1,9 @@
+{
+ "id": "b-S084",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}AAESBNASSEESCNVD{Enter}10{Enter}EESDNEEMCMSDEEAO",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/b-S084.png",
+ "sha256": "ac8a00af6ed212e7139f62dc9b0e080e2f4e96c70a0f5723e1fb14e2fcf45707",
+ "utc": "2026-10-20T18:07:59.440Z"
+}

@@ -1,0 +1,34 @@
+{
+ "name": "GBP-CLICK-TRAVEL",
+ "query": "sting=1&seed=1&fast=4",
+ "steps": [
+  {
+   "name": "party-menu",
+   "probe": "(await import('/test/plus/click-probe.js')).mount()"
+  },
+  {
+   "name": "load",
+   "keys": "LA"
+  },
+  {
+   "name": "area-map",
+   "probe": "(c => c.pick(68, 196, 'Area'))(await import('/test/plus/click-probe.js'))"
+  },
+  {
+   "name": "map-list",
+   "probe": "(c => ({ pos: c.pos(), list: c.rc(60, 60) }))(await import('/test/plus/click-probe.js'))"
+  },
+  {
+   "name": "regions",
+   "probe": "(async () => { const { hooks } = await import('/plus/hooks.js'); return hooks.regions().map(r => r.id + ':' + r.prio); })()"
+  },
+  {
+   "name": "walk",
+   "ms": 90000,
+   "probe": "(await import('/test/plus/click-probe.js')).walkFar(8)"
+  },
+  {
+   "name": "arrived"
+  }
+ ]
+}

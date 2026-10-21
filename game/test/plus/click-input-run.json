@@ -1,0 +1,69 @@
+{
+ "name": "GBP-CLICK-INPUT",
+ "query": "profile=por&sting=1&seed=7&fast=4",
+ "steps": [
+  {
+   "name": "menu",
+   "keys": ""
+  },
+  {
+   "name": "PM-03",
+   "keys": "C"
+  },
+  {
+   "name": "PM-03-GENDER",
+   "keys": "{Enter}"
+  },
+  {
+   "name": "PM-03-CLASS",
+   "keys": "{Enter}"
+  },
+  {
+   "name": "PM-03-ALIGN",
+   "keys": "{Enter}"
+  },
+  {
+   "name": "PM-04",
+   "keys": "{Enter}"
+  },
+  {
+   "name": "name-prompt",
+   "keys": "Y",
+   "probe": "(async () => ({ list: (await import('/test/plus/click-probe.js')).rc(100, 196), ...(await import('/test/plus/input-probe.js')).state() }))()"
+  },
+  {
+   "name": "left-click-focus",
+   "pointer": [
+    {
+     "x": 100,
+     "y": 196
+    }
+   ],
+   "probe": "(await import('/test/plus/input-probe.js')).state()"
+  },
+  {
+   "name": "type-in-field",
+   "probe": "(await import('/test/plus/input-probe.js')).typeInField('ROLAND')"
+  },
+  {
+   "name": "list-backspace",
+   "probe": "(async () => { await (await import('/test/plus/click-probe.js')).pick(100, 196, 'Backspace'); await (await import('/test/plus/input-probe.js')).drained(); return (await import('/test/plus/input-probe.js')).state(); })()"
+  },
+  {
+   "name": "list-clear",
+   "probe": "(async () => { const r = await (await import('/test/plus/click-probe.js')).pick(100, 196, 'Clear'); await (await import('/test/plus/input-probe.js')).drained(); return { picked: r.picked, ...(await import('/test/plus/input-probe.js')).state() }; })()"
+  },
+  {
+   "name": "retype",
+   "probe": "(await import('/test/plus/input-probe.js')).typeInField('ALDRIC')"
+  },
+  {
+   "name": "list-enter",
+   "probe": "(async () => { await (await import('/test/plus/click-probe.js')).pick(100, 196, 'Enter'); await (await import('/test/plus/input-probe.js')).drained(); return (await import('/test/plus/input-probe.js')).state(); })()"
+  },
+  {
+   "name": "after-name",
+   "probe": "(async () => { const { G } = await import('/engine/state.js'); const s = (await import('/test/plus/input-probe.js')).state(); return { ...s, letters: (await import('/engine/input.js')).gamepad.menuLetters.join('') }; })()"
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+{
+ "id": "r1-fight",
+ "url": "http://127.0.0.1:8189/index.html?screen=t240&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NBETA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NGAMMA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NDELTA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NEPSI{Enter}EYYC{End}{End}{End}{End}{End}{Enter}{Enter}{End}{End}{Enter}{Enter}NZETA{Enter}EYYA{Enter}A{End}A{End}A{End}A{End}A{End}A{Esc}B{Enter}{Enter}{Down}{Up}{Enter}{Enter}{Right}{Up}{Enter}{Left}{Up}{Right}{Up}{Up}{Enter}{Right}{Up}PQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r1-fight.png",
+ "sha256": "779d48700d62573c08e682898ed0efcac6bcd820fd6e6f29bbf6ec574756b801",
+ "utc": "2026-10-20T16:39:19.911Z"
+}

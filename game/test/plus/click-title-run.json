@@ -1,0 +1,24 @@
+{
+ "name": "GBP-CLICK-TITLE",
+ "query": "seed=1&fast=1",
+ "steps": [
+  {
+   "name": "title",
+   "probe": "(async () => { const b = (await import('/test/plus/blocker-probe.js')); b.watchScreens(); return { screens: b.watchScreens().slice(), regions: b.regions(), list: (await import('/test/plus/click-probe.js')).rc(160, 100), cursor: (await import('/test/plus/click-probe.js')).cursorAt(160, 100) }; })()"
+  },
+  {
+   "name": "click-title",
+   "pointer": [
+    {
+     "x": 160,
+     "y": 100
+    }
+   ],
+   "probe": "(await import('/test/plus/blocker-probe.js')).watchScreens().slice()"
+  },
+  {
+   "name": "party-menu-reached",
+   "probe": "(async () => ({ screens: (await import('/test/plus/blocker-probe.js')).watchScreens().slice(), regions: (await import('/test/plus/blocker-probe.js')).regions(), list: (await import('/test/plus/click-probe.js')).rc(160, 100) }))()"
+  }
+ ]
+}

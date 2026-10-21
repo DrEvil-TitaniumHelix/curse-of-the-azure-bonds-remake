@@ -1,0 +1,24 @@
+{
+  "name": "GBP-PROFILE",
+  "query": "sting=1&seed=1&fast=4",
+  "steps": [
+    {
+      "name": "party-menu"
+    },
+    {
+      "name": "load",
+      "keys": "L"
+    },
+    {
+      "name": "explore-before",
+      "keys": "A"
+    },
+    {
+      "name": "games-selector",
+      "probe": "(async () => {\n const games = await import('/plus/games.js'); const {mountPlus} = await import('/plus/plus.js'); const plus = mountPlus(); await plus.ready;\n const before = document.getElementById('screen').toDataURL(); let started;\n games.registerGamesTab(plus,{onStart:p => {started=p.id;}}); plus.open(); plus.selectTab('games');\n await new Promise(r => setTimeout(r,100));\n const button = document.querySelector('#por-plus-content button');\n if (!button || button.textContent !== 'Start' || !document.querySelector('#por-plus-content').textContent.includes('Pool of Radiance')) throw Error('selector missing');\n button.click(); await new Promise(r => setTimeout(r,50)); if(started !== 'por') throw Error('Start did not choose por');\n plus.close();\n const promise = games.chooseProfile({id:null}); await new Promise(r => setTimeout(r,100));\n const dialog = document.querySelector('[aria-label=\"Choose a game\"]'); if(!dialog) throw Error('front door missing');\n dialog.querySelector('button').click(); const chosen = await promise;\n if(chosen.id !== 'por' || document.contains(dialog)) throw Error('front door selection failed');\n if(before !== document.getElementById('screen').toDataURL()) throw Error('game canvas changed');\n return {pass:true,chosen:chosen.id,startButton:true,canvasUnchanged:true};\n})()"
+    },
+    {
+      "name": "explore-after"
+    }
+  ]
+}

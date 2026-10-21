@@ -1,0 +1,33 @@
+{
+  "name": "GBP-MODS",
+  "query": "sting=1&seed=1&fast=4",
+  "steps": [
+    {
+      "name": "party-menu"
+    },
+    {
+      "name": "load",
+      "keys": "L"
+    },
+    {
+      "name": "explore-before",
+      "keys": "A"
+    },
+    {
+      "name": "three-pics-original",
+      "probe": "(async()=>{\n const {plusMods,installSample}=await import('/plus/mods/manager.js');const {registerModsTab}=await import('/plus/tabs/mods.js');\n const {mountPlus}=await import('/plus/plus.js');const plus=mountPlus();await plus.ready;await plus.setSetting('original',false);await installSample();\n const dax=await import('/engine/dax.js'),pic=await import('/engine/pictures.js'),{decodePicture}=await import('/plus/pedia/pictures.js');\n const bytes=await dax.fetchFile('PIC3.DAX'),dir=dax.readDir(bytes),originals=new Map();\n for(const id of [1,29,41]){const e=dir.entries.find(e=>e.id===id);originals.set(id,dax.DaxRleDecode(bytes.subarray(dir.dataStart+e.ofs,dir.dataStart+e.ofs+e.comp),e.comp,e.raw));}\n const saved=pic.state.display.pix.slice(),canvas=document.getElementById('screen');\n const draw=async useMods=>{const d=pic.state.display;d.pix.fill(0);let i=0;for(const [id,raw]of originals){const override=useMods?await plusMods.resolve('PIC3',id,raw):null;const image=decodePicture(override||raw,{animation:true,xor:true});const p=pic.AllocPicture(image.height,image.width/8,1,0);p.px.set(image.pixels);pic.PutPicture(1+i*11,4,p);i++;}d.touch();d.present();return canvas.toDataURL();};\n await plusMods.enable('sample-recolour',false);const baseline=await draw(false);\n registerModsTab(plus);plus.open();plus.selectTab('mods');await new Promise(r=>setTimeout(r,50));if(!document.getElementById('por-plus-content').textContent.includes('Sample PIC recolour'))throw Error('Mods UI missing');plus.close();\n window.__modsTest={plusMods,plus,dax,pic,originals,saved,draw,baseline};return {pass:true,baseline:true,targets:3};\n})()"
+    },
+    {
+      "name": "three-pics-recoloured",
+      "probe": "(async()=>{const t=window.__modsTest;await t.plusMods.enable('sample-recolour',true);const changed=[];let engineHook=true;\n for(const [id,raw]of t.originals){const override=await t.plusMods.resolve('PIC3',id,raw);if(!override || override.every((b,i)=>b===raw[i]))throw Error('PIC not recoloured: '+id);changed.push(id);const loaded=await t.dax.LoadDaxRecord('PIC3','.dax',id);if(loaded.every((b,i)=>b===raw[i]))engineHook=false;}\n const atlas=await t.draw(true);if(atlas===t.baseline)throw Error('Atlas unchanged');return {pass:true,recoloured:changed,engineLoaderHook:engineHook};})()"
+    },
+    {
+      "name": "three-pics-off-original-mode",
+      "probe": "(async()=>{const t=window.__modsTest;await t.plusMods.enable('sample-recolour',false);if(await t.draw(true)!==t.baseline)throw Error('Disabled mod changed original pixels');\n await t.plusMods.enable('sample-recolour',true);await t.plus.setSetting('original',true);for(const [id,raw]of t.originals)if(await t.plusMods.resolve('PIC3',id,raw)!==null)throw Error('Master bypass failed');if(await t.draw(true)!==t.baseline)throw Error('Original mode changed pixels');\n await t.plus.setSetting('original',false);await t.plusMods.enable('sample-recolour',false);return {pass:true,disabledPixelsEqual:true,originalModePixelsEqual:true};})()"
+    },
+    {
+      "name": "explore-after",
+      "probe": "(()=>{const t=window.__modsTest;t.pic.state.display.pix.set(t.saved);t.pic.state.display.touch();t.pic.state.display.present();return {pass:true,exploreRestored:true};})()"
+    }
+  ]
+}

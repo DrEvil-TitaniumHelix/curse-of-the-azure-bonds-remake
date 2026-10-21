@@ -1,0 +1,35 @@
+{
+ "name": "GBP-CLICK-OVERLAND",
+ "query": "sting=1&seed=625&fast=4",
+ "steps": [
+  {
+   "name": "boot",
+   "keys": ""
+  },
+  {
+   "name": "load-menu",
+   "inject": "acceptance/integration/saves/ECL6_25",
+   "keys": "",
+   "probe": "(await import('/test/plus/blocker-probe.js')).watchOverland()"
+  },
+  {
+   "name": "load-C",
+   "keys": "LC",
+   "ms": 90000,
+   "probe": "(async () => ({ origin: (await import('/test/plus/blocker-probe.js')).watchOverland(), pos: (await import('/plus/click/travel.js')).overlandPos(), regions: (await import('/test/plus/blocker-probe.js')).regions() }))()"
+  },
+  {
+   "name": "list",
+   "probe": "(async () => ({ list: (await import('/test/plus/click-probe.js')).rc(68, 68) }))()"
+  },
+  {
+   "name": "travel",
+   "ms": 90000,
+   "probe": "(await import('/test/plus/blocker-probe.js')).overlandFar(4)"
+  },
+  {
+   "name": "after",
+   "probe": "(async () => ({ pos: (await import('/plus/click/travel.js')).overlandPos(), regions: (await import('/test/plus/blocker-probe.js')).regions() }))()"
+  }
+ ]
+}

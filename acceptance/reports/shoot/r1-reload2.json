@@ -1,0 +1,9 @@
+{
+ "id": "r1-reload2",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&keys={Space}{Space}{Space}{Space}Pa{Enter}LAB",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r1-reload2.png",
+ "sha256": "4747752779872a7ea55e187d6213b5db205a0e6dbb47dae6905810bc17ab334f",
+ "utc": "2026-10-20T16:21:56.371Z"
+}

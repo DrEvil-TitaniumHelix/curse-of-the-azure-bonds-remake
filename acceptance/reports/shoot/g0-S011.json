@@ -1,0 +1,9 @@
+{
+ "id": "g0-S011",
+ "url": "http://127.0.0.1:8189/index.html?screen=S011&fast=4&plus=0",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/g0-S011.png",
+ "sha256": "8cca9657b7ba79002320ebe9cd262bc16f1fbd634d25179550ac269ee80c0e8d",
+ "utc": "2026-10-21T08:18:03.370Z"
+}

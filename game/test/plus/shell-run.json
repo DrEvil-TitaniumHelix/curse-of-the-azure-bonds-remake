@@ -1,0 +1,24 @@
+{
+  "name": "GBP-SHELL",
+  "query": "sting=1&seed=1&fast=4",
+  "steps": [
+    {
+      "name": "party-menu"
+    },
+    {
+      "name": "load",
+      "keys": "L"
+    },
+    {
+      "name": "explore-before",
+      "keys": "A"
+    },
+    {
+      "name": "shell-roundtrip",
+      "probe": "(async () => {\n const { mountPlus } = await import('/plus/plus.js'); const p = mountPlus(); await p.ready;\n const canvas = document.getElementById('screen'); const before = canvas.toDataURL();\n const input = await import('/engine/input.js'); const suspended = input.gamepad.suspended;\n const press = key => window.dispatchEvent(new KeyboardEvent('keydown', {key, bubbles:true,cancelable:true}));\n press('F12'); if (!p.isOpen || !input.gamepad.suspended) throw Error('panel did not suspend pad');\n for (const b of document.querySelectorAll('#por-plus [role=tab]')) { b.click(); if (b.getAttribute('aria-selected') !== 'true') throw Error('tab selection'); }\n p.selectTab('helpers'); const crisp = document.querySelector('[data-setting=crispFont]'); crisp.click();\n await new Promise(r => setTimeout(r,100));\n const {createStore} = await import('/plus/store.js'); const saved = await createStore().get('settings');\n if (!saved.crispFont) throw Error('setting did not persist');\n await p.setSetting('original', true); if (p.enabled('crispFont') || !document.getElementById('por-plus-menu').hidden) throw Error('master switch');\n press('Escape'); if (p.isOpen || input.gamepad.suspended !== suspended) throw Error('close failed');\n if (before !== canvas.toDataURL()) throw Error('canvas changed');\n press('F12'); if (!p.isOpen) throw Error('original mode cannot reopen');\n await p.setSetting('original', false); if (!p.enabled('crispFont')) throw Error('helper choice lost');\n press('Escape'); if (before !== canvas.toDataURL()) throw Error('canvas changed after restore');\n return {pass:true,tabs:document.querySelectorAll('#por-plus [role=tab]').length, canvasUnchanged:true, settingsPersisted:true};\n})()"
+    },
+    {
+      "name": "explore-after"
+    }
+  ]
+}

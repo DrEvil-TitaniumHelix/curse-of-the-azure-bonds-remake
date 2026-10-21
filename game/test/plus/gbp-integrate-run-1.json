@@ -1,0 +1,68 @@
+{
+  "name": "GBP-INTEGRATE-RUN-1",
+  "query": "sting=1&seed=1&fast=4&profile=por&plus=0",
+  "steps": [
+    {
+      "name": "party-menu",
+      "keys": "",
+      "ref": "REF-MENU"
+    },
+    {
+      "name": "load-which",
+      "keys": "L",
+      "ref": "REF-LOAD"
+    },
+    {
+      "name": "phlan-view",
+      "keys": "A",
+      "ref": "ECL-03"
+    },
+    {
+      "name": "walk-1",
+      "keys": "{Up}"
+    },
+    {
+      "name": "walk-3",
+      "keys": "{Up}{Up}"
+    },
+    {
+      "name": "turn",
+      "keys": "{Left}"
+    },
+    {
+      "name": "encamp",
+      "keys": "E",
+      "ref": "ECL-14",
+      "probe": "(async()=>{const c=document.getElementById('screen');for(let n=0;n<200;n++){window.E.pic.display.present();const data=c.getContext('2d').getImageData(0,0,320,200).data;const snapshot=c.toDataURL('image/png'),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(b=>b.toString(16).padStart(2,'0')).join('');if(hash==='5272a6bf732daaad8c3aaa78ddcd07ad64e706955c2f5cfc4588bd02fbe94c5b'){window.__integrateMatchedShot=snapshot;return {pass:true,naturalAnimationFrame:true,waits:n};}await new Promise(r=>setTimeout(r,40));}throw Error('reference camp animation phase did not occur');})()"
+    },
+    {
+      "name": "save-which",
+      "keys": "S",
+      "probe": "(async()=>{const c=document.getElementById('screen');for(let n=0;n<200;n++){window.E.pic.display.present();const data=c.getContext('2d').getImageData(0,0,320,200).data;const snapshot=c.toDataURL('image/png'),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(b=>b.toString(16).padStart(2,'0')).join('');if(hash==='04afa6bdea4400147ab6bddc5a1f20a1565abd400c16d350b499db4b8b3a2aba'){window.__integrateMatchedShot=snapshot;return {pass:true,naturalAnimationFrame:true,waits:n};}await new Promise(r=>setTimeout(r,40));}throw Error('reference camp animation phase did not occur');})()"
+    },
+    {
+      "name": "save-B-quit-prompt",
+      "keys": "B",
+      "ref": "VIEW-10",
+      "probe": "(async()=>{const c=document.getElementById('screen');for(let n=0;n<200;n++){window.E.pic.display.present();const data=c.getContext('2d').getImageData(0,0,320,200).data;const snapshot=c.toDataURL('image/png'),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(b=>b.toString(16).padStart(2,'0')).join('');if(hash==='aa4e692e6b075ac42ac212a05ad2a8cbbb73a521f2b950df010a0ce1f7aff0ba'){window.__integrateMatchedShot=snapshot;return {pass:true,naturalAnimationFrame:true,waits:n};}await new Promise(r=>setTimeout(r,40));}throw Error('reference camp animation phase did not occur');})()"
+    },
+    {
+      "name": "quit-no",
+      "keys": "N",
+      "probe": "(async()=>{const c=document.getElementById('screen');for(let n=0;n<200;n++){window.E.pic.display.present();const data=c.getContext('2d').getImageData(0,0,320,200).data;const snapshot=c.toDataURL('image/png'),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(b=>b.toString(16).padStart(2,'0')).join('');if(hash==='497e1fd73cbd32d9f1cca276558aef80cfc3d5ddc2c7bd56405433e7782a7582'){window.__integrateMatchedShot=snapshot;return {pass:true,naturalAnimationFrame:true,waits:n};}await new Promise(r=>setTimeout(r,40));}throw Error('reference camp animation phase did not occur');})()"
+    },
+    {
+      "name": "camp-exit",
+      "keys": "E"
+    },
+    {
+      "name": "reload-menu",
+      "reload": true,
+      "ref": "REF-MENU"
+    },
+    {
+      "name": "reload-load-B",
+      "keys": "LB"
+    }
+  ]
+}

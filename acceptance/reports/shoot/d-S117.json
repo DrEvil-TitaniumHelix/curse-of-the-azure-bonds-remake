@@ -1,0 +1,9 @@
+{
+ "id": "d-S117",
+ "url": "http://127.0.0.1:8190/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}pa{Enter}leb{Left}{Left}{Up}{Right}{Up}{Up}{Up}{Up}{Left}{Up}{Up}{Up}{Enter}{Up}{Enter}{Enter}{Enter}{Enter}dseem",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/d-S117.png",
+ "sha256": "e9fb6a3464eb765f52c59f4558d044ab7e8711152cf85a5c1efcb736902cf063",
+ "utc": "2026-10-20T19:29:32.293Z"
+}

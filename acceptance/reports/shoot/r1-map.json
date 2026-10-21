@@ -1,0 +1,9 @@
+{
+ "id": "r1-map",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}A",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r1-map.png",
+ "sha256": "65d75343e6d4c99b999b51f994bdc5d1aae70e0d8ec7593dd6f8aa299f93d20f",
+ "utc": "2026-10-20T14:29:45.458Z"
+}

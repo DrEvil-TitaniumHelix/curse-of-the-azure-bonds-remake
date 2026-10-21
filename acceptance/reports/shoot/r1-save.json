@@ -1,0 +1,9 @@
+{
+ "id": "r1-save",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NBETA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NGAMMA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NDELTA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NEPSI{Enter}EYYC{End}{End}{End}{End}{End}{Enter}{Enter}{End}{End}{Enter}{Enter}NZETA{Enter}EYYA{Enter}A{End}A{End}A{End}A{End}A{End}A{Esc}B{Enter}{Enter}E{End}{End}{End}{End}{End}{End}MMMMMEEYRR{wait}{wait}{wait}{wait}ESA",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r1-save.png",
+ "sha256": "3388c293bb78d5b97226ac93ae4ceca5f501401a35e90e47145f336fd04d91de",
+ "utc": "2026-10-20T16:27:58.285Z"
+}

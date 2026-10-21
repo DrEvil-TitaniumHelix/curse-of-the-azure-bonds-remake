@@ -1,0 +1,9 @@
+{
+ "id": "g0-S025",
+ "url": "http://127.0.0.1:8189/index.html?screen=S025&sting=1&seed=169084438&wheel=1&fast=4&freshsaves=1&keys=Pa{Enter}C{Enter}{Enter}{Enter}{Enter}&plus=0",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/g0-S025.png",
+ "sha256": "52d8f5659f0a9c3b3e45b996fa57553a917c2e71c624c0db4a6ecd1cd585e9e1",
+ "utc": "2026-10-21T08:28:05.059Z"
+}

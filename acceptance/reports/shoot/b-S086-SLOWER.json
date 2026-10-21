@@ -1,0 +1,9 @@
+{
+ "id": "b-S086-SLOWER",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}AAESBNASS",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/b-S086-SLOWER.png",
+ "sha256": "8347c1e92334a9f8eeb2de58d410747c0d0cf6397b97d1bc3271ab75a3d6d7a5",
+ "utc": "2026-10-20T18:25:32.510Z"
+}

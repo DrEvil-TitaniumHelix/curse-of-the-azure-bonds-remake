@@ -1,0 +1,60 @@
+{
+  "name": "GBP-QUESTS-1",
+  "query": "sting=1&seed=1&fast=4",
+  "steps": [
+    {
+      "name": "boot",
+      "keys": ""
+    },
+    {
+      "name": "inject-city-hall-save",
+      "inject": "acceptance/integration/saves/ECL3_08",
+      "keys": ""
+    },
+    {
+      "name": "load-C",
+      "keys": "LC",
+      "ms": 90000,
+      "probe": "(async()=>{\n const {mountPlus}=await import('/plus/plus.js'),{registerQuestsTab}=await import('/plus/tabs/quests.js'),{hooks}=await import('/plus/hooks.js'),{refKey,textRefs}=await import('/plus/quests/table.js');\n const plus=mountPlus();await plus.ready;await plus.setSetting('original',false);\n const tracker=registerQuestsTab(plus);await tracker.ready;plus.selectTab('quests');\n const byText=new Map();for(const r of textRefs()){const t=tracker.log.texts.get(refKey(r));if(t)byText.set(t,refKey(r));}\n const rec=window.__quests={trace:[],events:[],texts:0,tracker,plus};\n hooks.on('flagSet',p=>{if(p.region===0&&p.addr>=0x4A20&&p.addr<0x4B00)rec.events.push({flag:p.addr,value:p.value});});\n hooks.on('textPrinted',p=>{rec.texts++;const pos=hooks.state.position()||{};const ref=byText.get(p.text);if(ref)rec.events.push({text:ref,dataSet:pos.dataset,block:pos.block});});\n tracker.onChange((changes,cause)=>{const li=id=>document.querySelector(`#por-plus-content li[data-quest=\"${id}\"]`)?.dataset.status||null;\n  rec.trace.push({cause,textEvent:rec.texts+1,changes:changes.map(c=>[c.id,c.from,c.to]),tab:changes.map(c=>li(c.id))});});\n const met=tracker.log.list().filter(q=>q.met).map(q=>q.id);\n if(tracker.log.texts.size!==new Set(textRefs().map(refKey)).size||met.length)console.error('QUESTS FAIL install',tracker.log.texts.size,met);\n return {texts:tracker.log.texts.size,met,slot:tracker.slot,shown:document.getElementById('por-plus-content').textContent.slice(0,80)};\n})()"
+    },
+    {
+      "name": "walk-out",
+      "keys": "{Right}{Up}{Up}{Up}{Left}{Up}{Up}"
+    },
+    {
+      "name": "rolf-tour",
+      "keys": "{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}",
+      "ms": 90000
+    },
+    {
+      "name": "to-city-hall",
+      "keys": "{Right}{Right}{Up}{Up}{Up}{Enter}{Up}"
+    },
+    {
+      "name": "clerk",
+      "keys": "{Up}{Left}{Up}"
+    },
+    {
+      "name": "reward-check",
+      "keys": "{Enter}"
+    },
+    {
+      "name": "commission-slums",
+      "keys": "{Enter}",
+      "probe": "(async()=>{\n const rec=window.__quests,{tracker}=rec,{refKey}=await import('/plus/quests/table.js');\n const t=rec.trace.find(e=>e.changes.some(c=>c[0]==='slums'));\n const want=tracker.log.texts.get('3:8:A8B6'),ev=rec.events.filter(e=>e.text).at(-1);\n const ok=t&&t.cause==='textPrinted'&&t.changes.length===1&&t.changes[0][2]==='offered'&&t.tab[0]==='offered'&&ev&&ev.text==='3:8:A8B6'&&rec.texts===t.textEvent;\n if(!ok)console.error('QUESTS FAIL offer',JSON.stringify(t),JSON.stringify(ev),rec.texts);\n return {pass:!!ok,trace:t,offerTextEvent:rec.texts,status:tracker.log.list().filter(q=>q.met).map(q=>q.id+':'+q.status)};\n})()"
+    },
+    {
+      "name": "commission-sokal",
+      "keys": "{Enter}"
+    },
+    {
+      "name": "commission-library",
+      "keys": "{Enter}"
+    },
+    {
+      "name": "all-commissions",
+      "keys": "{Enter}",
+      "probe": "(async()=>{\n const rec=window.__quests,{tracker,plus}=rec,game=document.getElementById('screen'),before=game.toDataURL();\n plus.open();plus.selectTab('quests');const host=document.getElementById('por-plus-content');\n const rows=[...host.querySelectorAll('li[data-quest]')].map(li=>li.dataset.quest+':'+li.dataset.status);\n const textsShown=[...host.querySelectorAll('li[data-quest] span')].every(s=>!/text unavailable/.test(s.textContent));\n await plus.setSetting('original',true);plus.selectTab('quests');const off=host.textContent.includes('off in original-game mode')&&!host.querySelector('li');\n await plus.setSetting('original',false);plus.selectTab('quests');plus.close();\n const same=before===game.toDataURL();\n const want=['slums:offered','sokal:offered','books:offered'];\n const ok=JSON.stringify(rows)===JSON.stringify(want)&&textsShown&&off&&same;\n if(!ok)console.error('QUESTS FAIL final',JSON.stringify({rows,textsShown,off,same}));\n return {pass:ok,rows,textsShown,originalOff:off,canvasUnchanged:same,trace:rec.trace,events:rec.events};\n})()"
+    }
+  ]
+}

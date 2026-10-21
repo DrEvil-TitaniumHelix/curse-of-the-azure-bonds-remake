@@ -1,0 +1,18 @@
+{ "name": "GBP-CLICK-1", "query": "sting=1&seed=1&fast=4",
+  "steps": [
+    { "name": "party-menu", "probe": "(async () => { const c = await import('/test/plus/click-probe.js'); return { m: c.mount(), cursor: c.cursorAt(40, 100), list: c.rc(40, 100) }; })()" },
+    { "name": "pick-load", "probe": "(await import('/test/plus/click-probe.js')).pick(40, 100, 'Load')" },
+    { "name": "load-menu", "probe": "(c => c.pick(140, 196, 'A'))(await import('/test/plus/click-probe.js'))" },
+    { "name": "explore", "probe": "(c => ({ pos: c.pos(), cursor: c.cursorAt(68, 68), list: c.rc(68, 68) }))(await import('/test/plus/click-probe.js'))" },
+    { "name": "turn-right", "probe": "(c => c.pick(68, 68, 'Turn right'))(await import('/test/plus/click-probe.js'))" },
+    { "name": "after-turn", "probe": "(c => c.pos())(await import('/test/plus/click-probe.js'))" },
+    { "name": "roster-list", "probe": "(c => c.rc(200, 52))(await import('/test/plus/click-probe.js'))" },
+    { "name": "view-member", "probe": "(c => c.pick(200, 52, 'View:'))(await import('/test/plus/click-probe.js'))" },
+    { "name": "sheet", "probe": "(c => c.rc(100, 196))(await import('/test/plus/click-probe.js'))" },
+    { "name": "items", "probe": "(c => c.pick(100, 196, 'Items'))(await import('/test/plus/click-probe.js'))" },
+    { "name": "items-list", "probe": "(c => c.rc(60, 44))(await import('/test/plus/click-probe.js'))" },
+    { "name": "back", "probe": "(c => c.pick(60, 44, 'Back'))(await import('/test/plus/click-probe.js'))" },
+    { "name": "back-2", "probe": "(c => c.pick(100, 196, 'Exit'))(await import('/test/plus/click-probe.js'))" },
+    { "name": "original-mode", "probe": "(async () => { const c = await import('/test/plus/click-probe.js'); const { hooks } = await import('/plus/hooks.js'); hooks.enabled = false; const r = { list: c.rc(68, 68), cursor: c.cursorAt(68, 68) }; hooks.enabled = true; return r; })()" },
+    { "name": "end" }
+  ] }

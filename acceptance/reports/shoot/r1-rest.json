@@ -1,0 +1,9 @@
+{
+ "id": "r1-rest",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NBETA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NGAMMA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NDELTA{Enter}EYYC{Enter}{Enter}{Enter}{Enter}NEPSI{Enter}EYYC{End}{End}{End}{End}{End}{Enter}{Enter}{End}{End}{Enter}{Enter}NZETA{Enter}EYYA{Enter}A{End}A{End}A{End}A{End}A{End}A{Esc}B{Enter}{Enter}E{End}{End}{End}{End}{End}{End}MMMMMEEYR",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r1-rest.png",
+ "sha256": "d12079faa7b55c85fc1089fb49f9f7d39dfcca5ead480c97536aa2a0e40ebcba",
+ "utc": "2026-10-20T16:05:04.671Z"
+}

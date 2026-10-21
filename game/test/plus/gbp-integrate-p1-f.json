@@ -1,0 +1,65 @@
+{
+  "name": "GBP-INTEGRATE-P1-f",
+  "query": "testparty=1&sting=1&seed=7&fast=4&profile=por&plus=0",
+  "steps": [
+    {
+      "name": "menu",
+      "keys": ""
+    },
+    {
+      "name": "load-C",
+      "keys": "LC"
+    },
+    {
+      "name": "begin",
+      "keys": "B"
+    },
+    {
+      "name": "tour",
+      "keys": "{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}",
+      "ms": 90000
+    },
+    {
+      "name": "walk-until-encounter",
+      "keys": "{Up}{Up}{Right}{Up}{Left}",
+      "until": "(e => e.g_84E9 === 1 || e.g_49F3 === 5)((await import('/areas/ecl_host.js')).eclG)",
+      "repeat": 40,
+      "ms": 40000
+    },
+    {
+      "name": "combat-choice",
+      "keys": "C",
+      "until": "(e => e.g_49F3 === 5)((await import('/areas/ecl_host.js')).eclG)",
+      "repeat": 3,
+      "ms": 60000,
+      "probe": "(await (async () => { const e = (await import('/areas/ecl_host.js')).eclG; const out = {}; for (const k of [\"BodyList\", \"CombatIcons\", \"EffectHandler\", \"SlotHits\", \"SlotSwings\", \"StudyTimer\", \"cb_Char\", \"cb_Col\", \"cb_Index\", \"cb_Row\", \"cb_ScrCol\", \"cb_ScrRow\", \"cb_Size\", \"ecl_Mem4900\", \"ecl_Mem6B00\", \"foe_List\", \"side_ActiveCount\", \"tg_List\", \"SpellTargets\", \"sl_Ids\", \"TreasureMoney\", \"RestClock\"]) { const v = e[k]; out[k] = Array.isArray(v) ? 'array' : ArrayBuffer.isView(v) ? 'typed' : (v && typeof v === 'object') ? 'object' : String(v); } return out; })())"
+    },
+    {
+      "name": "quick-until-done",
+      "keys": "Q",
+      "until": "(e => e.g_49F3 !== 5)((await import('/areas/ecl_host.js')).eclG)",
+      "repeat": 60,
+      "ms": 60000
+    },
+    {
+      "name": "after-combat",
+      "keys": "{Enter}",
+      "ms": 60000
+    },
+    {
+      "name": "treasure-exit",
+      "keys": "E",
+      "ms": 60000
+    },
+    {
+      "name": "leave-treasure-no",
+      "keys": "N",
+      "ms": 60000
+    },
+    {
+      "name": "explore-walk",
+      "keys": "{Up}",
+      "ms": 60000
+    }
+  ]
+}

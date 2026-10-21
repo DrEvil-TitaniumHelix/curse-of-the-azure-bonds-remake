@@ -1,0 +1,9 @@
+{
+ "id": "d-S097",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}pa{Enter}ldb{Left}{Left}{Up}{Enter}{Enter}{Right}{Up}{Enter}{Left}{Up}{Up}{Up}{Enter}{Up}yb{Enter}{End}{Enter}{Esc}vi",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/d-S097.png",
+ "sha256": "1a2d42e66d54a0f8ec0287410c3a2464519cd36505e93773b8c7b09b90e0872d",
+ "utc": "2026-10-20T19:09:55.416Z"
+}

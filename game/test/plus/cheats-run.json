@@ -1,0 +1,36 @@
+{
+  "name": "GBP-CHEAT-1",
+  "query": "sting=1&dev=1&seed=1&fast=4&hooklog=1",
+  "steps": [
+    {
+      "name": "boot",
+      "keys": ""
+    },
+    {
+      "name": "install-scenario",
+      "keys": "",
+      "probe": "(async()=>{const m=await import('/plus/cheats/scenario.js');const b=await m.installScenario('sokal-gate');return {slot:b.slot,files:b.files.length,party:m.summary(b).map(d=>d.name+' '+d.level)};})()"
+    },
+    {
+      "name": "load-J",
+      "keys": "LJ",
+      "ms": 90000,
+      "probe": "(async()=>{const {hooks}=await import('/plus/hooks.js');const p=hooks.state.position();const party=hooks.state.party();const t=(window.__hookLog||[]).filter(e=>e.name==='textPrinted').map(e=>e.text).filter(Boolean).slice(-2);\n const ok=p&&p.dataset===4&&p.block===21&&p.x===8&&p.y===14&&p.facing===0&&party.length===6&&party.every(c=>c.levels.filter(l=>l>0).every(l=>l===5)&&c.hp===c.hpMax);\n if(!ok)console.error('CHEAT FAIL',JSON.stringify({p,party:party.map(c=>[c.name,c.levels,c.hp])}));\n return {pass:!!ok,pos:p&&[p.dataset,p.block,p.x,p.y,p.facing,p.is3D],party:party.map(c=>`${c.name} ${c.levels.filter(l=>l>0).join('/')} ${c.hp}/${c.hpMax}`),texts:t};})()"
+    },
+    {
+      "name": "continue",
+      "keys": "{Enter}",
+      "probe": "(async()=>{const {hooks}=await import('/plus/hooks.js');const p=hooks.state.position();const party=hooks.state.party();const t=(window.__hookLog||[]).filter(e=>e.name==='textPrinted').map(e=>e.text).filter(Boolean).slice(-2);\n const ok=p&&p.dataset===4&&p.block===21&&p.x===8&&p.y===14&&p.facing===0&&party.length===6&&party.every(c=>c.levels.filter(l=>l>0).every(l=>l===5)&&c.hp===c.hpMax);\n if(!ok)console.error('CHEAT FAIL',JSON.stringify({p,party:party.map(c=>[c.name,c.levels,c.hp])}));\n return {pass:!!ok,pos:p&&[p.dataset,p.block,p.x,p.y,p.facing,p.is3D],party:party.map(c=>`${c.name} ${c.levels.filter(l=>l>0).join('/')} ${c.hp}/${c.hpMax}`),texts:t};})()"
+    },
+    {
+      "name": "cheats-tab",
+      "keys": "",
+      "probe": "(async()=>{\n const {mountPlus}=await import('/plus/plus.js'),{registerCheatsTab}=await import('/plus/tabs/cheats.js'),{hooks}=await import('/plus/hooks.js');\n const plus=mountPlus();await plus.ready;await plus.setSetting('original',false);registerCheatsTab(plus);\n const game=document.getElementById('screen'),before=game.toDataURL();plus.open();plus.selectTab('cheats');\n const host=document.getElementById('por-plus-content'),wait=async c=>{for(let i=0;i<150;i++){if(c())return;await new Promise(r=>setTimeout(r,20));}throw Error('cheats UI timeout');};\n await wait(()=>host.querySelectorAll('fieldset[data-member]').length===6);\n const status=()=>host.querySelector('[data-cheat=status]').textContent;\n const row=host.querySelector('fieldset[data-member=\"0\"]'),hp=row.querySelector('input[aria-label$=\" HP\"]');hp.value='40';row.querySelector('[data-cheat=apply]').click();\n await wait(()=>/updated|Not applied/.test(status()));const hpOk=hooks.state.party()[0].hp===40;const s1=status();\n const big=host.querySelector('fieldset[data-member=\"1\"]');big.querySelector('input[aria-label$=\" HP\"]').value='200';big.querySelector('[data-cheat=apply]').click();\n await wait(()=>/Not applied|updated/.test(status())&&status()!==s1);const limitOk=/above the maximum/.test(status())&&hooks.state.party()[1].hp===70;\n const [a,v]=host.querySelectorAll('input[type=text]');a.value='4AA7';v.value='0xFE';host.querySelector('[data-cheat=flag]').click();\n await wait(()=>/Flag 4AA7/.test(status()));const flagOk=hooks.state.mem(0x4AA7)===0xFE;\n const [x,y]=host.querySelectorAll('input[aria-label^=\"Teleport\"]');x.value='8';y.value='13';host.querySelector('[data-cheat=teleport]').click();\n await wait(()=>/moved/.test(status()));const p=hooks.state.position(),tpOk=p.x===8&&p.y===13&&p.facing===0;\n await plus.setSetting('original',true);plus.selectTab('cheats');const offOk=host.textContent.includes('off in original-game mode')&&!host.querySelector('fieldset');\n await plus.setSetting('original',false);plus.close();const same=before===game.toDataURL();\n const ok=hpOk&&limitOk&&flagOk&&tpOk&&offOk&&same;if(!ok)console.error('CHEAT FAIL tab',JSON.stringify({hpOk,limitOk,flagOk,tpOk,offOk,same,s:status()}));\n return {pass:ok,hpOk,limitOk,flagOk,tpOk,originalOff:offOk,canvasUnchanged:same};\n})()"
+    },
+    {
+      "name": "step-after-teleport",
+      "keys": "{Right}{Left}",
+      "probe": "(async()=>{const {hooks}=await import('/plus/hooks.js');const p=hooks.state.position();const party=hooks.state.party();const t=(window.__hookLog||[]).filter(e=>e.name==='textPrinted').map(e=>e.text).filter(Boolean).slice(-2);\n const ok=p&&p.dataset===4&&p.block===21&&p.x===8&&p.y===13&&p.facing===0&&party.length===6&&party[0].hp===40&&party.slice(1).every(c=>c.hp===c.hpMax);\n if(!ok)console.error('CHEAT FAIL after teleport',JSON.stringify({p,party:party.map(c=>[c.name,c.levels,c.hp])}));\n return {pass:!!ok,pos:p&&[p.dataset,p.block,p.x,p.y,p.facing,p.is3D],party:party.map(c=>`${c.name} ${c.levels.filter(l=>l>0).join('/')} ${c.hp}/${c.hpMax}`),texts:t};})()"
+    }
+  ]
+}

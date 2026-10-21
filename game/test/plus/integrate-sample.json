@@ -1,0 +1,37 @@
+{
+  "seed": 20261019,
+  "eligible": [
+    "SU-07",
+    "AD-09",
+    "AD-03",
+    "AD-04",
+    "AD-08",
+    "PM-01",
+    "CM-04",
+    "CM-05",
+    "AD-02"
+  ],
+  "selected": {
+    "PM-01": [
+      "LG1",
+      0
+    ],
+    "AD-09": [
+      "LG1",
+      1
+    ],
+    "CM-05": [
+      "LG1",
+      6
+    ],
+    "AD-04": [
+      "LG1",
+      2
+    ],
+    "AD-08": [
+      "SH1",
+      6
+    ]
+  },
+  "note": "AD-09 has VIEW-01 and ECL-14 references; use the static VIEW-01 roster/status reference. Camp animation phase is reported separately."
+}

@@ -1,0 +1,157 @@
+{
+  "name": "GBP-NOTES",
+  "query": "testparty=1&sting=1&seed=7&fast=4&hooklog=1",
+  "steps": [
+    {
+      "name": "menu",
+      "keys": "",
+      "probe": "(async()=>{const {mountPlus}=await import('/plus/plus.js'),{registerJournalTab}=await import('/plus/tabs/journal.js');const plus=mountPlus();await plus.ready;await plus.setSetting('original',false);const registration=registerJournalTab(plus);window.__notes={plus,...registration};return {pass:true,tracking:true};})()"
+    },
+    {
+      "name": "load-C",
+      "keys": "LC"
+    },
+    {
+      "name": "begin",
+      "keys": "B"
+    },
+    {
+      "name": "tour",
+      "keys": "{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}",
+      "ms": 90000
+    },
+    {
+      "name": "walk-to-inn",
+      "keys": "{Right}{Right}{Up}{Right}{Up}{Left}{Up}{Up}{Right}{Up}{Up}{Up}{Up}{Up}{Up}{Left}{Up}{Right}{Up}",
+      "ms": 90000,
+      "probe": "(g => [g.party_MapX, g.party_MapY, g.party_Dir, g.party_CellAttr])((await import('/areas/ecl_host.js')).eclG)"
+    },
+    {
+      "name": "inn-stay-yes",
+      "keys": "Y"
+    },
+    {
+      "name": "who-pays",
+      "keys": "S"
+    },
+    {
+      "name": "inn-camp",
+      "keys": "{Enter}"
+    },
+    {
+      "name": "select-alys",
+      "keys": "{End}{End}"
+    },
+    {
+      "name": "magic",
+      "keys": "M"
+    },
+    {
+      "name": "cast-list",
+      "keys": "C"
+    },
+    {
+      "name": "highlight-clw",
+      "keys": "{End}{End}"
+    },
+    {
+      "name": "cast-clw",
+      "keys": "C"
+    },
+    {
+      "name": "on-whom-select",
+      "keys": "S"
+    },
+    {
+      "name": "cast-list-exit",
+      "keys": "E"
+    },
+    {
+      "name": "memorize",
+      "keys": "M"
+    },
+    {
+      "name": "mem-1",
+      "keys": "{End}"
+    },
+    {
+      "name": "mem-2",
+      "keys": "{End}"
+    },
+    {
+      "name": "mem-3",
+      "keys": "{End}"
+    },
+    {
+      "name": "mem-pick",
+      "keys": "M"
+    },
+    {
+      "name": "mem-after",
+      "keys": "E"
+    },
+    {
+      "name": "pending-list-exit",
+      "keys": "E"
+    },
+    {
+      "name": "mem-confirm",
+      "keys": "Y"
+    },
+    {
+      "name": "display",
+      "keys": "D"
+    },
+    {
+      "name": "display-exit",
+      "keys": "E"
+    },
+    {
+      "name": "rest",
+      "keys": "R",
+      "ms": 120000
+    },
+    {
+      "name": "rest-after",
+      "keys": "{Enter}",
+      "ms": 120000
+    },
+    {
+      "name": "cast-list-after-rest",
+      "keys": "C",
+      "probe": "(g => { const c = g.SelectedChar; return c ? [Array.from(c.b.slice(0x17, 0x2C)), c.b[0x2C]] : null; })((await import('/areas/ecl_host.js')).eclG)"
+    },
+    {
+      "name": "cast-exit",
+      "keys": "E"
+    },
+    {
+      "name": "magic-exit",
+      "keys": "E"
+    },
+    {
+      "name": "camp-exit",
+      "keys": "E"
+    },
+    {
+      "name": "explore-cast",
+      "keys": "C"
+    },
+    {
+      "name": "explore-cast-pick",
+      "keys": "{End}{End}C"
+    },
+    {
+      "name": "explore-on-whom",
+      "keys": "S"
+    },
+    {
+      "name": "explore-cast-exit",
+      "keys": "E"
+    },
+    {
+      "name": "journal-check",
+      "probe": "(async()=>{const {plus,tracker}=window.__notes;await tracker.flush();const before=document.getElementById('screen').toDataURL();plus.open();plus.selectTab('journal');await tracker.flush();const body=document.getElementById('por-plus-content');if(tracker.slot!=='C'||!tracker.notes.some(n=>n.kind==='text')||!tracker.notes.some(n=>n.kind==='area'))throw Error('missing real diary events');if(!body.textContent.includes('Save slot C')||!body.textContent.includes(tracker.notes.find(n=>n.kind==='text').text))throw Error('diary not rendered');await tracker.addNote('Synthetic acceptance pin',{pin:true});if(!body.textContent.includes('Synthetic acceptance pin'))throw Error('personal note not rendered');plus.close();if(before!==document.getElementById('screen').toDataURL())throw Error('canvas changed');const {createStore}=await import('/plus/store.js');const saved=await createStore({profile:'por',slot:'C'}).get('notes');if(saved.notes.length!==tracker.notes.length)throw Error('IDB persistence');return {pass:true,slot:tracker.slot,notes:tracker.notes.length,kinds:[...new Set(tracker.notes.map(n=>n.kind))],canvasUnchanged:true};})()"
+    }
+  ]
+}

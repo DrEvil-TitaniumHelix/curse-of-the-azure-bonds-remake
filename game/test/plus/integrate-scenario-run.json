@@ -1,0 +1,10 @@
+{
+  "name": "GBP-INTEGRATE-SCENARIO",
+  "query": "profile=por&scenario=sokal-gate&dev=1&sting=1&seed=1&fast=4",
+  "steps": [
+    {
+      "name": "automatic-scenario-load",
+      "probe": "(async()=>{const h=(await import('/plus/hooks.js')).hooks,p=h.state.position(),party=h.state.party();if(p.dataset!==4||p.block!==21||p.x!==8||p.y!==14||party.length!==6||party.some(c=>c.levels.filter(n=>n>0).some(n=>n!==5)))throw Error('scenario not loaded by boot');if(document.querySelector('[data-tab=cheats]').hidden)throw Error('cheats hidden');return {pass:true,scenarioURL:true,party:party.length,pos:[p.dataset,p.block,p.x,p.y]};})()"
+    }
+  ]
+}

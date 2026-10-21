@@ -1,0 +1,40 @@
+{
+  "name": "GBP-INTEGRATE-COMBAT",
+  "query": "profile=por&testparty=1&sting=1&seed=7&fast=4",
+  "steps": [
+    {
+      "name": "automatic-mount"
+    },
+    {
+      "name": "load-test-party",
+      "keys": "LC"
+    },
+    {
+      "name": "begin",
+      "keys": "B"
+    },
+    {
+      "name": "tour",
+      "keys": "{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}",
+      "ms": 90000
+    },
+    {
+      "name": "walk-to-encounter",
+      "keys": "{Up}{Up}{Right}{Up}{Left}",
+      "until": "(e=>e.g_84E9===1||e.g_49F3===5)((await import('/areas/ecl_host.js')).eclG)",
+      "repeat": 40,
+      "ms": 40000
+    },
+    {
+      "name": "combat-start",
+      "keys": "C",
+      "until": "(e=>e.g_49F3===5)((await import('/areas/ecl_host.js')).eclG)",
+      "repeat": 3,
+      "ms": 60000
+    },
+    {
+      "name": "combat-panel-zip-pad",
+      "probe": "(async()=>{const plus=goldBoxPlus,tracker=goldBoxPlusTabs.journal.tracker,c=document.getElementById('screen'),before=c.toDataURL();plus.open();plus.selectTab('pedia');await new Promise(r=>setTimeout(r,500));plus.close();if(c.toDataURL()!==before)throw Error('combat panel changed canvas');await tracker.addNote('Synthetic ZIP integration note',{pin:true});let zip;const create=URL.createObjectURL;URL.createObjectURL=function(blob){if(blob.type==='application/zip')zip=blob;return create.call(this,blob);};try{await (await import('/byoc/ui/byoc-ui.js')).openSettings();window.dispatchEvent(new KeyboardEvent('keydown',{key:'e',code:'KeyE',bubbles:true}));for(let n=0;n<100&&!zip;n++)await new Promise(r=>setTimeout(r,30));if(!zip)throw Error('ZIP export missing');const files=await(await import('/byoc/ui/zip.js')).readZip(new Uint8Array(await zip.arrayBuffer())),notes=files.find(f=>f.name==='plus/notes-C.json');if(!notes||!JSON.parse(new TextDecoder().decode(notes.bytes)).notes.some(n=>n.text==='Synthetic ZIP integration note'))throw Error('notes sidecar missing');window.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',code:'Escape',bubbles:true}));}finally{URL.createObjectURL=create;}\nconst original=navigator.getGamepads,pad={index:0,axes:[0,0],buttons:Array.from({length:17},()=>({pressed:false}))};Object.defineProperty(navigator,'getGamepads',{configurable:true,value:()=>[pad]});try{pad.buttons[9].pressed=true;await new Promise(r=>setTimeout(r,100));if(!plus.isOpen||document.getElementById('byoc-ui').style.display!=='none')throw Error('Menu did not belong to Plus');pad.buttons[9].pressed=false;await new Promise(r=>setTimeout(r,60));pad.buttons[9].pressed=true;await new Promise(r=>setTimeout(r,100));if(plus.isOpen)throw Error('Menu did not close Plus');}finally{Object.defineProperty(navigator,'getGamepads',{configurable:true,value:original});plus.close();}return {pass:true,combatUnchanged:true,notesZip:true,padMenu:true,notes:tracker.notes.length};})()"
+    }
+  ]
+}

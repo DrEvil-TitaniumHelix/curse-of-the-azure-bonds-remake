@@ -1,0 +1,9 @@
+{
+ "id": "r2-ov",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}LGB",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r2-ov.png",
+ "sha256": "65fb4aebed91df5bf03c071c0eff69997b22412873522ebb74c165ab10be95e7",
+ "utc": "2026-10-20T19:17:13.861Z"
+}

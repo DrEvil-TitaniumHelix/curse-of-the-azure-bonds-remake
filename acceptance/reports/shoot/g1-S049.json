@@ -1,0 +1,9 @@
+{
+ "id": "g1-S049",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}&hooklog=1",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/g1-S049.png",
+ "sha256": "13a50c9407311fcaa170a9f445a556c8bf8605ec86fd55bc8f94df5242297137",
+ "utc": "2026-10-21T09:08:30.242Z"
+}

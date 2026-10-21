@@ -1,0 +1,105 @@
+{
+ "source": "GBP-QUESTS-1 step 12 probe (node acceptance/integration/run.mjs game/test/plus/quests-run.json): flagSet events of cells 4A20..4AFF and textPrinted events that equal a table text (as its ECL reference, no game text), in order",
+ "events": [
+  {
+   "flag": 19140,
+   "value": 0
+  },
+  {
+   "flag": 19141,
+   "value": 1
+  },
+  {
+   "flag": 19087,
+   "value": 0
+  },
+  {
+   "flag": 19088,
+   "value": 0
+  },
+  {
+   "flag": 19089,
+   "value": 0
+  },
+  {
+   "flag": 19090,
+   "value": 0
+  },
+  {
+   "flag": 19091,
+   "value": 0
+  },
+  {
+   "flag": 19092,
+   "value": 0
+  },
+  {
+   "flag": 19093,
+   "value": 0
+  },
+  {
+   "text": "3:8:A8B6",
+   "dataSet": 3,
+   "block": 8
+  },
+  {
+   "text": "3:8:A8F7",
+   "dataSet": 3,
+   "block": 8
+  },
+  {
+   "text": "3:8:A927",
+   "dataSet": 3,
+   "block": 8
+  }
+ ],
+ "trace": [
+  {
+   "cause": "textPrinted",
+   "textEvent": 64,
+   "changes": [
+    [
+     "slums",
+     "unknown",
+     "offered"
+    ]
+   ],
+   "tab": [
+    "offered"
+   ]
+  },
+  {
+   "cause": "textPrinted",
+   "textEvent": 65,
+   "changes": [
+    [
+     "sokal",
+     "unknown",
+     "offered"
+    ]
+   ],
+   "tab": [
+    "offered"
+   ]
+  },
+  {
+   "cause": "textPrinted",
+   "textEvent": 66,
+   "changes": [
+    [
+     "books",
+     "unknown",
+     "offered"
+    ]
+   ],
+   "tab": [
+    "offered"
+   ]
+  }
+ ],
+ "rows": [
+  "slums:offered",
+  "sokal:offered",
+  "books:offered"
+ ]
+}

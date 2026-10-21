@@ -1,0 +1,19 @@
+#por-plus-menu { position:fixed; top:8px; right:8px; z-index:100; }
+#por-plus { position:fixed; inset:5vh 5vw; z-index:1000; background:#16202e; color:#f1f4f8; border:1px solid #9bb4d0; border-radius:10px; box-shadow:0 12px 50px #000b; font:16px/1.5 system-ui,sans-serif; overflow:auto; }
+#por-plus[hidden], #por-plus-menu[hidden] { display:none; }
+#por-plus header { display:flex; justify-content:space-between; align-items:center; padding:14px; }
+#por-plus nav { display:flex; flex-wrap:wrap; gap:6px; padding:0 14px 14px; border-bottom:1px solid #526579; }
+#por-plus button, #por-plus-menu { font:inherit; color:#f1f4f8; background:#293d54; border:1px solid #8ea8c2; border-radius:5px; padding:6px 10px; cursor:pointer; }
+#por-plus button[aria-selected=true] { background:#466a92; }
+#por-plus :focus-visible, #por-plus-menu:focus-visible { outline:3px solid #ffd76b; outline-offset:2px; }
+#por-plus-content { padding:18px; overflow:auto; }
+#por-plus label { display:flex; gap:12px; align-items:center; padding:7px; }
+#por-plus input { width:20px; height:20px; }
+#por-plus a { color:#b7d9ff; }
+#por-plus.side-panel { left:auto; right:0; top:0; bottom:0; width:min(420px,45vw); border-radius:0; }
+@media(max-width:600px) { #por-plus { inset:4px; } #por-plus.side-panel { width:85vw; } }
+/* cab: the owner 2026-10-20 — the F12 hint strip (with the gear) lives outside the 320x200 frame; plus.js placeHint() puts it
+   in a margin of the window, never over the canvas. Fixed, so it never takes part in index.html's centring layout. */
+#cab-plus-hint { position:fixed; z-index:90; display:flex; gap:8px; align-items:center; white-space:nowrap; font:14px/1.2 system-ui,sans-serif; color:#d6e2ee; }
+#cab-plus-hint[hidden] { display:none; }
+#cab-plus-hint #por-plus-menu { position:static; padding:2px 8px; font-size:13px; }

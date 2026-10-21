@@ -1,0 +1,10 @@
+import {readFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+const summary=JSON.parse(readFileSync(new URL('../../../acceptance/plus/reports/QA-SUMMARY.json',import.meta.url),'utf8'));
+assert.equal(Object.keys(summary.originalRows).length,70);
+assert.equal(summary.originalCounts.PENDING,0,'unfinished original route coverage');
+for(const key of ['panel','status','keys','about','games','notes','journal-paste','journal-gate','personal-pin','pedia-search','pedia-reveal','map-fog','scenario','scenario-text-encoding','cheats','helper-settings','master','panel-roundtrip','settings-persist','scenario-url','real-movement-fog','f12-escape','quests','monster-reveal','fog-entered-cells','mods','zip-pad','frontdoor','notes-encoding','helper-tooltips','helper-combatLog','helper-quicksave','helper-autosave','helper-spellPresets','helper-margins','helper-crispFont','reserved-slot-ledgers','map-travel-combat-guard','click-menus','click-view','click-roster','click-lists','click-original-bypass','click-area-travel','click-combat-attack','click-combat-move','click-combat-cast','click-combat-aim','click-typed-input','click-plus-automap','click-complete-coverage','click-overland','click-title'])assert.ok(summary.featureResults[key],`missing ${key} audit`);
+assert.equal(summary.sourceGate.pass,true,'replays must match the current production source');
+for(const gate of Object.values(summary.runGates))assert.notEqual(gate.result,'PENDING');
+console.log(JSON.stringify({originalRows:summary.originalCounts,runGates:summary.runGates,features:summary.featureCounts,releaseGate:summary.releaseGate}));
+if(!process.argv.includes('--audit-only'))assert.equal(summary.releaseGate,'PASS','release remains blocked by reported failures');

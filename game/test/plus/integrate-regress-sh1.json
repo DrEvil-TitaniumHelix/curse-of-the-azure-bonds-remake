@@ -1,0 +1,35 @@
+{
+  "name": "GBP-INTEGRATE-SH1",
+  "query": "sting=1&fast=4&seed=1&profile=por&plus=0",
+  "steps": [
+    {
+      "name": "menu",
+      "keys": ""
+    },
+    {
+      "name": "VIEW-01-SEARCH",
+      "keys": "LAS"
+    },
+    {
+      "name": "REF-CHECK-SEARCH",
+      "keys": ""
+    },
+    {
+      "name": "VIEW-01-TURN",
+      "keys": "S{Down}"
+    },
+    {
+      "name": "ECL-02",
+      "keys": "{Up}"
+    },
+    {
+      "name": "REF-CHECK-CITY",
+      "keys": ""
+    },
+    {
+      "name": "VIEW-07",
+      "keys": "V",
+      "ref": "VIEW-07"
+    }
+  ]
+}

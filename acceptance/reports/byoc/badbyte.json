@@ -1,0 +1,39 @@
+{
+ "case": "badbyte",
+ "folder": "acceptance/local/byoc/badbyte",
+ "url": "http://127.0.0.1:8190/index.html?screen=S010&fast=4",
+ "steps": [
+  {
+   "id": "BY-1",
+   "shown": true,
+   "shot": "acceptance/local/byoc/shots/badbyte-1-BY1.png",
+   "sha256": "651ae1e0ff8d3821ff4babd734f7f6e188748b48e28da217593974534ced6f53"
+  },
+  {
+   "id": "picker",
+   "mode": "selectMultiple",
+   "picked": "acceptance/local/byoc/badbyte"
+  },
+  {
+   "id": "BY-4",
+   "checked": true,
+   "report": {
+    "ok": false,
+    "manifestId": "cab-1.0",
+    "okCount": 88,
+    "requiredCount": 89,
+    "likelyOtherVersion": true,
+    "gameOvr": "mismatch",
+    "variant": null,
+    "bad": [
+     "GAME.OVR:hash"
+    ],
+    "saves": 0
+   },
+   "shot": "acceptance/local/byoc/shots/badbyte-2-BY4.png",
+   "sha256": "f8fef8c9b96b9b59751c902a7797d35a92f5722823d2e04a2dafe06e79d8d9cb"
+  }
+ ],
+ "utc": "2026-10-21T06:12:16.916Z",
+ "result": "refused"
+}

@@ -1,0 +1,9 @@
+{
+ "id": "c-S080-LIST",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{End}{End}{End}{End}{End}{Enter}{Enter}{Enter}{Enter}NBETA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}EMM{Home}{Home}{Home}{Home}{Home}{Home}{Enter}{Enter}E",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/c-S080-LIST.png",
+ "sha256": "4d9cd18c7c2b54c7484a9744e517d1b6788eb00e4e6ec3143a7901a4178b0abd",
+ "utc": "2026-10-20T18:41:30.106Z"
+}

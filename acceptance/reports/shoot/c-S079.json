@@ -1,0 +1,9 @@
+{
+ "id": "c-S079",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{End}{End}{End}{End}{End}{Enter}{Enter}{Enter}{Enter}NBETA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}EMM{Home}{Home}{Home}{Home}{Home}{Home}{Enter}{Enter}{Home}{Home}{Enter}EEYRR{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}C",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/c-S079.png",
+ "sha256": "04d43d58c250a2c8e3605295d190e56ac9e02d5dc2b178ccc163672d034f34be",
+ "utc": "2026-10-20T18:47:41.210Z"
+}

@@ -1,0 +1,42 @@
+{
+  "name": "GBP-PEDIA-2",
+  "query": "testparty=1&sting=1&seed=7&fast=4&hooklog=1",
+  "steps": [
+    {
+      "name": "mount-pedia-tracker",
+      "probe": "(async()=>{const {mountPlus}=await import('/plus/plus.js'),{hooks}=await import('/plus/hooks.js'),{registerPediaTab}=await import('/plus/tabs/pedia.js');const plus=mountPlus();await plus.ready;await plus.setSetting('original',false);hooks.enabled=true;const registration=registerPediaTab(plus);const actualMonsters=[];hooks.on('monsterShown',payload=>actualMonsters.push(structuredClone(payload)));window.__pedia2={plus,hooks,registration,tracker:registration.tracker,actualMonsters};return {pass:true,tracking:true};})()"
+    },
+    {
+      "name": "load-test-party",
+      "keys": "LC"
+    },
+    {
+      "name": "begin",
+      "keys": "B"
+    },
+    {
+      "name": "tour",
+      "keys": "{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}",
+      "ms": 90000,
+      "probe": "(async()=>{const t=window.__pedia2;await t.tracker.flush();if(!t.tracker.revealed.has('place:3:0'))throw Error('actual area entry not revealed');return {pass:true,slot:t.tracker.slot,places:[...t.tracker.revealed.values()].filter(e=>e.kind==='place').length,memorisedSpells:[...t.tracker.revealed.values()].filter(e=>e.kind==='spell').length};})()"
+    },
+    {
+      "name": "walk-to-encounter",
+      "keys": "{Up}{Up}{Right}{Up}{Left}",
+      "until": "(e=>e.g_84E9===1||e.g_49F3===5)((await import('/areas/ecl_host.js')).eclG)",
+      "repeat": 40,
+      "ms": 40000
+    },
+    {
+      "name": "combat-start",
+      "keys": "C",
+      "until": "(e=>e.g_49F3===5)((await import('/areas/ecl_host.js')).eclG)",
+      "repeat": 3,
+      "ms": 60000
+    },
+    {
+      "name": "revealed-monster-tab",
+      "probe": "(async()=>{const t=window.__pedia2;await t.tracker.flush();const shown=t.actualMonsters;if(!shown.length)throw Error('no real monsterShown event');const event=shown[0],dataset=event.dataset??t.hooks.state.position().dataset,id='monster:'+dataset+':'+event.id,discovery=t.tracker.revealed.get(id);if(!discovery)throw Error('actual monster not revealed');if(!discovery.whereMet.length || !discovery.picture)throw Error('meeting place or confirmed icon missing');\n const before=document.getElementById('screen').toDataURL();t.plus.open();t.plus.selectTab('pedia');const host=document.getElementById('por-plus-content');const wait=async condition=>{for(let i=0;i<200;i++){if(condition())return;await new Promise(r=>setTimeout(r,20));}throw Error('pedia UI timeout');};await wait(()=>host.querySelector('button'));\n const filter=host.querySelector('select');filter.value='monster';filter.dispatchEvent(new Event('change'));await wait(()=>host.querySelector('button'));host.querySelector('button').click();await wait(()=>host.querySelector('canvas'));if(!host.textContent.includes('Where met:'))throw Error('entry layout missing');\n const c=await t.tracker.catalog(),names=new Set([...t.tracker.revealed.values()].filter(e=>e.kind==='monster').map(e=>e.name.toUpperCase())),unseen=c.entries.find(e=>e.kind==='monster'&&!t.tracker.revealed.has(e.id)&&!names.has(e.name.toUpperCase()));if(!unseen)throw Error('no unseen test candidate');const input=host.querySelector('input');input.value=unseen.name;input.dispatchEvent(new Event('input'));if(host.querySelector('button'))throw Error('unseen monster leaked through search');\n const {createStore}=await import('/plus/store.js'),saved=await createStore({profile:'por',slot:t.tracker.slot}).get('pedia:revealed');if(!saved?.entries.some(e=>e.id===id))throw Error('discovery not stored per slot');\n await t.plus.setSetting('original',true);t.plus.selectTab('pedia');if(host.querySelector('button')||!host.textContent.includes('off in original-game mode'))throw Error('original-mode gate failed');await t.plus.setSetting('original',false);t.plus.selectTab('helpers');t.registration.refresh();if(!host.textContent.includes('Play the original game'))throw Error('background refresh stole the active tab');t.plus.close();if(before!==document.getElementById('screen').toDataURL())throw Error('Pedia changed game canvas');return {pass:true,actualMonsterEvents:shown.length,revealedMonsters:[...t.tracker.revealed.values()].filter(e=>e.kind==='monster').length,slot:t.tracker.slot,confirmedPicture:true,searchHidesUnseen:true,persisted:true,canvasUnchanged:true};})()"
+    }
+  ]
+}

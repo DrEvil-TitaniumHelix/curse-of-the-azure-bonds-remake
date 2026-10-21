@@ -1,0 +1,12 @@
+# personal_gate.py allow-list: game text that matches a pattern (path:regex, one per line, path * = any file)
+# "Attack Ally: " is the original combat prompt (3A00:2F3C ConfirmAttackAlly, AskYesNo), quoted in code and decode notes
+*:attack ally
+# VM cell 7F33 is the game's "ally attacked" flag (combat set-up 3300:1ce7); named so in the trace notes
+*:ally-attacked
+# the combat-screen decode describes the game's own target choice "for an ally"
+decode/pseudo/COMBAT_SCREENS.md:for an ally
+decode/pseudo/SCREENS_INDEX.md:for an ally
+# the gate and the release tool name the user-path patterns they look for / replace
+tools/public_gate.py:mnt/c/users
+tools/make_public_repo.py:mnt/c/Users
+tools/make_public_repo.py:Users\[

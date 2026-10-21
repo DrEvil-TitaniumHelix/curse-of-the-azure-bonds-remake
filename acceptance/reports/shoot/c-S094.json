@@ -1,0 +1,9 @@
+{
+ "id": "c-S094",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{End}{End}{End}{End}{End}{Enter}{Enter}{Enter}{Enter}NBETA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}EMM{Home}{Home}{Home}{Home}{Home}{Home}{Enter}{Enter}{Home}{Home}{Enter}EEYRR{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}{wait}C{Enter}",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/c-S094.png",
+ "sha256": "716e80cf3c35a90d601cbf3c61079f293b023055e854eb000c4e7b30157ea9ab",
+ "utc": "2026-10-20T18:48:50.936Z"
+}

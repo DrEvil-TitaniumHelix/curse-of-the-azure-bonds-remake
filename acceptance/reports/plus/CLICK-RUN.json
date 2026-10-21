@@ -1,0 +1,51 @@
+{
+ "utc": "2026-10-21T09:18:04.966Z",
+ "results": [
+  {
+   "id": "1-topmenu-C",
+   "pass": true,
+   "list": [
+    "Pick Race",
+    "Dwarf",
+    "Elf",
+    "Gnome",
+    "Half-Elf",
+    "Halfling",
+    "Human"
+   ],
+   "png": "aaa8e5146ab708cb77083c1c0e0ea22a069fe0d75445603e8df58d2152bc755e"
+  },
+  {
+   "id": "2-list-row",
+   "pass": true,
+   "elfRow": 2,
+   "png": "6e3c87bffc6cb203a6e34dab1c8985d9a1fb53de51851ade206c7fb0e8c1e646"
+  },
+  {
+   "id": "3-roster-select",
+   "pass": true,
+   "chose": true,
+   "png": "1f557c32036c73c7e020e1829375ffacdd9df9836c8577c66e9c12c7ec585232"
+  },
+  {
+   "id": "4-areamap-walk",
+   "pass": true,
+   "pos": {
+    "block": 1,
+    "dataset": 2,
+    "x": 6,
+    "y": 13,
+    "facing": 3,
+    "dir": 6,
+    "travelMode": 1,
+    "gameMode": 0,
+    "map3d": 1,
+    "is3D": true
+   },
+   "png": "6e07f584e4e141fa91600ebb68ff734304e4d0f34657df5cb6604524749fa286"
+  },
+  {
+   "errors": []
+  }
+ ]
+}

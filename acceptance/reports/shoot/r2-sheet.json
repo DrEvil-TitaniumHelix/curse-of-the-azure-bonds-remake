@@ -1,0 +1,9 @@
+{
+ "id": "r2-sheet",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}LDAPA{Esc}V",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r2-sheet.png",
+ "sha256": "1876d435b94c4fa360412053580940b1274c697eb7858727d8d64abbff0cebc5",
+ "utc": "2026-10-20T19:00:42.720Z"
+}

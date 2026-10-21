@@ -1,0 +1,9 @@
+{
+ "id": "r2-dbg",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}LDAPA{Esc}{wait}{wait}{End}",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r2-dbg.png",
+ "sha256": "6a84fbd9f396b62ade1d57a3867408cb3aee83094058cdd03e08b81c79d64184",
+ "utc": "2026-10-20T18:56:32.472Z"
+}

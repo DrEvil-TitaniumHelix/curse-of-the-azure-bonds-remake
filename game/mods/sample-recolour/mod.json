@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "sample-recolour",
+  "name": "Sample PIC recolour",
+  "version": "1.0.0",
+  "author": "Pool of Radiance RE contributors",
+  "profile": "por",
+  "description": "Three recoloured PIC records, generated locally from your imported copy. No game art is shipped.",
+  "generator": "sample-recolour-v1",
+  "overrides": [
+    {"dax": "PIC", "dataSet": 3, "record": 1, "png": "pic-1.png"},
+    {"dax": "PIC", "dataSet": 3, "record": 29, "png": "pic-29.png"},
+    {"dax": "PIC", "dataSet": 3, "record": 41, "png": "pic-41.png"}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+ "id": "d-S096-ITEMS",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}pa{Enter}ldb{Left}{Left}{Up}{Enter}{Enter}{Right}{Up}{Enter}{Left}{Up}{Up}{Up}{Enter}{Up}yb{Enter}{End}{Enter}{Esc}v",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/d-S096-ITEMS.png",
+ "sha256": "1786b0cab4d769068deab769701e07aa0bfd31587b17cd20838eb747eeda5161",
+ "utc": "2026-10-20T19:19:46.818Z"
+}

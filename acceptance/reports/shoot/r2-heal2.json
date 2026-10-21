@@ -1,0 +1,9 @@
+{
+ "id": "r2-heal2",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}LDB{Left}{Left}{Up}{Enter}{Enter}{Right}{Up}{Enter}{Left}{Up}{Right}{Up}{Up}{Enter}{Up}{Up}{Up}{Left}{Up}{Enter}{Up}{Enter}{Up}{Up}{Up}H{Enter}",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r2-heal2.png",
+ "sha256": "2dc48df0b392c138f7250590deec0b5b5967d392c109994cd1e5b7686888c036",
+ "utc": "2026-10-20T18:35:56.207Z"
+}

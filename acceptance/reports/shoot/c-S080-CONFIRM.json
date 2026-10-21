@@ -1,0 +1,9 @@
+{
+ "id": "c-S080-CONFIRM",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{End}{End}{End}{End}{End}{Enter}{Enter}{Enter}{Enter}NBETA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}EMM{Home}{Home}{Home}{Home}{Home}{Home}{Enter}{Enter}EE",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/c-S080-CONFIRM.png",
+ "sha256": "81ad575447cc6a5acd1c400d7f2c9cb6485b75b4bead1a65c1f38b934ee3af0e",
+ "utc": "2026-10-20T18:42:31.250Z"
+}

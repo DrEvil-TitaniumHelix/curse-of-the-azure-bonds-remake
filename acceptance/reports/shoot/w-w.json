@@ -1,0 +1,9 @@
+{
+ "id": "w-w",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}{Down}{Up}",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/w-w.png",
+ "sha256": "0858be9101980889ed2dcc18dc7f9b6307b577bb30d8d9a398adb68d136f83f0",
+ "utc": "2026-10-20T14:39:08.598Z"
+}

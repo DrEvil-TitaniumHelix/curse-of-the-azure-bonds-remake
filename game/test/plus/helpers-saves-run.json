@@ -1,0 +1,42 @@
+{
+  "name": "GBP-HELPERS-SAVES",
+  "query": "save=testparty&force=1&sting=1&seed=7&fast=4",
+  "steps": [
+    {
+      "name": "menu",
+      "keys": ""
+    },
+    {
+      "name": "load-C",
+      "keys": "LC"
+    },
+    {
+      "name": "begin",
+      "keys": "B"
+    },
+    {
+      "name": "tour",
+      "keys": "{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}",
+      "ms": 90000
+    },
+    {
+      "name": "quick-save",
+      "keys": "",
+      "probe": "(async()=>{const {hooks}=await import('/plus/hooks.js'),{fileExists}=await import('/engine/files.js');\n const wait=async(c,n=100)=>{for(let i=0;i<n;i++){if(await c())return true;await new Promise(r=>setTimeout(r,100));}return false;};\n const autoX=await wait(()=>fileExists('savgamX.dat'),50);\n const p=hooks.state.position();window.__qs={x:p.x,y:p.y,facing:p.facing};\n dispatchEvent(new KeyboardEvent('keydown',{key:'F5'}));\n const ok1=await wait(()=>/Quick save: game Q/.test(document.getElementById('por-plus-toast')?.textContent||'')),file=await fileExists('savgamQ.dat');\n const ok=autoX&&ok1&&file;if(!ok)console.error('SAVES FAIL save',JSON.stringify({autoX,ok1,file,t:document.getElementById('por-plus-toast')?.textContent||''}));\n return {pass:ok,autosaveX:autoX,quickSave:ok1,savgamQ:file,pos:window.__qs};})()"
+    },
+    {
+      "name": "walk",
+      "keys": "{Right}{Up}",
+      "probe": "(async()=>{const {hooks}=await import('/plus/hooks.js');const p=hooks.state.position();const s=window.__qs;const ok=p.x!==s.x||p.y!==s.y||p.facing!==s.facing;if(!ok)console.error('SAVES FAIL moved');return {pass:ok,pos:[p.x,p.y,p.facing]};})()"
+    },
+    {
+      "name": "quick-load",
+      "keys": "",
+      "probe": "(async()=>{const {hooks}=await import('/plus/hooks.js');\n const wait=async(c,n=150)=>{for(let i=0;i<n;i++){if(await c())return true;await new Promise(r=>setTimeout(r,100));}return false;};\n dispatchEvent(new KeyboardEvent('keydown',{key:'F9'}));\n const ok1=await wait(()=>/Quick load: game Q/.test(document.getElementById('por-plus-toast')?.textContent||''));await new Promise(r=>setTimeout(r,1500));\n const p=hooks.state.position(),s=window.__qs,back=p.x===s.x&&p.y===s.y&&p.facing===s.facing,n=hooks.state.party().length;\n const ok=ok1&&back&&n===6;if(!ok)console.error('SAVES FAIL load',JSON.stringify({ok1,p,s,n,t:document.getElementById('por-plus-toast')?.textContent||''}));\n return {pass:ok,quickLoad:ok1,pos:[p.x,p.y,p.facing],party:n};})()"
+    },
+    {
+      "name": "after-load-step",
+      "keys": "{Right}"
+    }
+  ]
+}

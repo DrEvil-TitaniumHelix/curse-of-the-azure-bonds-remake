@@ -1,0 +1,9 @@
+{
+ "id": "r2-saved",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}LDAPA{Esc}VESE",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r2-saved.png",
+ "sha256": "7e14911828c8dcf93f2ed594c5e551d4a7b04580333db8ae8a945be7b13e4a3b",
+ "utc": "2026-10-20T19:05:31.189Z"
+}

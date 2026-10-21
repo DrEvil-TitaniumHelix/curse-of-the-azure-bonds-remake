@@ -1,0 +1,69 @@
+{
+ "name": "GBP-HOOKS-WARP",
+ "query": "save=testparty&force=1&sting=1&seed=7&fast=4",
+ "steps": [
+  {
+   "name": "menu",
+   "keys": ""
+  },
+  {
+   "name": "load-C",
+   "keys": "LC"
+  },
+  {
+   "name": "begin",
+   "keys": "B"
+  },
+  {
+   "name": "tour",
+   "keys": "{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}",
+   "ms": 90000
+  },
+  {
+   "name": "request-warp",
+   "keys": "",
+   "probe": "(await import('/plus/hooks.js')).hooks.requestWarp({ dataset: 4, block: 21, x: 8, y: 14, facing: 0 })"
+  },
+  {
+   "name": "at-sokal",
+   "keys": "",
+   "ms": 60000,
+   "probe": "(h => h.state.position())((await import('/plus/hooks.js')).hooks)"
+  },
+  {
+   "name": "continue",
+   "keys": "{Enter}",
+   "probe": "(await import('/engine/input.js')).gamepad.menuLetters.join('')"
+  },
+  {
+   "name": "warp-in-block",
+   "keys": "",
+   "probe": "(await import('/plus/hooks.js')).hooks.requestWarp({ x: 8, y: 13, facing: 2 })"
+  },
+  {
+   "name": "at-8-13",
+   "keys": "",
+   "probe": "(h => h.state.position())((await import('/plus/hooks.js')).hooks)"
+  },
+  {
+   "name": "hp-edit-redraw",
+   "keys": "",
+   "probe": "((e, h) => { e.PartyHead.b[0x11B] = 7; return h.requestRedraw(); })((await import('/areas/ecl_host.js')).eclG, (await import('/plus/hooks.js')).hooks)"
+  },
+  {
+   "name": "roster-redrawn",
+   "keys": "",
+   "probe": "(h => h.state.party()[0].hp)((await import('/plus/hooks.js')).hooks)"
+  },
+  {
+   "name": "walk-on",
+   "keys": "{Up}",
+   "probe": "(h => h.state.position())((await import('/plus/hooks.js')).hooks)"
+  },
+  {
+   "name": "original-refuses",
+   "keys": "",
+   "probe": "(h => { h.enabled = false; const r = h.requestWarp({ x: 1, y: 1 }); h.enabled = true; return r; })((await import('/plus/hooks.js')).hooks)"
+  }
+ ]
+}

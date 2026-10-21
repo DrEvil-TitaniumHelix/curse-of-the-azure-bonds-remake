@@ -1,0 +1,9 @@
+{
+ "id": "r2-shop0",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}LDB{Left}{Left}{Up}{Enter}{Enter}{Right}{Up}{Enter}{Left}{Up}{Up}{Up}{Enter}{Up}",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r2-shop0.png",
+ "sha256": "b3205a4b7ec3f571869045472db7808517d1f2fa396e12869d612d824682a904",
+ "utc": "2026-10-20T18:12:29.334Z"
+}

@@ -1,0 +1,11 @@
+{
+ "id": "demo1",
+ "url": "http://127.0.0.1:8189/index.html?screen=t25&demo=1&fast=4",
+ "ready": true,
+ "errors": [
+  "ENGINE ERROR MainProgram: Cannot read properties of null (reading 'readied') TypeError: Cannot read properties of null (reading 'readied')\n    at setRd (http://127.0.0.1:8189/areas/party_ov24.js:39:38)\n    at Object.RecalcItems (http://127.0.0.1:8189/areas/party_ov24.js:207:33)\n    at Proxy.<anonymous> (http://127.0.0.1:8189/areas/view_link.js:44:60)\n    at EclVM.op36_AddNpc (http://127.0.0.1:8189/engine/ecl_cab.js:994:13)\n    at async EclVM.dispatch (http://127.0.0.1:8189/engine/ecl_cab.js:417:5)\n    at async EclVM.run (http://127.0.0.1:8189/engine/ecl_cab.js:408:7)\n    at async EclVM.gameLoop (http://127.0.0.1:8189/engine/ecl_cab.js:1149:5)\n    at async Module.ecl_GameLoop (http://127.0.0.1:8189/areas/ecl_host.js:59:40)\n    at async Module.MainProgram (http://127.0.0.1:8189/areas/startup.js:96:5)\n    at async Module.MainProgram (http://127.0.0.1:8189/engine/main_cab.js:107:5)"
+ ],
+ "file": "acceptance/local/shoot/demo1.png",
+ "sha256": "9f19192e71e46cf49a5e03b1aff03ab97cda8b3d717be56b0a17ce90defe02c8",
+ "utc": "2026-10-20T13:34:17.327Z"
+}

@@ -1,0 +1,30 @@
+{
+  "name": "GBP-MAP-2",
+  "query": "sting=1&seed=1&fast=4&hooklog=1",
+  "steps": [
+    {
+      "name": "mount-tracker",
+      "probe": "(async()=>{const {mountPlus}=await import('/plus/plus.js'),{hooks}=await import('/plus/hooks.js'),{registerMapTab}=await import('/plus/tabs/map.js');const plus=mountPlus();await plus.ready;await plus.setSetting('original',false);await plus.setSetting('automap',true);hooks.enabled=true;const registration=registerMapTab(plus);window.__map2={plus,hooks,tracker:registration.tracker};return {pass:true,tracking:true};})()"
+    },
+    {
+      "name": "load",
+      "keys": "L"
+    },
+    {
+      "name": "explore-before",
+      "keys": "A"
+    },
+    {
+      "name": "fog-and-marker",
+      "probe": "(async()=>{const t=window.__map2,{currentMapContext}=await import('/plus/map/load.js');await t.tracker.flush();const context=await currentMapContext(),snapshot=t.tracker.snapshot(context);if(!snapshot.visited.has(context.y*16+context.x))throw Error('standing cell not visited');const before=document.getElementById('screen').toDataURL();t.plus.open();t.plus.selectTab('map');let canvas;for(let i=0;i<100;i++){canvas=document.querySelector('#por-plus-content canvas');if(canvas)break;await new Promise(r=>setTimeout(r,20));}if(!canvas || !canvas.getAttribute('aria-label').includes('Party facing'))throw Error('party marker missing');const unseen=Array.from({length:256},(_,i)=>i).find(i=>!snapshot.visited.has(i));if(unseen!==undefined){const x=(unseen%16)*24+12,y=Math.floor(unseen/16)*24+12,pixel=canvas.getContext('2d').getImageData(x,y,1,1).data;if(pixel[0]!==18||pixel[1]!==24||pixel[2]!==32)throw Error('unseen cell not fogged');}t.plus.close();if(before!==document.getElementById('screen').toDataURL())throw Error('Map changed game canvas');const {createStore}=await import('/plus/store.js'),saved=await createStore({profile:'por',slot:t.tracker.slot}).get('map:visited');if(!saved?.maps[snapshot.marker.key]?.includes(context.y*16+context.x))throw Error('visited fog did not persist');return {pass:true,visited:snapshot.visited.size,slot:t.tracker.slot,dir:snapshot.marker.dir,fog:true,marker:true,persisted:true,canvasUnchanged:true};})()"
+    },
+    {
+      "name": "walk-and-turn",
+      "keys": "{Up}{Right}"
+    },
+    {
+      "name": "updated-fog-and-facing",
+      "probe": "(async()=>{const t=window.__map2,{currentMapContext}=await import('/plus/map/load.js');await t.tracker.flush();const context=await currentMapContext(),snapshot=t.tracker.snapshot(context);if(!snapshot.visited.has(context.y*16+context.x))throw Error('standing cell not visited');const before=document.getElementById('screen').toDataURL();t.plus.open();t.plus.selectTab('map');let canvas;for(let i=0;i<100;i++){canvas=document.querySelector('#por-plus-content canvas');if(canvas)break;await new Promise(r=>setTimeout(r,20));}if(!canvas || !canvas.getAttribute('aria-label').includes('Party facing'))throw Error('party marker missing');const unseen=Array.from({length:256},(_,i)=>i).find(i=>!snapshot.visited.has(i));if(unseen!==undefined){const x=(unseen%16)*24+12,y=Math.floor(unseen/16)*24+12,pixel=canvas.getContext('2d').getImageData(x,y,1,1).data;if(pixel[0]!==18||pixel[1]!==24||pixel[2]!==32)throw Error('unseen cell not fogged');}t.plus.close();if(before!==document.getElementById('screen').toDataURL())throw Error('Map changed game canvas');const {createStore}=await import('/plus/store.js'),saved=await createStore({profile:'por',slot:t.tracker.slot}).get('map:visited');if(!saved?.maps[snapshot.marker.key]?.includes(context.y*16+context.x))throw Error('visited fog did not persist');return {pass:true,visited:snapshot.visited.size,slot:t.tracker.slot,dir:snapshot.marker.dir,fog:true,marker:true,persisted:true,canvasUnchanged:true};})()"
+    }
+  ]
+}

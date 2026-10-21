@@ -1,0 +1,24 @@
+{
+  "name": "GBP-PEDIA-1",
+  "query": "sting=1&seed=1&fast=4",
+  "steps": [
+    {
+      "name": "party-menu"
+    },
+    {
+      "name": "load",
+      "keys": "L"
+    },
+    {
+      "name": "explore-before",
+      "keys": "A"
+    },
+    {
+      "name": "pedia-search-layout",
+      "probe": "(async () => {\n const {buildPedia}=await import('/plus/pedia/build.js');\n const {registerPediaTab,renderEntry}=await import('/plus/tabs/pedia.js');\n const {mountPlus}=await import('/plus/plus.js');const plus=mountPlus();await plus.ready;\n const before=document.getElementById('screen').toDataURL(),catalog=await buildPedia();\n registerPediaTab(plus,{load:async()=>catalog,revealed:new Map()});plus.open();plus.selectTab('pedia');\n await new Promise(r=>setTimeout(r,100));let container=document.getElementById('por-plus-content');\n if(!container.textContent.includes('0 discoveries.'))throw Error('unseen entries leaked');\n const entry=catalog.entries.find(e=>e.kind==='monster');\n const revealed=new Map([[entry.id,{whereMet:[{name:'Observed test location'}]}]]);\n registerPediaTab(plus,{load:async()=>catalog,revealed});plus.selectTab('pedia');await new Promise(r=>setTimeout(r,100));\n if(!container.textContent.includes('1 discoveries.'))throw Error('discovery missing');\n container.querySelector('button').click();if(container.querySelector('h3')?.textContent!==entry.name || !container.textContent.includes('Observed test location'))throw Error('entry layout missing');\n const input=container.querySelector('input');input.value='no-such-observed-entry-123';input.dispatchEvent(new Event('input'));if(!container.textContent.includes('0 discoveries.'))throw Error('search failed');\n input.value=entry.name.toLowerCase();input.dispatchEvent(new Event('input'));if(!container.textContent.includes('1 discoveries.'))throw Error('case-insensitive search failed');\n const filter=container.querySelector('select');filter.value='spell';filter.dispatchEvent(new Event('change'));if(!container.textContent.includes('0 discoveries.'))throw Error('category filter failed');\n const detached=document.createElement('div');renderEntry(detached,{name:'Synthetic picture test',stats:{'Test value':1},whereMet:[]},{picture:{width:8,height:1,pixels:new Uint8Array(8).fill(3)}});if(!detached.querySelector('canvas'))throw Error('picture layout failed');\n await plus.setSetting('original',true);plus.selectTab('pedia');if(!container.textContent.includes('off in original-game mode'))throw Error('master switch failed');\n await plus.setSetting('original',false);plus.close();if(before!==document.getElementById('screen').toDataURL())throw Error('game canvas changed');\n return {pass:true,monsters:catalog.entries.filter(e=>e.kind==='monster').length,unseenHidden:true,search:true,entryLayout:true,canvasUnchanged:true};\n})()"
+    },
+    {
+      "name": "explore-after"
+    }
+  ]
+}

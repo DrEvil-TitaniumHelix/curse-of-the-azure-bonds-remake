@@ -1,0 +1,17 @@
+{
+  "format": "cab-scenario",
+  "version": 1,
+  "profile": "cab",
+  "name": "tilverton-start",
+  "title": "Level-5 party in the Tilverton start room",
+  "note": "Data set 2, block 1 (ECL2/1): the square where a new game begins (7,13 facing east, REF-S049), with a mixed level-5 party. No flags set; the clock at 05:00 on the first day.",
+  "dataset": 2, "block": 1, "x": 7, "y": 13, "facing": "E",
+  "clock": { "hour": 5, "minute": 0, "day": 1, "month": 0, "year": 0 },
+  "flags": {},
+  "party": [
+    { "name": "BRAND", "race": "Human", "class": "Fighter", "level": 5, "alignment": "Lawful Good", "gold": 100 },
+    { "name": "ILSA", "race": "Human", "gender": "Female", "class": "Cleric", "level": 5, "alignment": "Lawful Good" },
+    { "name": "TAMSIN", "race": "Elf", "gender": "Female", "class": "Fighter/Magic-User", "levels": [5, 5], "alignment": "Chaotic Good" },
+    { "name": "PIP", "race": "Halfling", "class": "Thief", "level": 5, "alignment": "True Neutral" }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+ "id": "g0-S113",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=4&wheel=1&freshsaves=1&loadsaves=1&keys={Space}{Space}{Space}{Space}pa{Enter}leb{Left}{Left}{Up}{Right}{Up}{Up}{Up}{Up}{Left}{Up}{Up}{Up}{Enter}{Up}{Enter}{Enter}{Enter}{Enter}&plus=0",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/g0-S113.png",
+ "sha256": "319280c17bad1665ab65e7e903874b0adc69a6ea87e16909ffff4043ca765a29",
+ "utc": "2026-10-21T09:06:26.946Z"
+}

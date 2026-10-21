@@ -1,0 +1,39 @@
+{
+ "case": "otherver",
+ "folder": "acceptance/local/byoc/otherver",
+ "url": "http://127.0.0.1:8190/index.html?screen=S010&fast=4",
+ "steps": [
+  {
+   "id": "BY-1",
+   "shown": true,
+   "shot": "acceptance/local/byoc/shots/otherver-1-BY1.png",
+   "sha256": "651ae1e0ff8d3821ff4babd734f7f6e188748b48e28da217593974534ced6f53"
+  },
+  {
+   "id": "picker",
+   "mode": "selectMultiple",
+   "picked": "acceptance/local/byoc/otherver"
+  },
+  {
+   "id": "BY-4",
+   "checked": true,
+   "report": {
+    "ok": false,
+    "manifestId": "cab-1.0",
+    "okCount": 88,
+    "requiredCount": 89,
+    "likelyOtherVersion": true,
+    "gameOvr": "match",
+    "variant": "patched-4A56",
+    "bad": [
+     "START.EXE:hash"
+    ],
+    "saves": 0
+   },
+   "shot": "acceptance/local/byoc/shots/otherver-2-BY4.png",
+   "sha256": "a0bb7ad7b2fd9ba22f06f2c3062c5c270cb21ecb697473df313a1c3fc73abc0a"
+  }
+ ],
+ "utc": "2026-10-21T06:12:19.202Z",
+ "result": "refused"
+}

@@ -1,0 +1,818 @@
+{
+ "id": "PLUS-SHELL",
+ "utc": "2026-10-21T08:16:48.138Z",
+ "results": [
+  {
+   "case": "desktop",
+   "viewport": [
+    1000,
+    700
+   ],
+   "url": "http://127.0.0.1:8191/index.html?screen=S015&fast=4",
+   "ready": true,
+   "error": null,
+   "errors": [],
+   "checks": {
+    "hintOutsideFrame": false,
+    "panelF12Esc": true,
+    "originalHidesHint": true,
+    "hintBack": true,
+    "canvasUnchanged": true,
+    "credits": true,
+    "games": true,
+    "tabs": true
+   },
+   "probe": {
+    "mounted": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      960,
+      305,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      1,
+      960,
+      600
+     ],
+     "inViewport": false
+    },
+    "opened": true,
+    "closed": true,
+    "tabs": [
+     "status",
+     "quests",
+     "journal",
+     "pedia",
+     "map",
+     "helpers",
+     "keys",
+     "games",
+     "about"
+    ],
+    "credits": [
+     "coab",
+     "Gold Box Companion",
+     "Pool of Radiance"
+    ],
+    "games": [
+     "cab+",
+     "por-"
+    ],
+    "original": {
+     "where": "below",
+     "shown": false,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": null,
+     "hint": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "frame": [
+      20,
+      50,
+      960,
+      600
+     ],
+     "inViewport": true
+    },
+    "back": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      960,
+      305,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      1,
+      960,
+      600
+     ],
+     "inViewport": false
+    },
+    "canvasUnchanged": true
+   },
+   "journal": null,
+   "map": null,
+   "helpers": null,
+   "file": "acceptance/local/plus/shell-desktop.png",
+   "sha256": "d171efc33db97438c4eae9a85bd1cfc22491acd05be362c5b213ac2d45b223f7",
+   "verdict": "FAIL"
+  },
+  {
+   "case": "phone",
+   "viewport": [
+    360,
+    640
+   ],
+   "url": "http://127.0.0.1:8191/index.html?screen=S015&fast=4",
+   "ready": true,
+   "error": null,
+   "errors": [],
+   "checks": {
+    "hintOutsideFrame": false,
+    "panelF12Esc": true,
+    "originalHidesHint": true,
+    "hintBack": true,
+    "canvasUnchanged": true,
+    "credits": true,
+    "games": true,
+    "tabs": true
+   },
+   "probe": {
+    "mounted": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      320,
+      275,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      171,
+      320,
+      200
+     ],
+     "inViewport": false
+    },
+    "opened": true,
+    "closed": true,
+    "tabs": [
+     "status",
+     "quests",
+     "journal",
+     "pedia",
+     "map",
+     "helpers",
+     "keys",
+     "games",
+     "about"
+    ],
+    "credits": [
+     "coab",
+     "Gold Box Companion",
+     "Pool of Radiance"
+    ],
+    "games": [
+     "cab+",
+     "por-"
+    ],
+    "original": {
+     "where": "below",
+     "shown": false,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": null,
+     "hint": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "frame": [
+      20,
+      220,
+      320,
+      200
+     ],
+     "inViewport": true
+    },
+    "back": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      320,
+      275,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      171,
+      320,
+      200
+     ],
+     "inViewport": false
+    },
+    "canvasUnchanged": true
+   },
+   "journal": null,
+   "map": null,
+   "helpers": null,
+   "file": "acceptance/local/plus/shell-phone.png",
+   "sha256": "c595c1d4bfb28b4382cbc3ee780e3b463c2bd580529ab5a836598981fd85058f",
+   "verdict": "FAIL"
+  },
+  {
+   "case": "exact",
+   "viewport": [
+    640,
+    400
+   ],
+   "url": "http://127.0.0.1:8191/index.html?screen=S015&fast=4",
+   "ready": true,
+   "error": null,
+   "errors": [],
+   "checks": {
+    "hintOutsideFrame": true,
+    "panelF12Esc": true,
+    "originalHidesHint": true,
+    "hintBack": true,
+    "canvasUnchanged": true,
+    "credits": true,
+    "games": true,
+    "tabs": true
+   },
+   "probe": {
+    "mounted": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "26",
+     "hint": [
+      397,
+      191,
+      166,
+      18
+     ],
+     "frame": [
+      77,
+      87,
+      320,
+      200
+     ],
+     "inViewport": true
+    },
+    "opened": true,
+    "closed": true,
+    "tabs": [
+     "status",
+     "quests",
+     "journal",
+     "pedia",
+     "map",
+     "helpers",
+     "keys",
+     "games",
+     "about"
+    ],
+    "credits": [
+     "coab",
+     "Gold Box Companion",
+     "Pool of Radiance"
+    ],
+    "games": [
+     "cab+",
+     "por-"
+    ],
+    "original": {
+     "where": "below",
+     "shown": false,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": null,
+     "hint": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "frame": [
+      0,
+      0,
+      640,
+      400
+     ],
+     "inViewport": true
+    },
+    "back": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "26",
+     "hint": [
+      397,
+      191,
+      166,
+      18
+     ],
+     "frame": [
+      77,
+      87,
+      320,
+      200
+     ],
+     "inViewport": true
+    },
+    "canvasUnchanged": true
+   },
+   "journal": null,
+   "map": null,
+   "helpers": null,
+   "file": "acceptance/local/plus/shell-exact.png",
+   "sha256": "d219f46c1fd2e2dac5f29d5e44e15f6a3e8c9d6552a8ca86e9753df1933c2a97",
+   "verdict": "PASS"
+  },
+  {
+   "case": "journal",
+   "viewport": [
+    1000,
+    700
+   ],
+   "url": "http://127.0.0.1:8191/index.html?screen=S015&fast=4",
+   "ready": true,
+   "error": null,
+   "errors": [],
+   "checks": {
+    "hintOutsideFrame": false,
+    "panelF12Esc": true,
+    "originalHidesHint": true,
+    "hintBack": true,
+    "canvasUnchanged": true,
+    "credits": true,
+    "games": true,
+    "journal": true,
+    "tabs": true
+   },
+   "probe": {
+    "mounted": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      960,
+      305,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      1,
+      960,
+      600
+     ],
+     "inViewport": false
+    },
+    "opened": true,
+    "closed": true,
+    "tabs": [
+     "status",
+     "quests",
+     "journal",
+     "pedia",
+     "map",
+     "helpers",
+     "keys",
+     "games",
+     "about"
+    ],
+    "credits": [
+     "coab",
+     "Gold Box Companion",
+     "Pool of Radiance"
+    ],
+    "games": [
+     "cab+",
+     "por-"
+    ],
+    "original": {
+     "where": "below",
+     "shown": false,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": null,
+     "hint": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "frame": [
+      20,
+      50,
+      960,
+      600
+     ],
+     "inViewport": true
+    },
+    "back": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      960,
+      305,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      1,
+      960,
+      600
+     ],
+     "inViewport": false
+    },
+    "canvasUnchanged": true
+   },
+   "journal": {
+    "cited": [
+     "entry:4",
+     "entry:41"
+    ],
+    "ownText": true,
+    "uncitedHidden": true,
+    "line": true
+   },
+   "map": null,
+   "helpers": null,
+   "file": "acceptance/local/plus/shell-journal.png",
+   "sha256": "708325513ed91eaf6eb77250f27c668e1ef92d51ae3c316e5551970670ab1959",
+   "verdict": "FAIL"
+  },
+  {
+   "case": "map",
+   "viewport": [
+    1000,
+    700
+   ],
+   "url": "http://127.0.0.1:8191/index.html?screen=idle&fast=4&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}",
+   "ready": true,
+   "error": null,
+   "errors": [],
+   "checks": {
+    "hintOutsideFrame": false,
+    "panelF12Esc": true,
+    "originalHidesHint": true,
+    "hintBack": true,
+    "canvasUnchanged": true,
+    "credits": true,
+    "games": true,
+    "map": true,
+    "tabs": true
+   },
+   "probe": {
+    "mounted": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      960,
+      305,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      1,
+      960,
+      600
+     ],
+     "inViewport": false
+    },
+    "opened": true,
+    "closed": true,
+    "tabs": [
+     "status",
+     "quests",
+     "journal",
+     "pedia",
+     "map",
+     "helpers",
+     "keys",
+     "games",
+     "about"
+    ],
+    "credits": [
+     "coab",
+     "Gold Box Companion",
+     "Pool of Radiance"
+    ],
+    "games": [
+     "cab+",
+     "por-"
+    ],
+    "original": {
+     "where": "below",
+     "shown": false,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": null,
+     "hint": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "frame": [
+      20,
+      50,
+      960,
+      600
+     ],
+     "inViewport": true
+    },
+    "back": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      960,
+      305,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      1,
+      960,
+      600
+     ],
+     "inViewport": false
+    },
+    "canvasUnchanged": true
+   },
+   "journal": null,
+   "map": {
+    "drawn": true,
+    "status": "ECL2/1 — 3D map 1, 16 × 16, north up",
+    "progress": "1 cells visited in save slot unsaved. Unvisited cells are hidden. Gold arrow: party and facing.",
+    "label": "Visited area map, north up. 1 cells visited. Party facing east."
+   },
+   "helpers": null,
+   "file": "acceptance/local/plus/shell-map.png",
+   "sha256": "486c8ccf6e6ad3dc2814fb469f727cde1e889b7c793eb63db6f392b4bb14f19d",
+   "verdict": "FAIL"
+  },
+  {
+   "case": "helpers",
+   "viewport": [
+    1000,
+    700
+   ],
+   "url": "http://127.0.0.1:8191/index.html?screen=idle&fast=4&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}",
+   "ready": true,
+   "error": null,
+   "errors": [],
+   "checks": {
+    "hintOutsideFrame": false,
+    "panelF12Esc": true,
+    "originalHidesHint": true,
+    "hintBack": true,
+    "canvasUnchanged": true,
+    "credits": true,
+    "games": true,
+    "helpers": true,
+    "tabs": true
+   },
+   "probe": {
+    "mounted": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      960,
+      305,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      1,
+      960,
+      600
+     ],
+     "inViewport": false
+    },
+    "opened": true,
+    "closed": true,
+    "tabs": [
+     "status",
+     "quests",
+     "journal",
+     "pedia",
+     "map",
+     "helpers",
+     "keys",
+     "games",
+     "about"
+    ],
+    "credits": [
+     "coab",
+     "Gold Box Companion",
+     "Pool of Radiance"
+    ],
+    "games": [
+     "cab+",
+     "por-"
+    ],
+    "original": {
+     "where": "below",
+     "shown": false,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": null,
+     "hint": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "frame": [
+      20,
+      50,
+      960,
+      600
+     ],
+     "inViewport": true
+    },
+    "back": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      960,
+      305,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      1,
+      960,
+      600
+     ],
+     "inViewport": false
+    },
+    "canvasUnchanged": true
+   },
+   "journal": null,
+   "map": null,
+   "helpers": {
+    "started": true,
+    "off": [],
+    "on": [
+     "por-plus-crisp",
+     "por-plus-combatlog"
+    ],
+    "cells": 66,
+    "after": [],
+    "canvasUnchanged": true
+   },
+   "file": "acceptance/local/plus/shell-helpers.png",
+   "sha256": "66915344db56e1f2fedb74a4ab6e11af81372bb1bd3d9a24696317a8813d3863",
+   "verdict": "FAIL"
+  },
+  {
+   "case": "dev",
+   "viewport": [
+    1000,
+    700
+   ],
+   "url": "http://127.0.0.1:8191/index.html?screen=S015&fast=4&dev=1",
+   "ready": true,
+   "error": null,
+   "errors": [],
+   "checks": {
+    "hintOutsideFrame": false,
+    "panelF12Esc": true,
+    "originalHidesHint": true,
+    "hintBack": true,
+    "canvasUnchanged": true,
+    "credits": true,
+    "games": true,
+    "tabs": true
+   },
+   "probe": {
+    "mounted": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      960,
+      305,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      1,
+      960,
+      600
+     ],
+     "inViewport": false
+    },
+    "opened": true,
+    "closed": true,
+    "tabs": [
+     "status",
+     "quests",
+     "journal",
+     "pedia",
+     "map",
+     "helpers",
+     "keys",
+     "cheats",
+     "scenario",
+     "games",
+     "about"
+    ],
+    "credits": [
+     "coab",
+     "Gold Box Companion",
+     "Pool of Radiance"
+    ],
+    "games": [
+     "cab+",
+     "por-"
+    ],
+    "original": {
+     "where": "below",
+     "shown": false,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": null,
+     "hint": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "frame": [
+      20,
+      50,
+      960,
+      600
+     ],
+     "inViewport": true
+    },
+    "back": {
+     "where": "below",
+     "shown": true,
+     "overlap": false,
+     "text": "⚙ PlusF12 opens the Plus screen",
+     "reserve": "98",
+     "hint": [
+      960,
+      305,
+      41,
+      90
+     ],
+     "frame": [
+      0,
+      1,
+      960,
+      600
+     ],
+     "inViewport": false
+    },
+    "canvasUnchanged": true
+   },
+   "journal": null,
+   "map": null,
+   "helpers": null,
+   "file": "acceptance/local/plus/shell-dev.png",
+   "sha256": "d171efc33db97438c4eae9a85bd1cfc22491acd05be362c5b213ac2d45b223f7",
+   "verdict": "FAIL"
+  }
+ ]
+}

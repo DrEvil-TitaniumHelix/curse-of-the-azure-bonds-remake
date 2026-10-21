@@ -1,0 +1,38 @@
+{
+  "name": "GBP-INTEGRATE-LG1",
+  "query": "sting=1&fast=4&profile=por&plus=0",
+  "steps": [
+    {
+      "name": "REF-MENU",
+      "keys": "",
+      "ref": "REF-MENU"
+    },
+    {
+      "name": "VIEW-01",
+      "keys": "LA",
+      "ref": "VIEW-01"
+    },
+    {
+      "name": "VIEW-02",
+      "keys": "A",
+      "ref": "VIEW-02"
+    },
+    {
+      "name": "ECL-14",
+      "keys": "AE"
+    },
+    {
+      "name": "ECL-15",
+      "keys": "M"
+    },
+    {
+      "name": "REF-CHECK-CAST",
+      "keys": "C"
+    },
+    {
+      "name": "VIEW-09",
+      "keys": "{End}C",
+      "ref": "VIEW-09"
+    }
+  ]
+}

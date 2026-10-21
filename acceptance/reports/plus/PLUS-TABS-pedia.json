@@ -1,0 +1,18 @@
+{
+ "id": "PLUS-TABS",
+ "utc": "2026-10-21T08:53:06.444Z",
+ "results": [
+  {
+   "id": "pedia",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "pedia",
+    "text": "Gold Box-pediaAllMonstersPeopleItemsItem typesSpellsPlaces1 discoveries. Entries appear after you meet, visit or see them. Save slot unsaved.3D map 1How to read"
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-pedia.png",
+   "sha256": "89d7aa830192a648a7528cf7be764bbcdbf2235e2b7614555a1334d25d2c26b3"
+  }
+ ]
+}

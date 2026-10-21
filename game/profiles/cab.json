@@ -1,0 +1,593 @@
+{
+  "schemaVersion": 1,
+  "id": "cab",
+  "title": "Curse of the Azure Bonds",
+  "version": "1.0",
+  "supported": true,
+  "manifest": {
+    "url": "../byoc/manifest-cab-1.0.json",
+    "id": "cab-1.0",
+    "requiredCount": 89,
+    "files": [
+      "START.EXE",
+      "ITEMS",
+      "8X8D1.DAX",
+      "8X8D2.DAX",
+      "8X8D3.DAX",
+      "8X8D4.DAX",
+      "8X8D5.DAX",
+      "8X8D6.DAX",
+      "BIGPIC1.DAX",
+      "BIGPIC2.DAX",
+      "BIGPIC6.DAX",
+      "BODY2.DAX",
+      "BODY3.DAX",
+      "BODY4.DAX",
+      "BODY5.DAX",
+      "BODY6.DAX",
+      "CBODY.DAX",
+      "CHEAD.DAX",
+      "COMSPR.DAX",
+      "CPIC1.DAX",
+      "CPIC2.DAX",
+      "CPIC3.DAX",
+      "CPIC4.DAX",
+      "CPIC5.DAX",
+      "CPIC6.DAX",
+      "DUNGCOM.DAX",
+      "ECL1.DAX",
+      "ECL2.DAX",
+      "ECL3.DAX",
+      "ECL4.DAX",
+      "ECL5.DAX",
+      "ECL6.DAX",
+      "GEO2.DAX",
+      "GEO3.DAX",
+      "GEO4.DAX",
+      "GEO5.DAX",
+      "GEO6.DAX",
+      "HEAD2.DAX",
+      "HEAD3.DAX",
+      "HEAD4.DAX",
+      "HEAD5.DAX",
+      "HEAD6.DAX",
+      "ITEM1.DAX",
+      "ITEM2.DAX",
+      "ITEM3.DAX",
+      "ITEM4.DAX",
+      "ITEM5.DAX",
+      "ITEM6.DAX",
+      "MON1CHA.DAX",
+      "MON1ITM.DAX",
+      "MON1SPC.DAX",
+      "MON2CHA.DAX",
+      "MON2ITM.DAX",
+      "MON2SPC.DAX",
+      "MON3CHA.DAX",
+      "MON3ITM.DAX",
+      "MON3SPC.DAX",
+      "MON4CHA.DAX",
+      "MON4ITM.DAX",
+      "MON4SPC.DAX",
+      "MON5CHA.DAX",
+      "MON5ITM.DAX",
+      "MON5SPC.DAX",
+      "MON6CHA.DAX",
+      "MON6ITM.DAX",
+      "MON6SPC.DAX",
+      "PIC1.DAX",
+      "PIC2.DAX",
+      "PIC3.DAX",
+      "PIC4.DAX",
+      "PIC5.DAX",
+      "PIC6.DAX",
+      "RANDCOM.DAX",
+      "SKY.DAX",
+      "SPRIT1.DAX",
+      "SPRIT2.DAX",
+      "SPRIT3.DAX",
+      "SPRIT4.DAX",
+      "SPRIT5.DAX",
+      "SPRIT6.DAX",
+      "TILES.DAX",
+      "TITLE.DAX",
+      "WALLDEF2.DAX",
+      "WALLDEF3.DAX",
+      "WALLDEF4.DAX",
+      "WALLDEF5.DAX",
+      "WALLDEF6.DAX",
+      "WILDCOM.DAX",
+      "GAME.OVR"
+    ]
+  },
+  "daxGroups": {
+    "8X8D": [
+      "8X8D1.DAX",
+      "8X8D2.DAX",
+      "8X8D3.DAX",
+      "8X8D4.DAX",
+      "8X8D5.DAX",
+      "8X8D6.DAX"
+    ],
+    "BIGPIC": [
+      "BIGPIC1.DAX",
+      "BIGPIC2.DAX",
+      "BIGPIC6.DAX"
+    ],
+    "BODY": [
+      "BODY2.DAX",
+      "BODY3.DAX",
+      "BODY4.DAX",
+      "BODY5.DAX",
+      "BODY6.DAX"
+    ],
+    "CBODY": [
+      "CBODY.DAX"
+    ],
+    "CHEAD": [
+      "CHEAD.DAX"
+    ],
+    "COMSPR": [
+      "COMSPR.DAX"
+    ],
+    "CPIC": [
+      "CPIC1.DAX",
+      "CPIC2.DAX",
+      "CPIC3.DAX",
+      "CPIC4.DAX",
+      "CPIC5.DAX",
+      "CPIC6.DAX"
+    ],
+    "DUNGCOM": [
+      "DUNGCOM.DAX"
+    ],
+    "ECL": [
+      "ECL1.DAX",
+      "ECL2.DAX",
+      "ECL3.DAX",
+      "ECL4.DAX",
+      "ECL5.DAX",
+      "ECL6.DAX"
+    ],
+    "GEO": [
+      "GEO2.DAX",
+      "GEO3.DAX",
+      "GEO4.DAX",
+      "GEO5.DAX",
+      "GEO6.DAX"
+    ],
+    "HEAD": [
+      "HEAD2.DAX",
+      "HEAD3.DAX",
+      "HEAD4.DAX",
+      "HEAD5.DAX",
+      "HEAD6.DAX"
+    ],
+    "ITEM": [
+      "ITEM1.DAX",
+      "ITEM2.DAX",
+      "ITEM3.DAX",
+      "ITEM4.DAX",
+      "ITEM5.DAX",
+      "ITEM6.DAX"
+    ],
+    "MONCHA": [
+      "MON1CHA.DAX",
+      "MON2CHA.DAX",
+      "MON3CHA.DAX",
+      "MON4CHA.DAX",
+      "MON5CHA.DAX",
+      "MON6CHA.DAX"
+    ],
+    "MONITM": [
+      "MON1ITM.DAX",
+      "MON2ITM.DAX",
+      "MON3ITM.DAX",
+      "MON4ITM.DAX",
+      "MON5ITM.DAX",
+      "MON6ITM.DAX"
+    ],
+    "MONSPC": [
+      "MON1SPC.DAX",
+      "MON2SPC.DAX",
+      "MON3SPC.DAX",
+      "MON4SPC.DAX",
+      "MON5SPC.DAX",
+      "MON6SPC.DAX"
+    ],
+    "PIC": [
+      "PIC1.DAX",
+      "PIC2.DAX",
+      "PIC3.DAX",
+      "PIC4.DAX",
+      "PIC5.DAX",
+      "PIC6.DAX"
+    ],
+    "RANDCOM": [
+      "RANDCOM.DAX"
+    ],
+    "SKY": [
+      "SKY.DAX"
+    ],
+    "SPRIT": [
+      "SPRIT1.DAX",
+      "SPRIT2.DAX",
+      "SPRIT3.DAX",
+      "SPRIT4.DAX",
+      "SPRIT5.DAX",
+      "SPRIT6.DAX"
+    ],
+    "TILES": [
+      "TILES.DAX"
+    ],
+    "TITLE": [
+      "TITLE.DAX"
+    ],
+    "WALLDEF": [
+      "WALLDEF2.DAX",
+      "WALLDEF3.DAX",
+      "WALLDEF4.DAX",
+      "WALLDEF5.DAX",
+      "WALLDEF6.DAX"
+    ],
+    "WILDCOM": [
+      "WILDCOM.DAX"
+    ]
+  },
+  "ecl": {
+    "opcodeTableVersion": "cab",
+    "spec": "decode/ecl/ECL_VM.md",
+    "implementation": "../engine/ecl_cab.js",
+    "baseAddress": 32768,
+    "codeBufferBytes": 7680,
+    "recordHeaderBytes": 2,
+    "regions": [
+      {
+        "base": 19200,
+        "bytes": 2048
+      },
+      {
+        "base": 31744,
+        "bytes": 2048
+      },
+      {
+        "base": 31232,
+        "bytes": 1024
+      },
+      {
+        "base": 32768,
+        "bytes": 7680
+      }
+    ]
+  },
+  "recordSizes": {
+    "TChar": 422,
+    "item": 63,
+    "effect": 9,
+    "combat": 22
+  },
+  "areas": [
+    {
+      "dataSet": 1,
+      "block": 80,
+      "name": "ECL1/80",
+      "source": "decode/ecl/scripts/ECL1_80.ecl.txt",
+      "hasGeo": false
+    },
+    {
+      "dataSet": 1,
+      "block": 81,
+      "name": "ECL1/81",
+      "source": "decode/ecl/scripts/ECL1_81.ecl.txt",
+      "hasGeo": false
+    },
+    {
+      "dataSet": 1,
+      "block": 82,
+      "name": "ECL1/82",
+      "source": "decode/ecl/scripts/ECL1_82.ecl.txt",
+      "hasGeo": false
+    },
+    {
+      "dataSet": 2,
+      "block": 1,
+      "name": "ECL2/1",
+      "source": "decode/ecl/scripts/ECL2_01.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 2,
+      "block": 2,
+      "name": "ECL2/2",
+      "source": "decode/ecl/scripts/ECL2_02.ecl.txt",
+      "hasGeo": false
+    },
+    {
+      "dataSet": 2,
+      "block": 3,
+      "name": "ECL2/3",
+      "source": "decode/ecl/scripts/ECL2_03.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 2,
+      "block": 4,
+      "name": "ECL2/4",
+      "source": "decode/ecl/scripts/ECL2_04.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 3,
+      "block": 16,
+      "name": "ECL3/16",
+      "source": "decode/ecl/scripts/ECL3_16.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 3,
+      "block": 17,
+      "name": "ECL3/17",
+      "source": "decode/ecl/scripts/ECL3_17.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 3,
+      "block": 18,
+      "name": "ECL3/18",
+      "source": "decode/ecl/scripts/ECL3_18.ecl.txt",
+      "hasGeo": false
+    },
+    {
+      "dataSet": 3,
+      "block": 21,
+      "name": "ECL3/21",
+      "source": "decode/ecl/scripts/ECL3_21.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 4,
+      "block": 32,
+      "name": "ECL4/32",
+      "source": "decode/ecl/scripts/ECL4_32.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 4,
+      "block": 33,
+      "name": "ECL4/33",
+      "source": "decode/ecl/scripts/ECL4_33.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 4,
+      "block": 34,
+      "name": "ECL4/34",
+      "source": "decode/ecl/scripts/ECL4_34.ecl.txt",
+      "hasGeo": false
+    },
+    {
+      "dataSet": 4,
+      "block": 35,
+      "name": "ECL4/35",
+      "source": "decode/ecl/scripts/ECL4_35.ecl.txt",
+      "hasGeo": false
+    },
+    {
+      "dataSet": 4,
+      "block": 37,
+      "name": "ECL4/37",
+      "source": "decode/ecl/scripts/ECL4_37.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 5,
+      "block": 48,
+      "name": "ECL5/48",
+      "source": "decode/ecl/scripts/ECL5_48.ecl.txt",
+      "hasGeo": false
+    },
+    {
+      "dataSet": 5,
+      "block": 49,
+      "name": "ECL5/49",
+      "source": "decode/ecl/scripts/ECL5_49.ecl.txt",
+      "hasGeo": false
+    },
+    {
+      "dataSet": 5,
+      "block": 50,
+      "name": "ECL5/50",
+      "source": "decode/ecl/scripts/ECL5_50.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 5,
+      "block": 51,
+      "name": "ECL5/51",
+      "source": "decode/ecl/scripts/ECL5_51.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 5,
+      "block": 53,
+      "name": "ECL5/53",
+      "source": "decode/ecl/scripts/ECL5_53.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 6,
+      "block": 64,
+      "name": "ECL6/64",
+      "source": "decode/ecl/scripts/ECL6_64.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 6,
+      "block": 66,
+      "name": "ECL6/66",
+      "source": "decode/ecl/scripts/ECL6_66.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 6,
+      "block": 67,
+      "name": "ECL6/67",
+      "source": "decode/ecl/scripts/ECL6_67.ecl.txt",
+      "hasGeo": true
+    },
+    {
+      "dataSet": 6,
+      "block": 69,
+      "name": "ECL6/69",
+      "source": "decode/ecl/scripts/ECL6_69.ecl.txt",
+      "hasGeo": true
+    }
+  ],
+  "questTable": {
+    "status": "table",
+    "module": "../plus/quests/table.js",
+    "source": "decode/ecl/QUESTS.md"
+  },
+  "pediaSources": {
+    "monsters": {
+      "groups": [
+        "MONCHA"
+      ],
+      "records": "all records in each listed DAX file",
+      "recordSize": "TChar",
+      "itemsGroup": "MONITM",
+      "effectsGroup": "MONSPC",
+      "source": "decode/data/MONSTERS.md"
+    },
+    "items": {
+      "catalogue": {
+        "file": "ITEMS",
+        "headerBytes": 2,
+        "recordBytes": 16,
+        "recordCount": 128
+      },
+      "groups": [
+        "ITEM",
+        "MONITM"
+      ],
+      "recordSize": "item",
+      "nameWords": {
+        "file": "START.EXE",
+        "dsOffset": 4160,
+        "stride": 21,
+        "encoding": "pascal-string"
+      },
+      "source": "decode/data/ITEMS.md"
+    },
+    "spells": {
+      "file": "START.EXE",
+      "container": "DS image (not EXEPACKed)",
+      "definitions": {
+        "dsOffset": 14298,
+        "stride": 16,
+        "count": 84
+      },
+      "names": {
+        "dsOffset": 10173,
+        "stride": 41,
+        "encoding": "pascal-string"
+      },
+      "activeEffectsGroup": "MONSPC",
+      "note": "MONnSPC stores active effects, not spell definitions.",
+      "source": "game/areas/magic_ov22.js"
+    },
+    "places": {
+      "groups": [
+        "GEO",
+        "ECL"
+      ],
+      "names": "areas",
+      "source": "decode/ecl/scripts/INDEX.md"
+    }
+  },
+  "saveFormat": {
+    "id": "cab-1.0-dos",
+    "gameBytes": 13149,
+    "slots": "ABCDEFGHIJ",
+    "partyCapacity": 8,
+    "gamePattern": "SAVGAM{slot}.DAT",
+    "characterPattern": "CHRDAT{slot}{member}.SAV",
+    "itemExtension": ".SWG",
+    "effectExtension": ".FX",
+    "rosterExtension": ".GUY",
+    "rosterList": null,
+    "importSources": [
+      {
+        "id": 0,
+        "game": "cab",
+        "extension": ".GUY",
+        "bytes": 422
+      },
+      {
+        "id": 1,
+        "game": "por",
+        "extension": ".CHA",
+        "bytes": 285,
+        "alsoSaves": "CHRDAT*.SAV"
+      },
+      {
+        "id": 2,
+        "game": "hillsfar",
+        "extension": ".HIL",
+        "bytes": 188
+      }
+    ],
+    "source": "decode/data/SAVES.md"
+  },
+  "engine": {
+    "id": "cab-1.0",
+    "entryModule": "../engine/main_cab.js",
+    "entryExport": "MainProgram",
+    "areaModules": [],
+    "state": {
+      "executable": "START.EXE",
+      "globals": "../state/globals.json",
+      "exepack": false,
+      "headerBytes": 1968,
+      "dsSegment": 3100,
+      "dsImageOffset": 49600,
+      "dsBytes": 36608
+    },
+    "font": {
+      "file": "8X8D1.DAX",
+      "record": 201
+    },
+    "storage": {
+      "data": "cab-data",
+      "saves": "cab-save",
+      "errors": "cab"
+    },
+    "configuration": "E\r\nP\r\nC:\\SAVE\\\r\nF\r\n"
+  },
+  "plus": {
+    "note": "Gold Box Plus hooks (game/plus/hooks.js configure): the 422-byte record layout (decode/pseudo/PARTY.pas.md ## Character record) and the VM cells of the state getters (decode/ecl/ECL_VM.md)",
+    "partyList": "PartyList",
+    "charFields": {
+      "nameMax": 15,
+      "race": 116,
+      "cls": 117,
+      "levels": 265,
+      "hp": 420,
+      "hpMax": 120,
+      "ac": 410,
+      "thac0": 409,
+      "status": 405,
+      "side": 407,
+      "npc": 247,
+      "xp": 295,
+      "money": 251,
+      "itemType": 46
+    },
+    "mem": {
+      "partyCount": 32574,
+      "clock": 19398,
+      "map3d": 19397
+    },
+    "combatModeVar": "view_Mode"
+  }
+}

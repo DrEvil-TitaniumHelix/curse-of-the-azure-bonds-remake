@@ -1,0 +1,104 @@
+{
+ "route": "run2",
+ "seed": 169084438,
+ "summary": {
+  "expect": [
+   "load D, begin: PASS"
+  ],
+  "checkpoints": 4,
+  "idle": true,
+  "events": 69,
+  "text": "8 same + 0 computed of 8, 0 mismatches",
+  "flags": "15 of 28 writes on an operand of their instruction, 13 by engine routines during it (4BC5 3D map id: LOAD FILES 2200:0C15; 7EC9: ExploreCommand 3f00:0911; 4CFF force-animation cell: HorizontalMenu 6800:07a8; 7ED5 walked-off-the-map flag: StepForward 3f00:07aa; 4BC6..4BCC clock: AdvanceClock 5400:041e), 0 unexplained"
+ },
+ "saves": null,
+ "checkpoints": [
+  {
+   "label": "top menu",
+   "idle": true,
+   "state": {
+    "dataset": 2,
+    "x": 7,
+    "y": 13,
+    "dir": 0,
+    "viewMode": 0,
+    "clock": null,
+    "party": [],
+    "cells": null
+   },
+   "expect": null
+  },
+  {
+   "label": "load D, begin",
+   "idle": true,
+   "state": {
+    "block": 1,
+    "dataset": 2,
+    "x": 7,
+    "y": 13,
+    "dir": 2,
+    "viewMode": 4,
+    "clock": "00:00",
+    "party": [
+     "ALPHA hp 44/44 AC 8"
+    ],
+    "cells": {
+     "4BF2 block": 1,
+     "4BE6 3D": 1,
+     "4BC5 map": 1,
+     "7F3E party": 1,
+     "7F12 dataset": 2
+    }
+   },
+   "expect": "PASS"
+  },
+  {
+   "label": "into the inn (6,13 W)",
+   "idle": true,
+   "state": {
+    "block": 1,
+    "dataset": 2,
+    "x": 6,
+    "y": 13,
+    "dir": 6,
+    "viewMode": 4,
+    "clock": "00:01",
+    "party": [
+     "ALPHA hp 44/44 AC 8"
+    ],
+    "cells": {
+     "4BF2 block": 1,
+     "4BE6 3D": 1,
+     "4BC5 map": 1,
+     "7F3E party": 1,
+     "7F12 dataset": 2
+    }
+   },
+   "expect": null
+  },
+  {
+   "label": "the innkeeper's story",
+   "idle": true,
+   "state": {
+    "block": 1,
+    "dataset": 2,
+    "x": 6,
+    "y": 13,
+    "dir": 6,
+    "viewMode": 4,
+    "clock": "00:01",
+    "party": [
+     "ALPHA hp 44/44 AC 8"
+    ],
+    "cells": {
+     "4BF2 block": 1,
+     "4BE6 3D": 1,
+     "4BC5 map": 1,
+     "7F3E party": 1,
+     "7F12 dataset": 2
+    }
+   },
+   "expect": null
+  }
+ ]
+}

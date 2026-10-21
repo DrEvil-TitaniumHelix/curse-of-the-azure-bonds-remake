@@ -1,0 +1,9 @@
+{
+ "id": "demoend",
+ "url": "http://127.0.0.1:8189/index.html?screen=DEMO-END&demo=1&fast=4&sting=1",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/demoend.png",
+ "sha256": "10f5158d334406fdc5656cb6c6924ae3d5d2b77c6071c0e4ee774712dc1c9475",
+ "utc": "2026-10-20T14:24:35.139Z"
+}

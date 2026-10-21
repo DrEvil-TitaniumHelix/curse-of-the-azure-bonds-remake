@@ -1,0 +1,116 @@
+{
+ "name": "GBP-CLICK-COMBAT",
+ "query": "save=testparty&force=1&sting=1&seed=7&fast=4",
+ "steps": [
+  {
+   "name": "menu",
+   "keys": "",
+   "probe": "(await import('/test/plus/click-probe.js')).mount()"
+  },
+  {
+   "name": "load-C",
+   "keys": "LC"
+  },
+  {
+   "name": "begin",
+   "keys": "B"
+  },
+  {
+   "name": "tour",
+   "keys": "{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}{Enter}",
+   "ms": 90000
+  },
+  {
+   "name": "walk-until-encounter",
+   "keys": "{Up}{Up}{Right}{Up}{Left}",
+   "until": "(e => e.g_84E9 === 1 || e.g_49F3 === 5)((await import('/areas/ecl_host.js')).eclG)",
+   "repeat": 40,
+   "ms": 40000
+  },
+  {
+   "name": "combat-choice",
+   "keys": "C",
+   "until": "(e => e.g_49F3 === 5)((await import('/areas/ecl_host.js')).eclG)",
+   "repeat": 3,
+   "ms": 60000
+  },
+  {
+   "name": "fight-info",
+   "probe": "(c => { window.__t = c.targets(); return { fight: c.fight().turn, t: window.__t }; })((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "rc-enemy",
+   "probe": "(c => c.rcCell(window.__t.enemy.col, window.__t.enemy.row))((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "move-attack",
+   "ms": 60000,
+   "probe": "(c => { const t = window.__t, near = Math.max(Math.abs(t.enemy.col - t.me.col), Math.abs(t.enemy.row - t.me.row)) === 1; return c.pickCell(t.enemy.col, t.enemy.row, near ? 'Attack' : 'Move to'); })((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "after-attack",
+   "ms": 60000,
+   "probe": "(c => ({ pip: c.fight().map.list.find(m => m.name === 'PIP'), enemy: c.fight().map.list.filter(m => m.enemy).slice(0, 3).map(m => m.name + ' hp ' + m.hp + ' @' + m.col + ',' + m.row) }))((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "next-turn",
+   "ms": 60000,
+   "probe": "(c => { window.__t = c.targets(); return { fight: c.fight().turn, t: window.__t }; })((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "rc-free",
+   "probe": "(c => c.rcCell(window.__t.free.col, window.__t.free.row))((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "move-free",
+   "ms": 60000,
+   "probe": "(c => c.pickCell(window.__t.free.col, window.__t.free.row, 'Move here'))((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "after-move",
+   "ms": 60000,
+   "probe": "(c => ({ want: window.__t.free, map: c.fight().map.list.filter(m => !m.enemy).map(m => m.name + '@' + m.col + ',' + m.row), turn: c.fight().turn }))((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "rc-self",
+   "probe": "(c => { const t = c.fight().turn; return t ? c.rcCell(t.col, t.row) : 'no turn'; })((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "cast-at",
+   "probe": "(c => { window.__t = c.targets(); return c.pickCellNoWait(window.__t.enemy.col, window.__t.enemy.row, 'Cast at'); })((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "spell-list",
+   "probe": "(async () => { const { hooks } = await import('/plus/hooks.js'); const v = hooks.regions().find(r => r.id === 'vlist'); return v ? v.draw.items.map(i => i.text) : 'no list'; })()"
+  },
+  {
+   "name": "choose-spell",
+   "keys": "{End}{Enter}",
+   "ms": 60000,
+   "probe": "(async () => { const { combat } = await import('/plus/click/combat.js'); for (let i = 0; i < 200 && combat.drive; i++) await new Promise(r => setTimeout(r, 50)); return { driving: !!combat.drive }; })()"
+  },
+  {
+   "name": "after-cast",
+   "ms": 60000,
+   "probe": "(c => ({ turn: c.fight().turn, enemy: c.fight().map.list.filter(m => m.enemy && m.col === window.__t.enemy.col && m.row === window.__t.enemy.row).map(m => m.name + ' hp ' + m.hp + ' status ' + m.status) }))((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "aim-mode",
+   "probe": "(async c => { window.__t = c.targets(); const t = c.fight().turn; return { t: window.__t, r: await c.pickCellNoWait(t.col, t.row, 'Aim') }; })((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "aim-list",
+   "probe": "(c => c.rcCell(window.__t.enemy.col, window.__t.enemy.row))((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "aim-target",
+   "ms": 60000,
+   "probe": "(c => c.pickCell(window.__t.enemy.col, window.__t.enemy.row, 'Target'))((await import('/test/plus/click-probe.js')))"
+  },
+  {
+   "name": "after-aim",
+   "ms": 60000,
+   "probe": "(async c => ({ turn: c.fight().turn, cursor: (await import('/plus/click/combat.js')).combat.cursor }))((await import('/test/plus/click-probe.js')))"
+  }
+ ]
+}

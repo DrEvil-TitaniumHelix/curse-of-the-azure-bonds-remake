@@ -1,0 +1,9 @@
+{
+ "id": "g0-S020-PARTY",
+ "url": "http://127.0.0.1:8189/index.html?screen=S020-PARTY&sting=1&seed=169084438&wheel=1&fast=4&freshsaves=1&keys=Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYA{Enter}A{Esc}&plus=0",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/g0-S020-PARTY.png",
+ "sha256": "7c49bd6019688355294e3eed36ff810841ec7d6375825bbd0239122adb849875",
+ "utc": "2026-10-21T08:26:49.143Z"
+}

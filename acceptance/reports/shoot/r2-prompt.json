@@ -1,0 +1,9 @@
+{
+ "id": "r2-prompt",
+ "url": "http://127.0.0.1:8189/index.html?screen=S019",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r2-prompt.png",
+ "sha256": "8074cbd82b9abd1e5b79dae9b4b0960570edf5ce99ac7121800fc0bf9583eba1",
+ "utc": "2026-10-20T17:36:06.560Z"
+}

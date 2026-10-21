@@ -1,0 +1,18 @@
+{
+ "id": "PLUS-TABS",
+ "utc": "2026-10-21T08:54:10.983Z",
+ "results": [
+  {
+   "id": "map",
+   "verdict": "PASS",
+   "check": {
+    "ok": true,
+    "selected": "map",
+    "text": "MapZoom  100%Refresh current areaECL2/1 — 3D map 1, 16 × 16, north up1 cells visited in save slot unsaved. Unvisited cells are hidden. Gold arrow: party and fac"
+   },
+   "errors": [],
+   "file": "acceptance/local/plus/tab-map.png",
+   "sha256": "d6c971fa5e43ab3a1c02ea7e98dc15162f56ebf960a2e0098ed72e00c386741b"
+  }
+ ]
+}

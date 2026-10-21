@@ -1,0 +1,9 @@
+{
+ "id": "r1-a",
+ "url": "http://127.0.0.1:8189/index.html?screen=idle&seed=169084438&wheel=1&freshsaves=1&keys={Space}{Space}{Space}{Space}Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}EYYA{Enter}A{Esc}B{Enter}{Enter}{Down}{Up}{Enter}",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/r1-a.png",
+ "sha256": "9c5f2dc4028218f9805d78c8e155aa1a7fead1c491c6eaa0361b2a78b43cdb7c",
+ "utc": "2026-10-20T14:43:51.343Z"
+}

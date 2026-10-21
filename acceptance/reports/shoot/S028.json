@@ -1,0 +1,9 @@
+{
+ "id": "S028",
+ "url": "http://127.0.0.1:8189/index.html?screen=S028&sting=1&seed=169084438&wheel=1&fast=4&keys=Pa{Enter}C{Enter}{Enter}{Enter}{Enter}NALPHA{Enter}",
+ "ready": true,
+ "errors": [],
+ "file": "acceptance/local/shoot/S028.png",
+ "sha256": "adc96172204aae3c68f126ab5c1c2fb0c592dacf0af9ca805b9f008a816d7798",
+ "utc": "2026-10-20T14:05:22.279Z"
+}

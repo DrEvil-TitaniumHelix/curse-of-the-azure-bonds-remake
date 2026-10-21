@@ -1,0 +1,20 @@
+*.gpr
+*.rep/
+__pycache__/
+*.pyc
+ghidra_proj/
+decode/bin/dax/
+# copies/derivatives of the original game binaries and data (never commit; regenerate with decode/tools)
+decode/bin/*.EXE
+decode/bin/*.exe
+decode/bin/GAME.OVR
+decode/bin/dax/
+decode/bin/ghidra/
+decode/bin/ovl/
+acceptance/.runlock/
+acceptance/.runlock.stale-*/
+acceptance/.runlock-takeovers.log
+# BYOC step 7: acceptance screenshots, DOSBox reference PNGs and diff images (original art) stay local; only reports are committed
+acceptance/local/
+decode/bin/*.json
+decode/bin/v13/
